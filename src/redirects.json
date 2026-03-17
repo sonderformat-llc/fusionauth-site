@@ -667,7 +667,6 @@
     "/docs/v1/tech/tutorials/": true,
     "/docs/v1/tech/tutorials/gating/": true,
     "/docs/v1/tech/tutorials/two-factor/": true,
-    "/docs/": true,
     "/how-to/": true,
     "/quickstarts/": true
   },
