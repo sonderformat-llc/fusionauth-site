@@ -15,7 +15,7 @@ import InlineUIElement from 'src/components/InlineUIElement.astro';
 
 ## Configure OpenID Connect with Microsoft Entra ID
 
-Once you have completed this configuration you may enable an OpenID Connect <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button for one or more FusionAuth Applications. See [Microsoft Entra ID - Register An App Quickstart Guide](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) as an additional reference.
+Once you have completed this configuration you may enable an OpenID Connect <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button for one or more FusionAuth Applications. See [Microsoft Entra ID - Register An App Quickstart Guide](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app?view=foundry) as an additional reference.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-login.png" alt="Login with Microsoft Entra ID" width="1200" role="bottom-cropped" />
 
@@ -25,13 +25,13 @@ Once you have completed this configuration you may enable an OpenID Connect <Inl
 
 ### Register a New Microsoft Entra ID Application
 
-You will first need to login to the [Azure Portal](https://azure.microsoft.com/en-us/features/azure-portal/).
+You will first need to login to the [Microsoft Entra admin center](https://entra.microsoft.com/) (or the Azure portal).
 
-Once logged in, navigate to <Breadcrumb>Microsoft Entra ID -> App Registrations -> New Registration</Breadcrumb> to create a new Microsoft Entra ID Application.
+Once logged in, navigate to <Breadcrumb>Identity -> Applications -> App registrations -> New registration</Breadcrumb> to create a new Microsoft Entra ID Application.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-register-application.png" alt="Register a new Microsoft Entra ID Application" width="1200" />
 
-Here we have configured our application `Redirect URI`.  If FusionAuth is running at `https://login.fusionauth.io`, this value should be `https://login.fusionauth.io/oauth2/callback`.
+Here we have configured our application `Redirect URI`.  If FusionAuth is running at `https://local.fusionauth.io`, this value should be `https://local.fusionauth.io/oauth2/callback`.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-id.png" alt="Microsoft Entra ID Client ID and Tenant ID" width="1200" />
 
@@ -39,7 +39,7 @@ Once the application has been created, note the `Application (client) ID` and th
 
 ### Create a New Microsoft Entra ID Application Secret
 
-Navigate to <Breadcrumb>Microsoft Entra ID -> App Registrations -> Your Application -> Certificates & secrets -> New client secret</Breadcrumb> to create a new Microsoft Entra ID Application Client Secret.
+Navigate to <Breadcrumb>Identity -> Applications -> App registrations -> Your Application -> Certificates & secrets -> New client secret</Breadcrumb> to create a new Microsoft Entra ID Application Client Secret.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-secret.png" alt="Microsoft Entra ID Client Secret" width="1200" />
 
@@ -53,7 +53,7 @@ This will take you to the `Add OpenID Connect` panel, and you'll fill out the re
 
 You will need to set the <InlineField>Client authentication method</InlineField> to `HTTP Basic authentication (client_secret_basic)`.
 
-<InlineField>Client Id</InlineField> and <InlineField>Client secret</InlineField> values reference the previously noted Microsoft Entra ID Application's `Application (client) ID`, client secret `VALUE`. The <InlineField>Redirect URL</InlineField> is read only and generated for you based upon the URL of FusionAuth, this value should match the one you configured in your Azure application.
+<InlineField>Client Id</InlineField> and <InlineField>Client secret</InlineField> values reference the previously noted Microsoft Entra ID Application's `Application (client) ID`, client secret `VALUE`. The <InlineField>Redirect URL</InlineField> is read only and generated for you based upon the URL of FusionAuth, this value should match the one you configured in your Entra ID application.
 
 Microsoft Entra ID has implemented a well-known configuration endpoint, so FusionAuth will be able to discover the necessary endpoints using a discovery document by entering the Microsoft Authority URL in the <InlineField>Issuer</InlineField> field. To see the <InlineField>Issuer</InlineField> field, you may need to toggle <InlineField>Discover endpoints</InlineField>.
 
@@ -74,7 +74,21 @@ Scroll down and make sure you enable this Identity Provider for your application
 
 That's it, now the <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button will show up on the login page of our `Pied Piper` application.
 
-<IdpFormFields getStartedHref="https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app"
+## Combining with SCIM Provisioning
+
+If you are using [SCIM](/docs/lifecycle/migrate-users/scim/) to provision users from Microsoft Entra ID to FusionAuth, those users will already exist in FusionAuth before they attempt their first login.
+
+In this scenario, the following configuration is recommended:
+
+- <InlineField>Linking strategy</InlineField>: Set to `Link on username. Do not create the user if they do not exist.`
+- <InlineField>Create registration</InlineField>: Ensure this is enabled for the appropriate application(s) in the Identity Provider configuration.
+- <InlineField>User registration</InlineField>: Ensure this is enabled in the <Breadcrumb>Applications -> Your Application -> Registration</Breadcrumb> tab.
+
+Using the `Link on username` strategy ensures that the user's Microsoft username is used to find the existing user provisioned via SCIM. Using a `Do not create` strategy prevents users being created which are intentionally not synced (excluded) through SCIM.
+
+## Form Fields
+
+<IdpFormFields getStartedHref="https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app?view=foundry"
                getStartedText="Microsoft Entra ID - Register An App Quickstart Guide"
                idp="Entra ID"
                linkingStrategy="Link on email.  Create the user if they do not exist" />

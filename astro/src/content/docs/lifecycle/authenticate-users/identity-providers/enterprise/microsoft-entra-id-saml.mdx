@@ -16,11 +16,11 @@ import InlineUIElement from 'src/components/InlineUIElement.astro';
 
 This documentation will guide you in configuring SAML v2 IdP for Microsoft Entra ID (formerly Azure AD). In this case, FusionAuth will act as Service Provider (SP) to Microsoft Entra ID (IdP). Functionally, the result will allow you to display a <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button on your FusionAuth login page and connect via SAML to Microsoft Entra ID users/applications.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/new-login-button.png" alt="New Login With Azure-Button" width="1200" />
+<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/new-login-button.png" alt="Login with Microsoft Entra ID" width="1200" />
 
 <AzureAside />
 
-## Create an Application in Azure
+## Create an Application in Microsoft Entra ID
 
 <Aside type="note">
 This guide uses SAML and Azure Single Sign-on functionality.
@@ -28,7 +28,7 @@ This guide uses SAML and Azure Single Sign-on functionality.
 
 If you have already configured a Microsoft Entra ID Enterprise application, skip this section. If you have not, please follow the brief steps outlined below:
 
-1. From the [Azure account portal](https://portal.azure.com/#home) navigate to <Breadcrumb>Enterprise Applications</Breadcrumb>.
+1. From the [Microsoft Entra admin center](https://entra.microsoft.com/) navigate to <Breadcrumb>Identity -> Applications -> Enterprise applications</Breadcrumb>.
 2. At the top of the screen click on <InlineUIElement>New application</InlineUIElement>
 3. Click on <InlineUIElement>Create your own application</InlineUIElement>
 4. Name the application
@@ -37,7 +37,7 @@ If you have already configured a Microsoft Entra ID Enterprise application, skip
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/create-non-gallery-application.png" alt="Create Microsoft Entra ID Application" width="1200" />
 
-## Configure Your Azure Application
+## Configure Your Microsoft Entra ID Application
 
 From your application home screen, click on <Breadcrumb>Single sign-on</Breadcrumb>. Select the SAML option.
 
@@ -139,7 +139,7 @@ http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
 ```
 
 <Aside type="note">
-If you are unsure of the best mapping in this step, the Event Log will provide valuable guidance indicating how FusionAuth and Azure are connecting.
+If you are unsure of the best mapping in this step, the Event Log will provide valuable guidance indicating how FusionAuth and Microsoft Entra ID are connecting.
 </Aside>
 
 This claim can be found in the event log of a SAML auth handshake. In the case of a default Microsoft Entra ID application, the email claim is nested.
@@ -202,7 +202,7 @@ If you are using an existing Microsoft Entra ID application with assigned users,
 
 Before you can complete your integration, assign Microsoft Entra ID users to your Microsoft Entra ID application. Add a user by navigating to <Breadcrumb>Users and groups</Breadcrumb> and clicking on the <InlineUIElement>Add user/group</InlineUIElement> button. Follow the instructions to select and add a user.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/add-user-azure.png" alt="Add a User to Azure" width="1200" />
+<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/add-user-azure.png" alt="Add a User to Microsoft Entra ID" width="1200" />
 
 ## Complete the Login
 
@@ -212,7 +212,7 @@ At this point, what remains is to attempt a login. To test quickly, log into the
 
 Open a new tab, paste in the login URL, and you should see your new SAML Microsoft Entra ID IdP login button.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/new-login-button.png" alt="New Login With Azure-Button" width="1200" />
+<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/new-login-button.png" alt="Login with Microsoft Entra ID" width="1200" />
 
 Click on that button, log in with one of the Microsoft Entra ID users you configured above, and you should arrive back at your redirect URL.
 
