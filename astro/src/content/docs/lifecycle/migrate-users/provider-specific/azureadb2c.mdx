@@ -1,6 +1,6 @@
 ---
-title: Migrate From Microsoft Azure AD B2C
-description: Learn how to migrate your users to FusionAuth from Microsoft Azure AD B2C.
+title: Migrate From Microsoft Entra External ID
+description: Learn how to migrate your users to FusionAuth from Microsoft Entra External ID (formerly Azure AD B2C).
 section: lifecycle
 subcategory: migrate users
 tertcategory: provider specific
@@ -35,15 +35,15 @@ export const add_tenant_image_role = 'bottom-cropped';
 
 ## Overview
 
-This document will help you migrate your users off of Microsoft Azure AD B2C, and onto FusionAuth.
+This document will help you migrate your users off of Microsoft Entra External ID (formerly Azure AD B2C), and onto FusionAuth.
 
-There are a number of different ways applications can be integrated with Azure AD B2C, and it would be difficult to cover them all. This guide focuses on migrating user data, including profile data and passwords. However, [Azure AD B2C does not allow for password hash export](https://docs.microsoft.com/en-us/answers/questions/450019/azure-ad-b2c-export-user-password-hashes.html). Therefore, you must perform a slow migration if you don't want to force users to reset their passwords.
+There are a number of different ways applications can be integrated with Microsoft Entra External ID, and it would be difficult to cover them all. This guide focuses on migrating user data, including profile data and passwords. However, [Azure AD B2C does not allow for password hash export](https://docs.microsoft.com/en-us/answers/questions/450019/azure-ad-b2c-export-user-password-hashes.html). Therefore, you must perform a slow migration if you don't want to force users to reset their passwords.
 
-Alternatively, you can do a bulk migration and force everyone to reset their passwords. This option is discussed below, but the primary focus of this guide is enabling you to migrate your users from Azure AD B2C without requiring any password resets.
+Alternatively, you can do a bulk migration and force everyone to reset their passwords. This option is discussed below, but the primary focus of this guide is enabling you to migrate your users from Microsoft Entra External ID without requiring any password resets.
 
 ## Prerequisites
 
-This guide assumes intermediate level familiarity with Microsoft Azure, in particular AD B2C.
+This guide assumes intermediate level familiarity with Microsoft Azure, in particular Microsoft Entra External ID (formerly Azure AD B2C).
 
 This guide assumes you have installed FusionAuth. If you have not, please [view our installation guides](/docs/get-started/download-and-install) and install FusionAuth before you begin. For more general migration information, please view the [FusionAuth migration guide](/docs/lifecycle/migrate-users).
 

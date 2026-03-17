@@ -1,6 +1,6 @@
 ---
-title: SAML v2 with Azure AD
-description: Configure SAML v2 for Azure Active Directory (Azure AD)/Microsoft Entra ID.
+title: SAML v2 with Microsoft Entra ID
+description: Configure SAML v2 for Microsoft Entra ID (formerly Azure AD).
 section: lifecycle
 subcategory: authenticate users
 tertcategory: identity providers
@@ -12,9 +12,9 @@ import Breadcrumb from 'src/components/Breadcrumb.astro';
 import InlineField from 'src/components/InlineField.astro';
 import InlineUIElement from 'src/components/InlineUIElement.astro';
 
-## Configure SAML v2 for Azure AD/Microsoft Entra ID
+## Configure SAML v2 for Microsoft Entra ID
 
-This documentation will guide you in configuring SAML v2 IdP for Azure AD/Microsoft Entra ID. In this case, FusionAuth will act as Service Provider (SP) to Azure AD (IdP). Functionally, the result will allow you to display a <InlineUIElement>Login with Azure AD</InlineUIElement> button on your FusionAuth login page and connect via SAML to Azure AD users/applications.
+This documentation will guide you in configuring SAML v2 IdP for Microsoft Entra ID (formerly Azure AD). In this case, FusionAuth will act as Service Provider (SP) to Microsoft Entra ID (IdP). Functionally, the result will allow you to display a <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button on your FusionAuth login page and connect via SAML to Microsoft Entra ID users/applications.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/new-login-button.png" alt="New Login With Azure-Button" width="1200" />
 
@@ -26,7 +26,7 @@ This documentation will guide you in configuring SAML v2 IdP for Azure AD/Micros
 This guide uses SAML and Azure Single Sign-on functionality.
 </Aside>
 
-If you have already configured an Azure AD Enterprise application, skip this section. If you have not, please follow the brief steps outlined below:
+If you have already configured a Microsoft Entra ID Enterprise application, skip this section. If you have not, please follow the brief steps outlined below:
 
 1. From the [Azure account portal](https://portal.azure.com/#home) navigate to <Breadcrumb>Enterprise Applications</Breadcrumb>.
 2. At the top of the screen click on <InlineUIElement>New application</InlineUIElement>
@@ -35,7 +35,7 @@ If you have already configured an Azure AD Enterprise application, skip this sec
 5. Select the third option - `Integrate any other application you don't find in the gallery (Non-gallery)`.
 6. Click <InlineUIElement>Create</InlineUIElement>
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/create-non-gallery-application.png" alt="Create Azure AD Application" width="1200" />
+<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/create-non-gallery-application.png" alt="Create Microsoft Entra ID Application" width="1200" />
 
 ## Configure Your Azure Application
 
@@ -43,11 +43,11 @@ From your application home screen, click on <Breadcrumb>Single sign-on</Breadcru
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/configure-single-sign-on-saml.png" alt="Configure Single-sign with SAML" width="1200" />
 
-There are five steps to configure Azure AD. However, there is a bit of a procedural dilemma. Before you can move forward, you need an Entity ID (in this case, this will be obtained from our FusionAuth IdP once created) so that Azure AD can generate a X.509 certificate. However, before you can create an IdP in FusionAuth to get the Entity ID, you need an X.509 certificate. The below steps will solve this problem by:
+There are five steps to configure Microsoft Entra ID. However, there is a bit of a procedural dilemma. Before you can move forward, you need an Entity ID (in this case, this will be obtained from our FusionAuth IdP once created) so that Microsoft Entra ID can generate a X.509 certificate. However, before you can create an IdP in FusionAuth to get the Entity ID, you need an X.509 certificate. The below steps will solve this problem by:
 
 1. Creating a "placeholder" X.509 certificate and importing this into Key Master.
 2. Making a SAML IdP in FusionAuth (Entity Id) with a placeholder certificate selected.
-3. Updating your Azure AD Enterprise application with values from your newly created IdP, thereby getting a valid X.509 certificate.
+3. Updating your Microsoft Entra ID Enterprise application with values from your newly created IdP, thereby getting a valid X.509 certificate.
 4. Revisiting your SAML IdP in FusionAuth and updating with the correct X.509 certificate from the above step.
 5. Completing your integration.
 
@@ -84,7 +84,7 @@ Using the above "placeholder" certificate, navigate to <Breadcrumb>Settings -> K
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/import-certificate.png" alt="Import Certificate" width="1200" />
 
-After you configure Azure AD, you'll get another X.509 certificate which will be the one actually used during a SAML login.
+After you configure Microsoft Entra ID, you'll get another X.509 certificate which will be the one actually used during a SAML login.
 
 ## Create a SAML v2 Identity Provider
 
@@ -96,8 +96,8 @@ The identity provider you will be adding is a `SAML V2` identity provider.
 
 The following fields will need to be completed.
 
-- <InlineField>Name</InlineField>. This is user-defined, so pick something that describes this connection such as "Pied Piper Azure AD".
-- <InlineField>IdP endpoint</InlineField>. This value can be obtained from your Azure AD Application as demonstrated below. You will want to copy the `Login URL` value from Azure AD into this field.
+- <InlineField>Name</InlineField>. This is user-defined, so pick something that describes this connection such as "Pied Piper Microsoft Entra ID".
+- <InlineField>IdP endpoint</InlineField>. This value can be obtained from your Microsoft Entra ID Application as demonstrated below. You will want to copy the `Login URL` value from Microsoft Entra ID into this field.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/step-four-idp-endpoint.png" alt="Get Login URL values From Step Four" width="1200" />
 
@@ -132,7 +132,7 @@ and then click on the <Breadcrumb>Options</Breadcrumb> tab. The mapping can be r
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/email-claim.png" alt="Setup custom email claim" width="1200" />
 
-If you are using an existing Azure AD Application this email claim location may vary. Below is a demonstration of the email claim found in a default Azure AD Application.
+If you are using an existing Microsoft Entra ID Application this email claim location may vary. Below is a demonstration of the email claim found in a default Microsoft Entra ID Application.
 
 ```
 http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
@@ -142,7 +142,7 @@ http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
 If you are unsure of the best mapping in this step, the Event Log will provide valuable guidance indicating how FusionAuth and Azure are connecting.
 </Aside>
 
-This claim can be found in the event log of a SAML auth handshake. In the case of a default Azure AD application, the email claim is nested.
+This claim can be found in the event log of a SAML auth handshake. In the case of a default Microsoft Entra ID application, the email claim is nested.
 
 ```
 <AttributeStatement>
@@ -154,21 +154,21 @@ This claim can be found in the event log of a SAML auth handshake. In the case o
 </AttributeStatement>
 ```
 
-## Finish Setup of Azure AD Application
+## Finish Setup of Microsoft Entra ID Application
 
-With the FusionAuth Identity Provider set up, the next step is to input the newly created values into your Azure AD Application.
+With the FusionAuth Identity Provider set up, the next step is to input the newly created values into your Microsoft Entra ID Application.
 
-Navigate to your Azure AD application. Under step one, click on the pencil to edit.
+Navigate to your Microsoft Entra ID application. Under step one, click on the pencil to edit.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/saml-5-steps-overview.png" alt="SAML 5 steps overview" width="1200" />
 
-On this screen add the <InlineField>Entity ID</InlineField> and <InlineField>Reply URL</InlineField>. The Entity ID can be obtained by going to <Breadcrumb>Setting -> Identity Providers</Breadcrumb> and clicking on the magnifying glass in the row of your Identity Provider. This value is synonymous with the Issuer value in FusionAuth. Input the <InlineField>Entity</InlineField> and <InlineField>ACS</InlineField> value from FusionAuth into Azure AD.
+On this screen add the <InlineField>Entity ID</InlineField> and <InlineField>Reply URL</InlineField>. The Entity ID can be obtained by going to <Breadcrumb>Setting -> Identity Providers</Breadcrumb> and clicking on the magnifying glass in the row of your Identity Provider. This value is synonymous with the Issuer value in FusionAuth. Input the <InlineField>Entity</InlineField> and <InlineField>ACS</InlineField> value from FusionAuth into Microsoft Entra ID.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/integration-details.png" alt="Integration Details" width="1200" />
 
 ## Download and Import X.509 Certificate
 
-Previously, you created and used a "placeholder" X.509 certificate. At this point, you can change this. From the overview of your SAML application in Azure AD, under step three, you should find a Certificate (Base64) to download.
+Previously, you created and used a "placeholder" X.509 certificate. At this point, you can change this. From the overview of your SAML application in Microsoft Entra ID, under step three, you should find a Certificate (Base64) to download.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/generated-certificate.png" alt="Generated Certificate" width="1200" />
 
@@ -177,12 +177,12 @@ Next, import this certificate into Key Master (<Breadcrumb>Settings -> Key Maste
 Update the certificate used on your IdP configuration (<Breadcrumb>Settings -> Identity Providers -> your SAML IdP -> Verification Key</Breadcrumb>) with this new X.509 certificate. You can also remove the "placeholder" certificate from Key Master once complete.
 
 <Aside type="caution">
-Leave the Key identifier property blank, as this will be autogenerated from the thumbprint of the existing certificate. Otherwise, FusionAuth will not be able to validate the signature of the AuthN response from Azure AD when using this integration.
+Leave the Key identifier property blank, as this will be autogenerated from the thumbprint of the existing certificate. Otherwise, FusionAuth will not be able to validate the signature of the AuthN response from Microsoft Entra ID when using this integration.
 </Aside>
 
 ## Configure the FusionAuth Application Redirect URL
 
-You also need to configure where you will redirect users once they are complete with their Azure AD login.
+You also need to configure where you will redirect users once they are complete with their Microsoft Entra ID login.
 
 <Aside type="note">
 This URL is where a user will end up after authentication and may be any value URL.
@@ -197,10 +197,10 @@ Ensure the Authorization Code grant is enabled.
 ## Assign Users
 
 <Aside type="note">
-If you are using an existing Azure AD application with assigned users, you may skip this step.
+If you are using an existing Microsoft Entra ID application with assigned users, you may skip this step.
 </Aside>
 
-Before you can complete your integration, assign Azure AD users to your Azure AD application. Add a user by navigating to <Breadcrumb>Users and groups</Breadcrumb> and clicking on the <InlineUIElement>Add user/group</InlineUIElement> button. Follow the instructions to select and add a user.
+Before you can complete your integration, assign Microsoft Entra ID users to your Microsoft Entra ID application. Add a user by navigating to <Breadcrumb>Users and groups</Breadcrumb> and clicking on the <InlineUIElement>Add user/group</InlineUIElement> button. Follow the instructions to select and add a user.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/add-user-azure.png" alt="Add a User to Azure" width="1200" />
 
@@ -210,11 +210,11 @@ At this point, what remains is to attempt a login. To test quickly, log into the
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/get-login-url.png" alt="Get OAuth2 Login URL" width="1200" />
 
-Open a new tab, paste in the login URL, and you should see your new SAML Azure AD IdP login button.
+Open a new tab, paste in the login URL, and you should see your new SAML Microsoft Entra ID IdP login button.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/new-login-button.png" alt="New Login With Azure-Button" width="1200" />
 
-Click on that button, log in with one of the Azure AD users you configured above, and you should arrive back at your redirect URL.
+Click on that button, log in with one of the Microsoft Entra ID users you configured above, and you should arrive back at your redirect URL.
 
 If your integration fails, remember to review the Event Logs (`System > Event Log`)
 
