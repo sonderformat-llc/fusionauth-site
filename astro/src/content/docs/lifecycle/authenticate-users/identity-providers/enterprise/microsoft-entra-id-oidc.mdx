@@ -1,6 +1,6 @@
 ---
 title: OpenID Connect with Microsoft Entra ID
-description: Set up user login using Microsoft Entra ID as an OpenID Connect Identity Provider (formerly Azure AD).
+description: Set up user login using Microsoft Entra ID as an OpenID Connect Identity Provider.
 section: lifecycle
 subcategory: authenticate users
 tertcategory: identity providers
@@ -13,9 +13,9 @@ import IdpFormFields from 'src/content/docs/_shared/_idp-form-fields.astro';
 import InlineField from 'src/components/InlineField.astro';
 import InlineUIElement from 'src/components/InlineUIElement.astro';
 
-## Configure OpenID Connect with Microsoft Entra ID
+## Configure OpenID Connect With Microsoft Entra ID
 
-Once you have completed this configuration you may enable an OpenID Connect <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button for one or more FusionAuth Applications. See [Microsoft Entra ID - Register An App Quickstart Guide](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app?view=foundry) as an additional reference.
+Once you have completed this configuration you may enable an OpenID Connect <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button for one or more FusionAuth Applications. See [Microsoft Entra ID - Register An App Quickstart Guide](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) as an additional reference.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-login.png" alt="Login with Microsoft Entra ID" width="1200" role="bottom-cropped" />
 
@@ -25,9 +25,9 @@ Once you have completed this configuration you may enable an OpenID Connect <Inl
 
 ### Register a New Microsoft Entra ID Application
 
-You will first need to login to the [Microsoft Entra admin center](https://entra.microsoft.com/) (or the Azure portal).
+You will first need to log in to the [Microsoft Entra admin center](https://entra.microsoft.com/) (or the Azure portal).
 
-Once logged in, navigate to <Breadcrumb>Identity -> Applications -> App registrations -> New registration</Breadcrumb> to create a new Microsoft Entra ID Application.
+Navigate to <Breadcrumb>Identity -> Applications -> App registrations</Breadcrumb> and click <InlineUIElement>+ New registration</InlineUIElement> to create a new Microsoft Entra ID Application.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-register-application.png" alt="Register a new Microsoft Entra ID Application" width="1200" />
 
@@ -35,17 +35,23 @@ Here we have configured our application `Redirect URI`.  If FusionAuth is runnin
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-id.png" alt="Microsoft Entra ID Client ID and Tenant ID" width="1200" />
 
-Once the application has been created, note the `Application (client) ID` and the `Directory (tenant) ID`.  These will be used respectively as the <InlineField>Client Id</InlineField> value and to construct the <InlineField>Issuer</InlineField> value in your FusionAuth OpenID Connect Identity Provider configuration.
+Once the application has been created, note the `Application (client) Id` and the `Directory (tenant) Id`.  These will be used respectively as the <InlineField>Client Id</InlineField> value and to construct the <InlineField>Issuer</InlineField> value in your FusionAuth OpenID Connect Identity Provider configuration.
 
-### Create a New Microsoft Entra ID Application Secret
+### Configure Permissions
 
-Navigate to <Breadcrumb>Identity -> Applications -> App registrations -> Your Application -> Certificates & secrets -> New client secret</Breadcrumb> to create a new Microsoft Entra ID Application Client Secret.
+To allow FusionAuth to reconcile user data (such as groups or additional profile information), you may need to add API permissions to your application registration.
+
+Navigate to <Breadcrumb>Identity -> Applications -> App registrations -> Your Application -> API permissions</Breadcrumb>. By default, `User.Read` is usually present. If you plan to use a lambda to map groups, you may need to add `GroupMember.Read.All` or similar permissions, depending on your requirements. Remember to click <InlineUIElement>Grant admin consent for ...</InlineUIElement> after adding any permissions that require it.
+
+### Create A New Microsoft Entra ID Application Secret
+
+Navigate to <Breadcrumb>Identity -> Applications -> App registrations -> Your Application -> Certificates & secrets -> + New client secret</Breadcrumb> to create a new Microsoft Entra ID Application Client Secret.
 
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-secret.png" alt="Microsoft Entra ID Client Secret" width="1200" />
 
 Note the `VALUE` of the created client secret.  This will be used as the <InlineField>Client secret</InlineField> value in your FusionAuth OpenID Connect Identity Provider configuration.
 
-### Configure a New FusionAuth OpenID Connect Identity Provider
+### Configure A New FusionAuth OpenID Connect Identity Provider
 
 To create a Microsoft Entra ID Identity Provider return to FusionAuth and navigate to <Breadcrumb>Settings -> Identity Providers</Breadcrumb> and click <InlineUIElement>Add provider</InlineUIElement> and select <InlineUIElement>OpenID Connect</InlineUIElement> from the dialog.
 
@@ -57,10 +63,16 @@ You will need to set the <InlineField>Client authentication method</InlineField>
 
 Microsoft Entra ID has implemented a well-known configuration endpoint, so FusionAuth will be able to discover the necessary endpoints using a discovery document by entering the Microsoft Authority URL in the <InlineField>Issuer</InlineField> field. To see the <InlineField>Issuer</InlineField> field, you may need to toggle <InlineField>Discover endpoints</InlineField>.
 
-The Microsoft URL may differ across national clouds, so you will need to review the Microsoft documentation to ensure you have the correct URL for your region. For the Microsoft global Microsoft Entra ID service, the URLs are as follows, where `{tenantId}` is the `Directory (tenant) ID` previously noted while creating our Microsoft Entra ID Application.
+Microsoft Entra ID provides two versions of its OIDC endpoints. **The v2.0 endpoint is recommended** as it supports both work/school accounts and personal Microsoft accounts, and is more compliant with the OpenID Connect specification.
 
-- Microsoft Entra ID v1  `https://login.microsoftonline.com/{tenantId}`
-- Microsoft Entra ID v2  `https://login.microsoftonline.com/{tenantId}/v2.0`
+The Microsoft URL may differ across national clouds, so you will need to review the Microsoft documentation to ensure you have the correct URL for your region. For the Microsoft global Microsoft Entra ID service, the URLs are as follows, where `{tenantId}` is the `Directory (tenant) Id` previously noted while creating our Microsoft Entra ID Application.
+
+- Microsoft Entra ID v2 (Recommended): `https://login.microsoftonline.com/{tenantId}/v2.0`
+- Microsoft Entra ID v1: `https://login.microsoftonline.com/{tenantId}`
+
+<Aside type="note">
+When using the v2.0 endpoint, ensure your <InlineField>Scope</InlineField> field includes `openid`. You may also want to include `profile` and `email` to receive more user information in the initial token.
+</Aside>
 
 You may set a <InlineField>Reconcile lambda</InlineField> to map attributes from the JWT provided by Microsoft Entra ID to the FusionAuth user or registration. This is optional. [Learn more about lambdas](/docs/extend/code/lambdas/openid-connect-response-reconcile). You may also modify the <InlineField>Button text</InlineField> or <InlineField>Button logo</InlineField> if desired.
 
@@ -74,7 +86,7 @@ Scroll down and make sure you enable this Identity Provider for your application
 
 That's it, now the <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button will show up on the login page of our `Pied Piper` application.
 
-## Combining with SCIM Provisioning
+## Combining With SCIM Provisioning
 
 If you are using [SCIM](/docs/lifecycle/migrate-users/scim/) to provision users from Microsoft Entra ID to FusionAuth, those users will already exist in FusionAuth before they attempt their first login.
 
@@ -88,7 +100,7 @@ Using the `Link on username` strategy ensures that the user's Microsoft username
 
 ## Form Fields
 
-<IdpFormFields getStartedHref="https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app?view=foundry"
+<IdpFormFields getStartedHref="https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app"
                getStartedText="Microsoft Entra ID - Register An App Quickstart Guide"
                idp="Entra ID"
                linkingStrategy="Link on email.  Create the user if they do not exist" />

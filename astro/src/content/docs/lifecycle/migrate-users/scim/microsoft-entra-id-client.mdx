@@ -1,6 +1,6 @@
 ---
 title: Microsoft Entra ID SCIM Client
-description: Learn how to configure Microsoft Entra ID (formerly Azure AD) as a SCIM client.
+description: Learn how to configure Microsoft Entra ID as a SCIM client.
 navcategory: premium
 section: lifecycle
 subcategory: migrate users
@@ -15,18 +15,18 @@ import InlineUIElement from 'src/components/InlineUIElement.astro';
 
 ## Overview
 
-This is a basic example to get started configuring Microsoft Entra ID (formerly Azure AD) as a SCIM client and establish a connection between FusionAuth and Microsoft Entra ID for provisioning purposes.
+This is a basic example to get started configuring Microsoft Entra ID as a SCIM client and establish a connection between FusionAuth and Microsoft Entra ID for provisioning purposes.
 
 For complete documentation, please refer to the [Microsoft Entra ID provisioning documentation](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/user-provisioning?view=foundry).
 
 <AzureAside />
 
-To configure the integration, login to the [Microsoft Entra admin center](https://entra.microsoft.com/) (or the Azure portal). Navigate to <Breadcrumb>Enterprise applications -> All applications</Breadcrumb> and either create a new application, or select the application you will be using for SCIM provisioning.
+To configure the integration, log in to the [Microsoft Entra admin center](https://entra.microsoft.com/) (or the Azure portal). Navigate to <Breadcrumb>Identity -> Applications -> Enterprise applications</Breadcrumb> and either create a new application, or select the application you will be using for SCIM provisioning.
 
 If you have already configured a Microsoft Entra ID Enterprise application, skip this section. If you have not, please follow the brief steps outlined below to create a new one:
 
-1. Click on <InlineUIElement>New application</InlineUIElement> at the top of the page.
-2. Click on <InlineUIElement>Create your own application</InlineUIElement>.
+1. Click on <InlineUIElement>+ New application</InlineUIElement> at the top of the page.
+2. Click on <InlineUIElement>+ Create your own application</InlineUIElement>.
 3. Enter `FusionAuth SCIM` as the name of your application.
 4. Select the option <InlineUIElement>Integrate any other application you don't find in the gallery (Non-gallery)</InlineUIElement>.
 5. Click <InlineUIElement>Create</InlineUIElement>.
@@ -35,12 +35,12 @@ If you have already configured a Microsoft Entra ID Enterprise application, skip
 
 Once you have selected the application, click on <Breadcrumb>Provisioning</Breadcrumb> in the left navigation under the <InlineUIElement>Manage</InlineUIElement> section.
 
-Here you will find for an existing application an <InlineUIElement>Update Credentials</InlineUIElement> option in the <InlineUIElement>Manage Provisioning</InlineUIElement> section at the bottom of the page. Or a <InlineUIElement>Get started with application provisioning</InlineUIElement> section with a <InlineUIElement>Connect your Application</InlineUIElement> button if you just created the application.
+Here you will find for an existing application an <InlineUIElement>Update Credentials</InlineUIElement> option in the <InlineUIElement>Manage Provisioning</InlineUIElement> section at the bottom of the page. Or a <InlineUIElement>Get started</InlineUIElement> button if you just created the application.
 
 <Aside type="caution">
-  This screenshot is an example only. The preferred integration is to use client credentials so that you do not need to create a long lived token.
+  This screenshot is an example only. The preferred integration is to use client credentials so that you do not need to create a long-lived token.
 
-  If at all possible you should be directly integrating the client credentials grant. Using a long lived token becomes an API key that you cannot revoke.
+  If at all possible you should be directly integrating the client credentials grant. Using a long-lived token becomes an API key that you cannot revoke.
 </Aside>
 
 <Breadcrumb>Home -> Microsoft Entra ID -> Enterprise Applications -> Provisioning -> Update credentials</Breadcrumb>
@@ -91,7 +91,7 @@ Ensure that the attributes required by your FusionAuth SCIM lambdas are correctl
 
 ## On-Demand Provisioning
 
-For testing purposes, Microsoft Entra ID provides a *Provision on demand* feature. This allows you to select a single user and verify that they are correctly provisioned to FusionAuth without waiting for the next synchronization cycle (which typically occurs every 40 minutes).
+For testing purposes, Microsoft Entra ID provides a *Provision on demand* feature. This can be found in the <InlineUIElement>Manage</InlineUIElement> section of your application's provisioning page. It allows you to select a single user and verify that they are correctly provisioned to FusionAuth without waiting for the next synchronization cycle (which typically occurs every 40 minutes).
 
 This is highly recommended when first setting up your integration or when debugging mapping issues.
 

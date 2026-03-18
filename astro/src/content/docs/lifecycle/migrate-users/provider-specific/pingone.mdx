@@ -16,6 +16,7 @@ import GetScript from 'src/content/docs/lifecycle/migrate-users/provider-specifi
 import InlineField from 'src/components/InlineField.astro';
 import InlineUIElement from 'src/components/InlineUIElement.astro';
 import MappingUserAttributes from 'src/content/docs/lifecycle/migrate-users/provider-specific/_mapping-user-attributes.mdx';
+import OneTenantOrMany from 'src/content/docs/lifecycle/migrate-users/provider-specific/_one-tenant-or-many.mdx';
 import OtherEntitiesIntro from 'src/content/docs/lifecycle/migrate-users/provider-specific/_other-entities-intro.mdx';
 import PremiumPlanBlurb from 'src/content/docs/_shared/_premium-plan-blurb.astro';
 import SetUpFusionauth from 'src/content/docs/lifecycle/migrate-users/provider-specific/_set-up-fusionauth.mdx';
@@ -57,15 +58,7 @@ You can learn more about the types of migrations that FusionAuth supports [here]
 
 <MappingUserAttributes migration_source_name={migration_source_name} />
 
-### One Tenant Or Many
-
-The [Ping Identity platform](https://docs.pingidentity.com/r/en-us/pingone/p1_c_introduction) uses an organization-based model to define tenant accounts and their related entities. The organization is the top-level identifier. It defines your entire enterprise within the platform.
-
-FusionAuth has the concept of [Tenants](/docs/get-started/core-concepts/tenants). Both FusionAuth Tenants and Ping Identity organizations include data about users, applications, and other configuration.
-
-Each tenant in FusionAuth is a distinct user space. You may choose to merge multiple Ping Identity organizations into one FusionAuth Tenant or keep them separate.
-
-Learn more about [FusionAuth Tenants](/docs/extend/examples/multi-tenant).
+<OneTenantOrMany migration_source_name={migration_source_name} external_tenant_name="organization" external_tenant_name_plural="organizations" />
 
 ### Identity Providers
 

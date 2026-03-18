@@ -212,13 +212,13 @@
   {
     "url": "https://github.com/FusionAuth/fusionauth-example-azure-ad-bulk-export",
     "name": "Azure bulk migration",
-    "description": "Code for bulk migrating users from Azure AD B2C",
+    "description": "Code for bulk migrating users from Microsoft Entra External ID",
     "language": "migration"
   },
   {
     "url": "https://github.com/FusionAuth/fusionauth-example-ropc-azure-function",
     "name": "Azure slow migration",
-    "description": "Code for slow migrating users from Azure AD B2C",
+    "description": "Code for slow migrating users from Microsoft Entra External ID",
     "language": "migration"
   },
   {

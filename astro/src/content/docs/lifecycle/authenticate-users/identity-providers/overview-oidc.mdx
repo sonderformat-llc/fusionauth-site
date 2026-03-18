@@ -175,7 +175,7 @@ When configuring an OpenID Connect identity provider, you'll need to provide a r
 * The application redirect URL, which catches the Authorization Code from FusionAuth and exchanges it for a token. This is a custom route that you write, and so you control the URL. This redirect will be present in any application integrating with FusionAuth whether or not you are using the OpenID Connect identity provider. Learn more about the [Authorization Code grant](/docs/lifecycle/authenticate-users/oauth/#example-authorization-code-grant).
 * The FusionAuth redirect URL, which handles the response from the OpenID Connect identity provider. This will always have the path `/oauth2/callback`. If your FusionAuth server is running at `login.pipedpiper.com`, the FusionAuth redirect URL will be `https://login.pipedpiper.com/oauth2/callback`.
 
-Here is the request flow through an OpenID Connect login where the application is Pied Piper, the authorization server is FusionAuth, and the remote IdP is Microsoft Entra ID (formerly Azure AD).
+Here is the request flow through an OpenID Connect login where the application is Pied Piper, the authorization server is FusionAuth, and the remote IdP is Microsoft Entra ID.
 
 ```mermaid
 sequenceDiagram

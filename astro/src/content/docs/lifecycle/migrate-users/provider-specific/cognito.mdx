@@ -6,6 +6,7 @@ subcategory: migrate users
 tertcategory: provider specific
 ---
 import MappingUserAttributes from 'src/content/docs/lifecycle/migrate-users/provider-specific/_mapping-user-attributes.mdx';
+import OneTenantOrMany from 'src/content/docs/lifecycle/migrate-users/provider-specific/_one-tenant-or-many.mdx';
 import Aside from 'src/components/Aside.astro';
 import SocialLoginMigration from 'src/content/docs/lifecycle/migrate-users/provider-specific/_social-login-migration.mdx';
 import OtherEntitiesIntro from 'src/content/docs/lifecycle/migrate-users/provider-specific/_other-entities-intro.mdx';
@@ -59,13 +60,7 @@ You can learn more about the [types of migrations that FusionAuth supports here]
 
 <MappingUserAttributes migration_source_name={migration_source_name} />
 
-### One Tenant or Many
-
-In Cognito, users are placed in [User Pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html). FusionAuth has a similar concept called [Tenants](/docs/get-started/core-concepts/tenants). Both of these include data about users, applications and other configuration.
-
-Each tenant in FusionAuth is a distinct user space. You may choose to merge multiple Cognito User Pools into one FusionAuth tenant or keep them separate.
-
-Learn more about [FusionAuth tenants](/docs/extend/examples/multi-tenant).
+<OneTenantOrMany migration_source_name={migration_source_name} external_tenant_name="User Pool" external_tenant_name_plural="User Pools" />
 
 ### Identity Pools
 

@@ -1,6 +1,6 @@
 ---
 title: Migrate From Microsoft Entra External ID
-description: Learn how to migrate your users to FusionAuth from Microsoft Entra External ID (formerly Azure AD B2C).
+description: Learn how to migrate your users to FusionAuth from Microsoft Entra External ID.
 section: lifecycle
 subcategory: migrate users
 tertcategory: provider specific
@@ -16,6 +16,7 @@ import Identifiers from 'src/content/docs/lifecycle/migrate-users/provider-speci
 import InlineField from 'src/components/InlineField.astro';
 import InlineUIElement from 'src/components/InlineUIElement.astro';
 import MappingUserAttributes from 'src/content/docs/lifecycle/migrate-users/provider-specific/_mapping-user-attributes.mdx';
+import OneTenantOrMany from 'src/content/docs/lifecycle/migrate-users/provider-specific/_one-tenant-or-many.mdx';
 import OtherEntitiesIntro from 'src/content/docs/lifecycle/migrate-users/provider-specific/_other-entities-intro.mdx';
 import PremiumPlanBlurb from 'src/content/docs/_shared/_premium-plan-blurb.astro';
 import SetUpFusionauth from 'src/content/docs/lifecycle/migrate-users/provider-specific/_set-up-fusionauth.mdx';
@@ -26,7 +27,7 @@ import WhatNext from 'src/content/docs/lifecycle/migrate-users/provider-specific
 import WhatNextAzureAdB2c from 'src/content/docs/lifecycle/migrate-users/provider-specific/_what-next-azure-ad-b2c.mdx';
 import {RemoteCode} from '@fusionauth/astro-components';
 
-export const migration_source_name = 'AD B2C';
+export const migration_source_name = 'Microsoft Entra External ID';
 export const migration_source_dir = 'azureadb2c';
 export const script_supports_social_logins = true;
 export const add_tenant_image_role = 'bottom-cropped';
@@ -34,15 +35,15 @@ export const add_tenant_image_role = 'bottom-cropped';
 
 ## Overview
 
-This document will help you migrate your users off of Microsoft Entra External ID (formerly Azure AD B2C), and onto FusionAuth.
+This document will help you migrate your users off of Microsoft Entra External ID and onto FusionAuth.
 
-There are a number of different ways applications can be integrated with Microsoft Entra External ID, and it would be difficult to cover them all. This guide focuses on migrating user data, including profile data and passwords. However, [Azure AD B2C does not allow for password hash export](https://docs.microsoft.com/en-us/answers/questions/450019/azure-ad-b2c-export-user-password-hashes.html). Therefore, you must perform a slow migration if you don't want to force users to reset their passwords.
+There are a number of different ways applications can be integrated with Microsoft Entra External ID, and it would be difficult to cover them all. This guide focuses on migrating user data, including profile data and passwords. However, Microsoft Entra External ID does not allow for password hash export. This is a common security restriction for managed Identity Providers to prevent the exposure of sensitive credential data. Therefore, you must perform a slow migration if you don't want to force users to reset their passwords.
 
 Alternatively, you can do a bulk migration and force everyone to reset their passwords. This option is discussed below, but the primary focus of this guide is enabling you to migrate your users from Microsoft Entra External ID without requiring any password resets.
 
 ## Prerequisites
 
-This guide assumes intermediate level familiarity with Microsoft Azure, in particular Microsoft Entra External ID (formerly Azure AD B2C).
+This guide assumes intermediate level familiarity with Microsoft Azure, in particular Microsoft Entra External ID.
 
 This guide assumes you have installed FusionAuth. If you have not, please [view our installation guides](/docs/get-started/download-and-install) and install FusionAuth before you begin. For more general migration information, please view the [FusionAuth migration guide](/docs/lifecycle/migrate-users).
 
@@ -51,7 +52,7 @@ This guide assumes you have installed FusionAuth. If you have not, please [view 
 
 ### Slow Migration Or Bulk Migration
 
-To preserve your users' passwords, you need to perform a slow migration. Users log in to FusionAuth with their Azure AD B2C credentials, and FusionAuth transparently migrates their data. Slow migrations in FusionAuth use Connectors, a paid feature.
+To preserve your users' passwords, you need to perform a slow migration. Users log in to FusionAuth with their Microsoft Entra External ID credentials and FusionAuth transparently migrates their data. Slow migrations in FusionAuth use Connectors, a paid feature.
 
 If, on the other hand, resetting user passwords is acceptable, a [Bulk Migration](#bulk-migration) can work for you. Review that section for more details on the required steps. You may also perform a bulk migration after a slow migration has run for a while. Active users can be transparently migrated and infrequent users may not mind resetting their password.
 
@@ -59,29 +60,23 @@ You can learn more about the [types of migrations that FusionAuth supports here]
 
 ### Mapping User Attributes
 
-<MappingUserAttributes />
+<MappingUserAttributes migration_source_name={migration_source_name} />
 
-### One Tenant or Many
-
-In Azure AD B2C, users are placed in [Tenants](https://docs.microsoft.com/en-us/azure/active-directory-b2c/technical-overview). FusionAuth also has the concept of [Tenants](/docs/get-started/core-concepts/tenants). Both of these include data about users, applications and other configuration.
-
-Each tenant in FusionAuth is a distinct user space. You may choose to merge multiple Azure AD B2C tenants into one FusionAuth tenant or keep them separate.
-
-Learn more about [FusionAuth tenants](/docs/extend/examples/multi-tenant).
+<OneTenantOrMany migration_source_name={migration_source_name} external_tenant_name="Tenant" external_tenant_name_plural="Tenants" />
 
 ### Identity Providers
 
-In Azure AD B2C, external identity providers are managed using [Identity Providers](https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-identity-provider). With FusionAuth, these are also called [Identity Providers](/docs/lifecycle/authenticate-users/identity-providers/).
+In Microsoft Entra External ID, external identity providers are managed using [Identity Providers](https://learn.microsoft.com/en-us/entra/external-id/customers/concept-identity-providers). With FusionAuth, these are also called [Identity Providers](/docs/lifecycle/authenticate-users/identity-providers/).
 
 Review the supported FusionAuth [Identity Providers](/docs/lifecycle/authenticate-users/identity-providers/) to ensure any you need are supported. At this time, while there is considerable overlap between the supported identity providers, there are a number of differences.
 
 If not supported explicitly, a provider may work with an OIDC or SAML connection. Otherwise, please open a [feature request](https://github.com/fusionauth/fusionauth-issues/).
 
 <Aside type="note">
-Importing Azure AD B2C users stored in an external identity provider is more straightforward because you can use the Import API; you don't have to perform a slow migration. Many of the steps in [Bulk Migration](#bulk-migration) will apply.
+Importing Microsoft Entra External ID users stored in an external identity provider is more straightforward because you can use the Import API; you don't have to perform a slow migration. Many of the steps in [Bulk Migration](#bulk-migration) will apply.
 </Aside>
 
-To retrieve the user information, use the approach documented in the [Export User Data From Azure AD B2C](#export-user-data-from-azure-ad-b2c) section.
+To retrieve the user information, use the approach documented in the [Export User Data From Microsoft Entra External ID](#export-user-data-from-microsoft-entra-external-id) section.
 
 <SocialLoginMigration />
 
@@ -89,40 +84,40 @@ To retrieve the user information, use the approach documented in the [Export Use
 
 <OtherEntitiesIntro migration_source_name={migration_source_name} other_migrated_entities="app clients or password policies" />
 
-* [User Flows and Custom Policies](https://docs.microsoft.com/en-us/azure/active-directory-b2c/user-flow-overview) are ways for you to customize authentication or authorization workflows with Azure AD B2C. FusionAuth has a similar concept called [Lambdas](/docs/extend/code/lambdas/). FusionAuth also has [webhooks](/docs/extend/events-and-webhooks/) fired at certain points in the user lifecycle; in certain configurations, they can also stop a particular authentication flow.
-* Azure AD B2C does not have a standardized roles-and-permissions concept. Roles and permissions are usually handled with custom attributes or secondary data stores. FusionAuth has [roles](/docs/get-started/core-concepts/roles) that are configured on an application by application basis and made available in a token after a successful authentication.
-* Azure AD B2C has the concept of [User Flow Page Layouts](https://docs.microsoft.com/en-us/azure/active-directory-b2c/customize-ui?pivots=b2c-user-flow) where users can log in or register. FusionAuth has [hosted login pages](/docs/get-started/core-concepts/integration-points#hosted-login-pages) which offer a superset of the functionality of Azure AD B2C User Flow. They are [customized via themes](/docs/customize/look-and-feel/).
-* In Azure AD B2C, users log into [App Registrations](https://docs.microsoft.com/en-us/azure/active-directory-b2c/app-registrations-training-guide). In FusionAuth, [Applications](/docs/get-started/core-concepts/applications) are a similar construct, but users are associated with them through [Registrations](/docs/get-started/core-concepts/registrations). You can migrate both your Client Id and Client Secret from Azure AD B2C to FusionAuth.
-* Azure AD B2C sends emails on your behalf, such as forgot password notifications. FusionAuth can do so too; [the templates are customizable](/docs/customize/email-and-messages/).
-* Azure AD B2C offers the Client Credentials grant. FusionAuth offers a constrained version of this using [Entity Management](/docs/get-started/core-concepts/entity-management); this is available in all paid plans.
-* Refresh tokens allow JWTs to be refreshed without a user logging in. These can be migrated from Azure AD B2C using the [Import Refresh Tokens API](/docs/apis/users#import-refresh-tokens).
-* Azure AD B2C allows for custom attributes, but they must be configured at the Directory level. In FusionAuth, as mentioned above, custom user attributes are stored on the `user.data` field and are dynamic, searchable and unlimited in size. Any valid JSON value may be stored in this field.
-* Azure AD B2C supports MFA. FusionAuth also [supports MFA](/docs/lifecycle/authenticate-users/multi-factor-authentication), which may be enabled for a tenant and configured for a user at any time.
+* [User Flows and Custom Policies](https://learn.microsoft.com/en-us/entra/external-id/customers/concept-user-flow-custom-policy-overview) are ways for you to customize authentication or authorization workflows with Microsoft Entra External ID. FusionAuth has a similar concept called [Lambdas](/docs/extend/code/lambdas/). FusionAuth also has [webhooks](/docs/extend/events-and-webhooks/) fired at certain points in the user lifecycle; in certain configurations, they can also stop a particular authentication flow.
+* Microsoft Entra External ID does not have a standardized roles-and-permissions concept. Roles and permissions are usually handled with custom attributes or secondary data stores. FusionAuth has [roles](/docs/get-started/core-concepts/roles) that are configured on an application by application basis and made available in a token after a successful authentication.
+* Microsoft Entra External ID has the concept of [User Flow Page Layouts](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-customize-ui-user-flow) where users can log in or register. FusionAuth has [hosted login pages](/docs/get-started/core-concepts/integration-points#hosted-login-pages) which offer a superset of the functionality of Microsoft Entra External ID User Flow. They are [customized via themes](/docs/customize/look-and-feel/).
+* In Microsoft Entra External ID, users log into [App Registrations](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-register-ciam-app). In FusionAuth, [Applications](/docs/get-started/core-concepts/applications) are a similar construct, but users are associated with them through [Registrations](/docs/get-started/core-concepts/registrations). You can migrate both your Client Id and Client Secret from Microsoft Entra External ID to FusionAuth.
+* Microsoft Entra External ID sends emails on your behalf, such as forgot password notifications. FusionAuth can do so too; [the templates are customizable](/docs/customize/email-and-messages/).
+* Microsoft Entra External ID offers the Client Credentials grant. FusionAuth offers a constrained version of this using [Entity Management](/docs/get-started/core-concepts/entity-management); this is available in all paid plans.
+* Refresh tokens allow JWTs to be refreshed without a user logging in. These can be migrated from Microsoft Entra External ID using the [Import Refresh Tokens API](/docs/apis/users#import-refresh-tokens).
+* Microsoft Entra External ID allows for custom attributes, but they must be configured at the Directory level. In FusionAuth, as mentioned above, custom user attributes are stored on the `user.data` field and are dynamic, searchable and unlimited in size. Any valid JSON value may be stored in this field.
+* Microsoft Entra External ID supports MFA. FusionAuth also [supports MFA](/docs/lifecycle/authenticate-users/multi-factor-authentication), which may be enabled for a tenant and configured for a user at any time.
 
 <Aside type="note">
 In FusionAuth, users are explicitly mapped to applications with a [Registration](/docs/get-started/core-concepts/registrations).
 
-Azure AD B2C, in contrast, gives users access to all Azure AD B2C applications in a Tenant by default.
+Microsoft Entra External ID, in contrast, gives users access to all Microsoft Entra External ID applications in a Tenant by default.
 </Aside>
 
 #### Identifiers
 
-<Identifiers />
+<Identifiers migration_source_name={migration_source_name} />
 
 #### Differences
 
-In addition to the different names for common functionality outlined above in [Other Entities](#other-entities), there are some fundamental differences between FusionAuth and Azure AD B2C. If your application relies on Azure AD B2C specific functionality, please review this section carefully.
+In addition to the different names for common functionality outlined above in [Other Entities](#other-entities), there are some fundamental differences between FusionAuth and Microsoft Entra External ID. If your application relies on Microsoft Entra External ID specific functionality, please review this section carefully.
 
-* Azure AD B2C has [a pricing model](https://azure.microsoft.com/en-us/pricing/details/active-directory/external-identities/#pricing) that applies to monthly active users (MAUs). FusionAuth has no user limit. Instead, you are limited by the resources provided to a FusionAuth instance, such as memory, CPU and database capacity.
+* Microsoft Entra External ID has [a pricing model](https://azure.microsoft.com/en-us/pricing/details/active-directory/external-identities/#pricing) that applies to monthly active users (MAUs). FusionAuth has no user limit. Instead, you are limited by the resources provided to a FusionAuth instance, such as memory, CPU and database capacity.
 
-Once you've planned the migration of other entities, the next step is to set up FusionAuth to connect to Azure AD B2C to import users during login.
+Once you've planned the migration of other entities, the next step is to set up FusionAuth to connect to Microsoft Entra External ID to import users during login.
 
 ## Importing Users
 
 Because you are implementing a slow migration, it will take place over time. But you can set up a test environment to confirm it will work before deploying to production. Here are the steps we need to take.
 
 1. Set Up FusionAuth
-2. Set Up Azure AD B2C
+2. Set Up Microsoft Entra External ID
 3. Set Up the Connector
 4. Log In as a Test User
 5. Verify the Import
@@ -140,33 +135,33 @@ Because you are implementing a slow migration, it will take place over time. But
 
 <CreateTestApplication migration_source_dir={migration_source_dir} migration_source_name={migration_source_name} />
 
-### Set Up Azure AD B2C
+### Set Up Microsoft Entra External ID
 
 There are three main components you need to set up to enable this migration.
 
-The first is an App Registration, with an [ROPC flow](https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-ropc-policy?tabs=app-reg-ga&pivots=b2c-user-flow).
+The first is an App Registration, with an [ROPC flow](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-ropc-flow).
 
-Secondly, you will need to set up a [Microsoft Graph application](https://docs.microsoft.com/en-us/azure/active-directory-b2c/microsoft-graph-get-started?tabs=app-reg-ga) to retrieve the user's details, in order to import them to FusionAuth.
+Secondly, you will need to set up a [Microsoft Graph application](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-use-microsoft-graph-ciam) to retrieve the user's details, in order to import them to FusionAuth.
 
-The third is an [Azure Function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview) to accept login requests from FusionAuth over TLS and perform an [ROPC login](https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-ropc-policy?tabs=app-reg-ga&pivots=b2c-user-flow) request on Azure AD B2C, and return the relevant user data via the Azure AD B2C Graph API app.
+The third is an [Azure Function](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) to accept login requests from FusionAuth over TLS and perform an [ROPC login](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-ropc-flow) request on Microsoft Entra External ID, and return the relevant user data via the Microsoft Entra External ID Graph API app.
 
 <Aside type="caution">
-FusionAuth Connectors will send user credentials to Azure AD B2C for authentication, via an Azure Function. Secure both the data in transit and the Azure Function endpoint.
+FusionAuth Connectors will send user credentials to Microsoft Entra External ID for authentication, via an Azure Function. Secure both the data in transit and the Azure Function endpoint.
 
-In this guide, all communication is over TLS and the Azure Function requires a unique query string code. You should also review the documents on [Securing Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/security-concepts?tabs=v4) to implement any additional security features you may require.
+In this guide, all communication is over TLS and the Azure Function requires a unique query string code. You should also review the documents on [Securing Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/security-concepts?tabs=v4) to implement any additional security features you may require.
 
-Also note that the Azure AD B2C ROPC endpoint is monitored by rate limiting and identity protection systems. If a dynamic threshold of failed authentications is exceeded, the identity protection system may identify a repeated IP address (i.e. the Azure Function) as an attacker. You may need to deploy Functions to multiple regions, or perhaps self-host the function on a known IP address to mitigate potential issues.
+Also note that the Microsoft Entra External ID ROPC endpoint is monitored by rate limiting and identity protection systems. If a dynamic threshold of failed authentications is exceeded, the identity protection system may identify a repeated IP address (i.e. the Azure Function) as an attacker. You may need to deploy Functions to multiple regions, or perhaps self-host the function on a known IP address to mitigate potential issues.
 </Aside>
 
-#### Configuring the App Registration in Azure AD B2C
+#### Configuring the App Registration in Microsoft Entra External ID
 
-FusionAuth will send login requests to Azure AD B2C to validate the users credentials, via the Azure Function. It will also retrieve the users Azure AD B2C profile from the Microsoft Graph API. It is best practice to create new App Registrations for each of the ROPC flow and Microsoft Graph connection. This guide will walk through the configurations using the Azure Portal.
+FusionAuth will send login requests to Microsoft Entra External ID to validate the users credentials, via the Azure Function. It will also retrieve the users Microsoft Entra External ID profile from the Microsoft Graph API. It is best practice to create new App Registrations for each of the ROPC flow and Microsoft Graph connection. This guide will walk through the configurations using the Microsoft Entra admin center.
 
 <Aside type="note">
-These instructions use the newer [App Registrations](https://docs.microsoft.com/en-us/azure/active-directory-b2c/app-registrations-training-guide) (as opposed to the legacy Applications) experience.
+These instructions use the newer [App Registrations](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-register-ciam-app) experience.
 </Aside>
 
-Visit the [Azure AD B2C App Registrations](https://aka.ms/b2cappregistrations) tab. Then [follow these instructions](https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-ropc-policy?tabs=app-reg-ga&pivots=b2c-user-flow#register-an-application) to set up a new ROPC App Registration and Flow.
+Visit the [Microsoft Entra admin center](https://entra.microsoft.com/). Then navigate to <Breadcrumb>Identity -> Applications -> App registrations</Breadcrumb> and [follow these instructions](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-ropc-flow#register-an-application) to set up a new ROPC App Registration and Flow.
 
 At the end, you'll end up with an app client configuration looking similar to this:
 
@@ -178,25 +173,25 @@ Record the Application (client) ID. This will be a GUID like `022c5902-d8ee-43b0
 
 ![Finding the app client id.](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/ropc-app-client-id.png)
 
-Now you can set up the App Registration for the Microsoft Graph API access. Follow [this guide](https://docs.microsoft.com/en-us/azure/active-directory-b2c/microsoft-graph-get-started?tabs=app-reg-ga), including the <InlineUIElement>Create Client Secret</InlineUIElement> section. Record both the Client Secret, and the Application (client) ID as above.
+Now you can set up the App Registration for the Microsoft Graph API access. Follow [this guide](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-use-microsoft-graph-ciam), including the section to create a client secret. Record both the Client Secret and the Application (client) Id as above.
 
-Next, you'll need to set up an Azure Function to receive the login requests from FusionAuth and return the user's profile. The Function will pass the credentials on to Azure AD B2C and, when the authentication succeeds, retrieve the user's profile from Microsoft Graph, then return a FusionAuth friendly JSON object.
+Next, you'll need to set up an Azure Function to receive the login requests from FusionAuth and return the user's profile. The Function will pass the credentials on to Microsoft Entra External ID and, when the authentication succeeds, retrieve the user's profile from Microsoft Graph, then return a FusionAuth friendly JSON object.
 
 #### Configuring the Azure Function
 
-The Azure Function receives the login request from FusionAuth, attempts to log the user in via ROPC, and then returns a FusionAuth user object on success. The Function will call the [Users](https://docs.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http) API after successful authentication to get additional user attributes, which will then be transformed into a FusionAuth compatible format.
+The Azure Function receives the login request from FusionAuth, attempts to log the user in via ROPC, and then returns a FusionAuth user object on success. The Function will call the [Users](https://learn.microsoft.com/en-us/graph/api/user-get) API after successful authentication to get additional user attributes, which will then be transformed into a FusionAuth-compatible format.
 
 When setting this up, modify the example Function code provided in this guide. Here's the entire sample Azure Function, tested with the node 14 runtime:
 
 <RemoteCode url="https://raw.githubusercontent.com/FusionAuth/fusionauth-example-ropc-azure-function/main/RopcProxyFunction/index.js"
             lang="javascript"
-            title="Azure AD B2C Connector Function code" />
+            title="Microsoft Entra External ID Connector Function code" />
 
-You will need to modify the `transformToFusionUserObject` function to match the properties of the users that you want to import. This converts the JSON returned from Azure AD B2C into the JSON format FusionAuth requires. You can see samples of both below. To modify this procedure, clone or fork the [repo for the full Function project](https://github.com/FusionAuth/fusionauth-example-ropc-azure-function), then make the changes in your local copy of the project.
+You will need to modify the `transformToFusionUserObject` function to match the properties of the users that you want to import. This converts the JSON returned from Microsoft Entra External ID into the JSON format FusionAuth requires. You can see samples of both below. To modify this procedure, clone or fork the [repo for the full Function project](https://github.com/FusionAuth/fusionauth-example-ropc-azure-function), then make the changes in your local copy of the project.
 
 The exact implementation depends on your Active Directory's custom attributes and business logic. You could, for example, give users certain FusionAuth roles, register them for more than one application or add them to a previously created FusionAuth group.
 
-```json title="Sample User Data Response from Azure AD B2C"
+```json title="Sample User Data Response from Microsoft Entra External ID"
 {
   "@odata.context": "https://graph.microsoft.com/beta/$metadata#users",
   "value":
@@ -356,12 +351,12 @@ Once you have the custom function logic updated, it is time to deploy the Azure 
 
 #### Deploying the Azure Function
 
-Azure Functions can be coded within the Azure portal directly, or coded on your local machine and deployed as a package using [Visual Studio Code, with Azure Extensions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=csharp). As the function has dependent modules, you will need to follow these instructions. Clone the [function GitHub repo](https://github.com/FusionAuth/fusionauth-example-ropc-azure-function), and follow the instructions in the link to deploy to your Azure Function.
+Azure Functions can be coded within the Azure portal directly, or coded on your local machine and deployed as a package using [Visual Studio Code, with Azure Extensions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=csharp). As the function has dependent modules, you will need to follow these instructions. Clone the [function GitHub repo](https://github.com/FusionAuth/fusionauth-example-ropc-azure-function), and follow the instructions in the link to deploy to your Azure Function.
 
-After deploying the Function, set the following Function environment variables, also known as [Application Settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings?tabs=portal), to those that you recorded when setting up the ROPC app:
+After deploying the Function, set the following Function environment variables, also known as [Application Settings](https://learn.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings?tabs=portal), to those that you recorded when setting up the ROPC app:
 
 ```bash title="Azure Connector Function environment variables to set"
-TENANT_NAME:          // The name of your AD B2C Tenant,
+TENANT_NAME:          // The name of your Microsoft Entra External ID Tenant,
 ROPC_FLOW_NAME:       // The name of the ROPC flow setup above
 ROPC_CLIENT_ID:       // The Client ID of the ROPC App Registration
 GRAPH_CLIENT_ID:      // The Microsoft Graph API App Registration clientId, a.k.a Application id
@@ -420,9 +415,9 @@ If the authorization header or account credentials are incorrect, a 404 HTTP sta
 
 ### Set Up the Connector
 
-Now you need to set up a Connector to use the Azure AD B2C API you created. You should set up a different Connector for each Azure AD B2C Tenant.
+Now you need to set up a Connector to use the Microsoft Entra External ID API you created. You should set up a different Connector for each Microsoft Entra External ID Tenant.
 
-Log back into the FusionAuth administrative user interface if needed.
+Log back into the FusionAuth admin UI if needed.
 
 <PremiumPlanBlurb />
 
@@ -439,7 +434,7 @@ Create and configure the Connector. Navigate to <Breadcrumb>Settings -> Connecto
 
 Configure the Connector:
 
-* Add a name like `Azure AD B2C migration`.
+* Add a name like `Microsoft Entra External ID migration`.
 * Set the <InlineField>Authentication URL</InlineField> to the value of the Function URL endpoint created above.
 * You don't need to set any headers, as Azure Functions have a code in the querystring.
 
@@ -467,7 +462,7 @@ Save it.
 
 Next, ensure this Connector Policy is in the correct order by using the arrows in the administrative user interface to put it at the top. With this configuration, all users are checked against this Connector the first time they are seen. If they log in, they'll be migrated to the FusionAuth user database.
 
-![Azure AD B2C Connector policy added and in list.](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/connector-policy-list-after-adding.png)
+![Microsoft Entra External ID Connector policy added and in list.](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/connector-policy-list-after-adding.png)
 
 ### Log In With a Test User
 
@@ -481,11 +476,11 @@ Copy this URL and open it in a new incognito browser window. (If you don't use a
 
 ![The login page.](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/user-login.png)
 
-Enter credentials for a Azure AD B2C user account; it can be the same one you used to test the API with curl and log in. The user will be transparently migrated over to FusionAuth.
+Enter credentials for a Microsoft Entra External ID user account; it can be the same one you used to test the API with curl and log in. The user will be transparently migrated over to FusionAuth.
 
 If the user was not migrated or the login was unsuccessful, you can troubleshoot. In the administrative user interface, enable the <InlineField>Debug enabled</InlineField> field in the Connector configuration by navigating to <Breadcrumb>Settings -> Connectors</Breadcrumb> and editing the Generic Connector you added.
 
-After enabling enhanced debug messages, try to log in again with the test user. In the administrative user interface, navigate to <Breadcrumb>System -> Event Log</Breadcrumb> and look for useful messages.
+After enabling enhanced debug messages, try to log in again with the test user. In the admin UI, navigate to <Breadcrumb>System -> Event Log</Breadcrumb> and look for useful messages.
 
 <Aside type="note">
 After a successful test login, the user will be redirected to a URL like `https://example.com/?code=FlZF97WIYLNxt4SGD_22qvpRh4fZ6kg_N89ZbBAy1E4&locale=fr&userState=Authenticated`. This occurs because you haven't set up a web application to handle the authorization code redirect yet.
@@ -493,14 +488,14 @@ After a successful test login, the user will be redirected to a URL like `https:
 That is an important next step but is beyond the scope of this document. Consult the [5 minute setup guide](/docs/get-started/start-here/step-1) for an example of how to do this.
 </Aside>
 
-Let's check that the import succeeded in another way: by viewing the user in the administrative user interface.
+Let's check that the import succeeded in another way: by viewing the user in the admin UI.
 
 ### Verify the Migration
 
 <VerifyImport migration_source_dir={migration_source_dir} />
 
 
-At this point, you've successfully migrated a user from Azure AD B2C into FusionAuth. Any further changes for this user will occur against the FusionAuth database; this includes profile and password changes.
+At this point, you've successfully migrated a user from Microsoft Entra External ID into FusionAuth. Any further changes for this user will occur against the FusionAuth database; this includes profile and password changes.
 
 ### Clean Up Your Test Environment
 
@@ -514,7 +509,7 @@ This will remove all the users and other configuration for this tenant, giving y
 
 ![Deleting a tenant.](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/list-of-tenants-delete-highlighted.png)
 
-Confirm your desire to delete the tenant. Depending on how many users exist in that tenant, this may take some time. If it is easier, you may also delete migrated users one at a time using the administrative user interface.
+Confirm your desire to delete the tenant. Depending on how many users exist in that tenant, this may take some time. If it is easier, you may also delete migrated users one at a time using the admin UI.
 
 ### Migrate Everything Else
 
@@ -538,12 +533,12 @@ Learn more about [general slow migration considerations](/docs/lifecycle/migrate
 
 ## Bulk Migration
 
-As mentioned above, a bulk migration of Azure AD B2C users requires all imported users to reset their passwords, since Azure AD B2C password hashes are inaccessible. This is typically a poor choice as it negatively affects users. However, if a slow migration won't work because of timing or other reasons, you can move all user information other than passwords from Azure AD B2C to FusionAuth, and then send password reset emails.
+As mentioned above, a bulk migration of Microsoft Entra External ID users requires all imported users to reset their passwords, since Microsoft Entra External ID password hashes are inaccessible. This is typically a poor choice as it negatively affects users. However, if a slow migration won't work because of timing or other reasons, you can move all user information other than passwords from Microsoft Entra External ID to FusionAuth, and then send password reset emails.
 
 The benefits of a bulk migration are:
 
 * You can move your users all at once.
-* You no longer have a dependency on Azure AD B2C.
+* You no longer have a dependency on Microsoft Entra External ID.
 
 The downsides of a bulk import:
 
@@ -552,7 +547,7 @@ The downsides of a bulk import:
 To bulk migrate users, the following steps are needed:
 
 * Set up FusionAuth
-* Extract all user data from Azure AD B2C
+* Extract all user data from Microsoft Entra External ID
 * Reformat the data into FusionAuth compatible JSON
 * Import the users using the [Import User API](/docs/apis/users#import-users)
 * Reset all user passwords
@@ -565,7 +560,7 @@ You need to set up FusionAuth, including a tenant and API key.
 
 <CreateTestTenant migration_source_dir={migration_source_dir} migration_source_name={migration_source_name} add_tenant_image_role={add_tenant_image_role} />
 
-The next step is to create an API key. This will be used by the import script. To do so, navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb> in the administrative user interface.
+The next step is to create an API key. This will be used by the import script. To do so, navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb> in the admin UI.
 
 ![Adding an API key](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/add-api-key.png)
 
@@ -573,19 +568,19 @@ This key needs to have the permission to run a bulk import of users. In the spir
 
 ![Setting API key permissions](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/set-api-key-permissions.png)
 
-### Export User Data From Azure AD B2C
+### Export User Data From Microsoft Entra External ID
 
-You need to export whatever data you can from Azure AD B2C before you can import it to FusionAuth.
+You need to export whatever data you can from Microsoft Entra External ID before you can import it to FusionAuth.
 
 <Aside type="note">
-The Azure AD B2C UI provides for bulk exporting of users. However, at the time of this guide, [user email addresses are not available through the bulk export](https://docs.microsoft.com/en-us/answers/questions/373771/azure-ad-b2c-user-export-missing-mail.html). This guide uses the [Graph API](https://docs.microsoft.com/en-us/azure/active-directory-b2c/microsoft-graph-operations) to export user data, which does include email addresses.
+The Microsoft Entra admin center provides for bulk exporting of users. However, at the time of this guide, [user email addresses are not available through the bulk export](https://learn.microsoft.com/en-us/answers/questions/373771/azure-ad-b2c-user-export-missing-mail.html). This guide uses the [Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to export user data, which does include email addresses.
 </Aside>
 
-To export the data via the Graph API, you need to authenticate with the API, and then call the [List method](https://docs.microsoft.com/en-us/graph/api/user-list?view=graph-rest-1.0&tabs=http) to return the data.
+To export the data via the Graph API, you need to authenticate with the API, and then call the [List method](https://learn.microsoft.com/en-us/graph/api/user-list) to return the data.
 
-To authenticate with Azure AD B2C, you first need to register an application with Azure AD B2C, which will give you an app ID and secret. Follow [this guide](https://docs.microsoft.com/en-us/azure/active-directory-b2c/microsoft-graph-get-started?tabs=app-reg-ga) to create an application.
+To authenticate with Microsoft Entra External ID, you first need to register an application with Microsoft Entra External ID, which will give you an App Id and secret. Follow [this guide](https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-register-ciam-app) to create an application.
 
-We've created a node console tool to authenticate with the Graph API and export the users. You can clone or fork it from [the GitHub repository](https://github.com/FusionAuth/fusionauth-example-azure-ad-bulk-export). Then update the `.env` file with your Azure AD B2C tenant and app ID and secret.
+We've created a node console tool to authenticate with the Graph API and export the users. You can clone or fork it from [the GitHub repository](https://github.com/FusionAuth/fusionauth-example-azure-ad-bulk-export). Then update the `.env` file with your Microsoft Entra External ID tenant and app ID and secret.
 
 ```bash title="Bulk Export tool environment variables to set"
 CLIENT_ID          // The client id,
@@ -751,7 +746,7 @@ Usage: import.rb [options]
     -r APPLICATION_IDS,              A comma separated list of existing applications Ids. All users will be registered for these applications.
         --register-users
     -o, --only-link-social-accounts  Link social accounts with no import.
-    -u, --users-file USERS_FILE      The exported JSON user data file from Azure AD B2C. Defaults to users.json.
+    -u, --users-file USERS_FILE      The exported JSON user data file from Microsoft Entra External ID. Defaults to users.json.
     -f FUSIONAUTH_URL,               The location of the FusionAuth instance. Defaults to http://localhost:9011.
         --fusionauth-url
     -k, --fusionauth-api-key API_KEY The FusionAuth API key.
@@ -779,7 +774,7 @@ Running the script should produce an output like this:
 
 ```shell title="Import script output"
 $ ruby ./import.rb -f http://localhost:9011 -k '...'
-FusionAuth Importer : Azure AD B2C
+FusionAuth Importer : Microsoft Entra External ID
  > User file: user-data.json
  > Call FusionAuth to import users
  > Import success
@@ -798,13 +793,13 @@ You may also want to migrate additional data. Currently, the following attribute
 * `insertInstant`
 * `registrations`, if supplied
 
-The migrated user will have the Azure AD B2C original user identities stored on the `user.data` object. If you have additional user attributes to migrate, review and modify the `map_user` method.
+The migrated user will have the Microsoft Entra External ID original user identities stored on the `user.data` object. If you have additional user attributes to migrate, review and modify the `map_user` method.
 
 You may also want to assign Roles, or associate users with Groups, by creating the appropriate JSON data structures in the import call. These are documented in the [Import User API docs](/docs/apis/users#import-users). This will require modifying the `import.rb` code.
 
 ### Verify the Import
 
-Next, log in to the FusionAuth administrative user interface. Review the user entries to ensure the data was correctly imported.
+Next, log in to the FusionAuth admin UI. Review the user entries to ensure the data was correctly imported.
 
 ![List imported users.](/img/docs/lifecycle/migrate-users/provider-specific/azureadb2c/list-users.png)
 
@@ -824,7 +819,7 @@ This script will send an email to every imported user. Ensure your SMTP server, 
 
 Review the `Change Password` template to ensure the messaging is correct. Here is [more information on modifying the template](/docs/customize/email-and-messages/email-templates-replacement-variables#forgot-password).
 
-Retrieve the `loginId` from the Azure AD B2C JSON export files and place it in a single file. The `loginId` will either be the username or the email address. Update the script below to use the API key created in [Set Up FusionAuth For a Bulk Migration](#set-up-fusionauth-for-a-bulk-migration) step.
+Retrieve the `loginId` from the Microsoft Entra External ID JSON export files and place it in a single file. The `loginId` will either be the username or the email address. Update the script below to use the API key created in [Set Up FusionAuth For a Bulk Migration](#set-up-fusionauth-for-a-bulk-migration) step.
 
 The script below will call the [forgot password API](/docs/apis/users#start-forgot-password-workflow) for every user. It sleeps periodically to avoid overloading the SMTP server.
 
