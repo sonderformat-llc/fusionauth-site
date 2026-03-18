@@ -77,8 +77,6 @@ When using the v2.0 endpoint, ensure your <InlineField>Scope</InlineField> field
 
 You may set a <InlineField>Reconcile lambda</InlineField> to map attributes from the JWT provided by Microsoft Entra ID to the FusionAuth user or registration. This is optional. [Learn more about lambdas](/docs/extend/code/lambdas/openid-connect-response-reconcile). You may also modify the <InlineField>Button text</InlineField> or <InlineField>Button logo</InlineField> if desired.
 
-You will need to specify `openid` as a <InlineField>Scope</InlineField>.
-
 <img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/top-of-fusionauth-azure-ad-oidc-config.png" alt="FusionAuth Microsoft Entra ID IdP Configuration" width="1200" />
 
 Scroll down and make sure you enable this Identity Provider for your application. In the following screenshot you will see that we have enabled this login provider for the `Pied Piper` application and enabled `Create registration`.
@@ -104,6 +102,6 @@ Using the `Link on username` strategy ensures that the user's Microsoft username
 <IdpFormFields getStartedHref="https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app"
                getStartedText="Microsoft Entra ID - Register An App Quickstart Guide"
                idp="Entra ID"
-               linkingStrategy="Link on email.  Create the user if they do not exist" />
+               linkingStrategy="Link on username. Do not create the user if they do not exist" />
 
 

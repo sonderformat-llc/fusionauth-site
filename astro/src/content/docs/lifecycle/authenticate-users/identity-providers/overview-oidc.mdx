@@ -82,7 +82,7 @@ That's it, now the <InlineUIElement>Login with PiedPiper</InlineUIElement> butto
   <APIField name="Discover endpoints">
     When enabled FusionAuth will attempt to discover the endpoint configuration using the Issuer URL.
 
-    For example, if `https://login.piedpiper.com` is specified as the issuer, the well-known OpenID Connect URL `https://piedpiper.com/.well-known/openid-configuration` will be queried to discover the well-known endpoints.
+    For example, if `https://login.piedpiper.com` is specified as the issuer, the well-known OpenID Connect URL `https://login.piedpiper.com/.well-known/openid-configuration` will be queried to discover the well-known endpoints.
 
     When disabled, you may manually enter the required endpoints. This option is helpful if your OpenID Connect provider does not implement the well-known discovery endpoint.
   </APIField>
@@ -173,7 +173,7 @@ That's it, now the <InlineUIElement>Login with PiedPiper</InlineUIElement> butto
 When configuring an OpenID Connect identity provider, you'll need to provide a redirect URL. This is the URL to which the identity provider will send a successful request. From there, FusionAuth will process the request, run the [configured lambda](/docs/extend/code/lambdas/openid-connect-response-reconcile), if any, and log the user into FusionAuth. From there, the redirect URL of the application will be sent the authorization code, to exchange for a token. There are, therefore, two redirect URLs in this scenario:
 
 * The application redirect URL, which catches the Authorization Code from FusionAuth and exchanges it for a token. This is a custom route that you write, and so you control the URL. This redirect will be present in any application integrating with FusionAuth whether or not you are using the OpenID Connect identity provider. Learn more about the [Authorization Code grant](/docs/lifecycle/authenticate-users/oauth/#example-authorization-code-grant).
-* The FusionAuth redirect URL, which handles the response from the OpenID Connect identity provider. This will always have the path `/oauth2/callback`. If your FusionAuth server is running at `login.pipedpiper.com`, the FusionAuth redirect URL will be `https://login.pipedpiper.com/oauth2/callback`.
+* The FusionAuth redirect URL, which handles the response from the OpenID Connect identity provider. This will always have the path `/oauth2/callback`. If your FusionAuth server is running at `login.piedpiper.com`, the FusionAuth redirect URL will be `https://login.piedpiper.com/oauth2/callback`.
 
 Here is the request flow through an OpenID Connect login where the application is Pied Piper, the authorization server is FusionAuth, and the remote IdP is Microsoft Entra ID.
 

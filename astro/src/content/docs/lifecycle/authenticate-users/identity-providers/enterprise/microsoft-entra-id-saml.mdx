@@ -182,7 +182,7 @@ Microsoft Entra ID SAML signing certificates typically expire every three years.
 
 1. Create a new certificate in the Microsoft Entra admin center under the <InlineUIElement>SAML Signing Certificate</InlineUIElement> section of your Enterprise application. **Do not make it active yet.**
 2. Download the new Base64 certificate and import it into FusionAuth Key Master.
-3. Update your FusionAuth SAML v2 Identity Provider to use the new certificate in the <InlineField>Verification key</InlineField> field.
+3. Update your FusionAuth SAML v2 Identity Provider to use the new certificate in the <InlineField>Verification key</InlineField> field. Updating FusionAuth first ensures that it is already configured to verify the new certificate as soon as it is made active in Microsoft Entra ID, thereby avoiding downtime during the transition.
 4. Once FusionAuth is updated, return to the Microsoft Entra admin center and "Make certificate active" for the new certificate.
 5. Verify the login still works. You can then safely delete the old certificate from both Microsoft Entra ID and FusionAuth Key Master.
 
