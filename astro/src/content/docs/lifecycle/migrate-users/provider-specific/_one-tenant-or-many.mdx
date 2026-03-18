@@ -6,17 +6,17 @@ This shared component is used in provider-specific migration guides to explain t
 implications of choosing between one FusionAuth tenant or many. 
 */}
 
-In {props.migration_source_name}, users are placed in {props.external_tenant_name_plural}. FusionAuth also has the concept of [Tenants](/docs/get-started/core-concepts/tenants). Both of these include data about users, applications and other configuration.
+In {props.migration_source_name || 'the source system'}, users are placed in {props.external_tenant_name_plural || 'tenants'}. FusionAuth also has the concept of [Tenants](/docs/get-started/core-concepts/tenants). Both of these include data about users, applications and other configuration.
 
-Each tenant in FusionAuth is a distinct user space. You may choose to merge multiple {props.migration_source_name} {props.external_tenant_name_plural} into one FusionAuth tenant, or keep them separate.
+Each tenant in FusionAuth is a distinct user space. You may choose to merge multiple {props.migration_source_name || 'source'} {props.external_tenant_name_plural || 'tenants'} into one FusionAuth tenant, or keep them separate.
 
 Learn more about [FusionAuth tenants](/docs/get-started/core-concepts/tenants).
 
 <Aside type="caution">
-While merging multiple {props.migration_source_name} {props.external_tenant_name_plural} into a single FusionAuth tenant is possible, it comes with several risks and complexities that you should carefully consider:
+While merging multiple {props.migration_source_name || 'source'} {props.external_tenant_name_plural || 'tenants'} into a single FusionAuth tenant is possible, it comes with several risks and complexities that you should carefully consider:
 
-* **User Collisions:** Since a tenant is a unique user space, you cannot have two users with the same email address or username in the same tenant. If `user@example.com` exists in two different {props.migration_source_name} {props.external_tenant_name_plural} and you merge them, one of those users will fail to be imported or will overwrite the other, depending on your [Connector](/docs/lifecycle/migrate-users/connectors) or [Import](/docs/apis/users#import-users) logic.
-* **Loss of Isolation:** Tenants provide hard logical isolation. If your {props.migration_source_name} {props.external_tenant_name_plural} represent different customers or departments that should never see each other's data, merging them into one FusionAuth tenant removes this layer of security.
-* **Mapping Complexity:** When using [Connectors](/docs/lifecycle/migrate-users/connectors) for a slow migration, your reconciliation [Lambdas](/docs/extend/code/lambdas/) will need to be complex enough to handle different data formats or requirements from each source {props.external_tenant_name}.
+* **User Collisions:** Since a tenant is a unique user space, you cannot have two users with the same email address or username in the same tenant. If `user@example.com` exists in two different {props.migration_source_name || 'source'} {props.external_tenant_name_plural || 'tenants'} and you merge them, one of those users will fail to be imported or will overwrite the other, depending on your [Connector](/docs/lifecycle/migrate-users/connectors) or [Import](/docs/apis/users#import-users) logic.
+* **Loss of Isolation:** Tenants provide hard logical isolation. If your {props.migration_source_name || 'source'} {props.external_tenant_name_plural || 'tenants'} represent different customers or departments that should never see each other's data, merging them into one FusionAuth tenant removes this layer of security.
+* **Mapping Complexity:** When using [Connectors](/docs/lifecycle/migrate-users/connectors) for a slow migration, your reconciliation [Lambdas](/docs/extend/code/lambdas/) will need to be complex enough to handle different data formats or requirements from each source {props.external_tenant_name || 'tenant'}.
 * **Provisioning Conflicts:** If you are using [SCIM](/docs/lifecycle/migrate-users/scim/), configuring multiple SCIM clients to provision into the same FusionAuth tenant can lead to conflicts where one system overwrites changes made by another.
 </Aside>
