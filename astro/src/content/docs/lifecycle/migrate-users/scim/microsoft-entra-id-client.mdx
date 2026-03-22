@@ -60,8 +60,10 @@ Here you will find for an existing application an <InlineUIElement>Update Creden
   </APIField>
   <APIField name="Token endpoint">
     This value will be the FusionAuth token endpoint.
-    
-    For example, `https://local.fusionauth.io/oauth2/token`
+
+    Microsoft Entra ID does not provide a separate `scope` field for the Client Credentials grant. You must append the required scope to the token endpoint as a query parameter.
+
+    For example, `https://local.fusionauth.io/oauth2/token?scope=target-entity:{SCIM_SERVER_ENTITY_ID}:{PERMISSIONS}`
   </APIField>
   <APIField name="Client identifier">
     This value will be the client identifier for the SCIM client entity.

@@ -132,17 +132,37 @@ Options to automatically add a registration to a new user include:
 
 ## SCIM Client Authentication
 
-FusionAuth requires the token from a completed Client Credentials grant for SCIM server authentication, as mentioned above. The token generated from the grant is used in the `Authorization` header as a `Bearer` token.
+To authenticate with the FusionAuth SCIM server, you should use the OAuth2 [Client Credentials grant](/docs/lifecycle/authenticate-users/oauth/#example-client-credentials-grant). This is the industry standard and recommended way to authenticate SCIM requests, as it aligns with the security practices outlined in [RFC 7644 Section 2](https://datatracker.ietf.org/doc/html/rfc7644#section-2) and [Section 7.4](https://datatracker.ietf.org/doc/html/rfc7644#section-7.4).
 
-However, some SCIM clients can't dynamically complete a client credentials grant. Instead, they need a static authorization header value.
+When using the Client Credentials grant, the SCIM client dynamically requests an access token from FusionAuth using its client credentials. This token is then used in the `Authorization` header as a `Bearer` token for SCIM requests.
 
-<Aside type="caution">
- Please note that it is very risky to use a long lived token.  If at all possible you should be directly integrating the client credentials grant with your SCIM client.
+### Recommended Authentication Method
 
-  If your SCIM client does not support the client credentials grant, and you then need to create a long lived token you should be aware of this inherent risk. This long lived token becomes an API key that you cannot revoke.
+We strongly recommend using the **Client Credentials grant** over a static authorization header. This method is supported by major identity providers and offers several advantages:
+
+* **Improved Security**: Tokens are short-lived (e.g., 60 minutes). If a token is compromised, its utility is limited.
+* **Ease of Maintenance**: The SCIM client automatically renews the token. You don't need to manually update static keys when they expire.
+* **Standardization**: It follows standard OAuth2 patterns used across the industry for machine-to-machine communication.
+
+<Aside type="tip">
+If your SCIM client does not offer a separate field for the `scope` parameter (such as Microsoft Entra ID), you can append it to the Token endpoint URL as a query string.
+
+For example: `https://local.fusionauth.io/oauth2/token?scope=target-entity:{SCIM_SERVER_ENTITY_ID}:{PERMISSIONS}`
 </Aside>
 
-To correctly integrate with such clients, do the following:
+### Static Authorization Header (Discouraged)
+
+Some legacy SCIM clients or specific environments may not support the dynamic Client Credentials grant. These clients require a static value to be manually entered into an "Authorization" or "Secret Token" field.
+
+<Aside type="caution">
+Using a static, long-lived token is discouraged due to several downsides:
+
+* **Significant Security Risk**: Because the token must be long-lived to avoid frequent manual updates, it essentially becomes a static API key. If this token is leaked, it provides persistent access to your SCIM endpoints.
+* **Lack of Automatic Rotation**: You must manually regenerate and update the token in the SCIM client before it expires. If you forget, provisioning will fail.
+* **Harder Revocation**: Revoking a long-lived JWT is more complex than simply updating the client secret and letting a short-lived token expire.
+</Aside>
+
+If your SCIM client does not support the Client Credentials grant, you can manually generate a long-lived token by following these steps:
 
 * Optionally change the JWT duration of the SCIM Client Entity Type to a larger value, such as a year, which is `31536000`. The generated JWT will not be able to be revoked, so pick a duration that balances the security risk with the effort of updating the JWT in the SCIM client configuration (Microsoft Entra ID, Okta, etc).
 * Gather the Client Id of the SCIM Client, the Client Secret of the SCIM Client, and the SCIM Server Client Id. These values are available from the respective Entity details screen.
