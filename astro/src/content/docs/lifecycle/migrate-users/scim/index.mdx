@@ -47,7 +47,25 @@ FusionAuth is not a SCIM compatible client, but if you are interested in similar
 
 ### The FusionAuth SCIM Workflow
 
-This is an example of a basic interaction between an external SCIM client provisioning request to create a FusionAuth User:
+This is an example of a basic interaction between an external SCIM client provisioning request to create a FusionAuth User.
+
+```mermaid title="FusionAuth SCIM Workflow"
+sequenceDiagram
+  autonumber
+  participant Client as SCIM Client
+  participant FA as FusionAuth
+  participant InLambda as Incoming Request Lambda
+  participant OutLambda as Outgoing Response Lambda
+
+  Client->>FA: SCIM Request (POST /api/scim/resource/v2/Users)
+  FA->>FA: Authenticate Client (Client Credentials Grant)
+  FA->>InLambda: Invoke with SCIM Request Data
+  InLambda-->>FA: FusionAuth User Object
+  FA->>FA: Create FusionAuth User
+  FA->>OutLambda: Invoke with FusionAuth User & SCIM Response
+  OutLambda-->>FA: SCIM Response Data
+  FA-->>Client: SCIM Response (201 Created)
+```
 
 1. The client would send a SCIM compliant request to the [SCIM User endpoint](/docs/apis/scim/scim-user) `/api/scim/resource/v2/Users`. Other [SCIM API endpoints](/docs/apis/scim/) are also available.
 
@@ -132,13 +150,13 @@ Options to automatically add a registration to a new user include:
 
 ## SCIM Client Authentication
 
-To authenticate with the FusionAuth SCIM server, you should use the OAuth2 [Client Credentials grant](/docs/lifecycle/authenticate-users/oauth/#example-client-credentials-grant). This is the industry standard and recommended way to authenticate SCIM requests, as it aligns with the security practices outlined in [RFC 7644 Section 2](https://datatracker.ietf.org/doc/html/rfc7644#section-2) and [Section 7.4](https://datatracker.ietf.org/doc/html/rfc7644#section-7.4).
+To authenticate with the FusionAuth SCIM server, you should use the OAuth2 [Client Credentials Grant](/docs/lifecycle/authenticate-users/oauth/#example-client-credentials-grant). This is the industry standard and recommended way to authenticate SCIM requests, as it aligns with the security practices outlined in [RFC 7644 Section 2](https://datatracker.ietf.org/doc/html/rfc7644#section-2) and [Section 7.4](https://datatracker.ietf.org/doc/html/rfc7644#section-7.4).
 
-When using the Client Credentials grant, the SCIM client dynamically requests an access token from FusionAuth using its client credentials. This token is then used in the `Authorization` header as a `Bearer` token for SCIM requests.
+When using the Client Credentials Grant, the SCIM client dynamically requests an access token from FusionAuth using its client credentials. This token is then used in the `Authorization` header as a `Bearer` token for SCIM requests.
 
 ### Recommended Authentication Method
 
-We strongly recommend using the **Client Credentials grant** over a static authorization header. This method is supported by major identity providers and offers several advantages:
+We strongly recommend using the [Client Credentials Grant](/docs/apis/authentication#client-credentials) over a static authorization header. This method is supported by major identity providers and offers several advantages:
 
 * **Improved Security**: Tokens are short-lived (e.g., 60 minutes). If a token is compromised, its utility is limited.
 * **Ease of Maintenance**: The SCIM client automatically renews the token. You don't need to manually update static keys when they expire.
@@ -162,12 +180,12 @@ Using a static, long-lived token is discouraged due to several downsides:
 * **Harder Revocation**: Revoking a long-lived JWT is more complex than simply updating the client secret and letting a short-lived token expire.
 </Aside>
 
-If your SCIM client does not support the Client Credentials grant, you can manually generate a long-lived token by following these steps:
+If your SCIM client does not support the [Client Credentials Grant](/docs/apis/authentication#client-credentials), you can manually generate a long-lived token by following these steps:
 
 * Optionally change the JWT duration of the SCIM Client Entity Type to a larger value, such as a year, which is `31536000`. The generated JWT will not be able to be revoked, so pick a duration that balances the security risk with the effort of updating the JWT in the SCIM client configuration (Microsoft Entra ID, Okta, etc).
 * Gather the Client Id of the SCIM Client, the Client Secret of the SCIM Client, and the SCIM Server Client Id. These values are available from the respective Entity details screen.
 * Determine the SCIM permissions you want to grant the SCIM Client.
-* Perform the Client Credentials grant manually using a tool like curl (see below for an example).
+* Perform the [Client Credentials Grant](/docs/apis/authentication#client-credentials) manually using a tool like curl (see below for an example).
 
 ```shell title="Performing the Client Credentials grant for a SCIM Client."
 # This curl script grants all SCIM permissions to the client via the JWT.
@@ -200,8 +218,6 @@ Place the `access_token` in the authorization header configuration field of your
 <Aside type="caution">
 When the token expires, the SCIM integration will fail. Document how to regenerate the token and update the client configuration.
 </Aside>
-
-Learn more about [the Client Credentials grant](/docs/lifecycle/authenticate-users/oauth/#example-client-credentials-grant).
 
 ## Limits
 
