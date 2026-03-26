@@ -28,7 +28,7 @@ SCIM (System for Cross-domain Identity Management) is a specification for a clie
 
 SCIM lets you provision and deprovision users from external identity stores into FusionAuth. Here are some scenarios where this is useful:
 
-* When your customers are themselves businesses with a centralized user data store. This is common when you are a business to business SaaS product. Customers want to control access to their instance of your application. They can do so by using SCIM to set up accounts for their users. When an employee leaves the customer's company, the employee account is automatically disabled in FusionAuth. Since SCIM is configured at the FusionAuth tenant level, this is an enterprise feature that FusionAuth makes it easy to offer.
+* When your customers are themselves businesses with a centralized user data store. This is common when you are a business to business SaaS product. Customers want to control access to their instance of your application. They can do so by using SCIM to set up accounts for their users. When an employee leaves the customer's company, the employee account is automatically disabled or removed in FusionAuth.
 * Ensuring your employees have access to your custom applications which use FusionAuth as an identity store. When a new employee is added into your corporate directory (Microsoft Entra ID, Okta, or otherwise), SCIM can provision them into the custom application, accelerating their onboarding experience. Equally important, when the employee departs, their access to the app also departs.
 
 ## Specifications
@@ -175,7 +175,7 @@ Some legacy SCIM clients or specific environments may not support the dynamic Cl
 <Aside type="caution">
 Using a static, long-lived token is discouraged due to several downsides:
 
-* **Significant Security Risk**: Because the token must be long-lived to avoid frequent manual updates, it essentially becomes a static API key. If this token is leaked, it provides persistent access to your SCIM endpoints.
+* **Security Risk**: Because the token must be long-lived to avoid frequent manual updates, it essentially becomes a static API key. If this token is leaked, it provides persistent access to your SCIM endpoints.
 * **Lack of Automatic Rotation**: You must manually regenerate and update the token in the SCIM client before it expires. If you forget, provisioning will fail.
 * **Harder Revocation**: Revoking a long-lived JWT is more complex than simply updating the client secret and letting a short-lived token expire.
 </Aside>
