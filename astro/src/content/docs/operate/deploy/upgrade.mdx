@@ -1,9 +1,6 @@
 ---
 title: Upgrade FusionAuth
 description: Learn how to upgrade FusionAuth using our bundles and migration scripts.
-navcategory: admin
-section: operate
-subcategory: deploy
 ---
 import Aside from 'src/components/Aside.astro';
 import ClientLibraryVersioning from 'src/content/docs/operate/deploy/_client-library-versioning.mdx';
@@ -44,11 +41,13 @@ Upgrading FusionAuth is similar to upgrading a library that your application dep
 
 ### Version Changes and Notes
 
-FusionAuth releases come in three flavors: major, minor, and patch. You can tell what a release is from the rightmost non-zero number in the version: `<major>.<minor>.<patch>`. For example:
+FusionAuth releases come in three flavors: major, minor, and patch.
 
-* `1.0.0`: major release
-* `1.63.0`: minor release
-* `1.45.1`: patch release
+You can tell what a release is from the rightmost non-zero number in the version: `<major>.<minor>.<patch>`. For example:
+
+* `1.0.0`: major release, may significantly change the API
+* `1.63.0`: minor release, may make small changes to the API
+* `1.45.1`: patch release, never changes the API
 
 The FusionAuth team provides detailed information about every change in every version, including tying the change back to a GitHub issue. To understand how a version update affects your systems, read the [release notes](/docs/release-notes).
 
@@ -109,12 +108,12 @@ Configuration management options include:
 * Pulumi
 * Manual configuration via the UI
 
-For more information, see the [Configuration Management guide](/docs/operate/deploy/configuration-management).
+For more information, see the [Configuration Management guide](/docs/operate/deploy).
 
 ## Updating Your Theme
 
 FusionAuth's Advanced Theme Editor provides control over every aspect of the look and feel of your hosted login pages.
-For an explanation of how to upgrade an advanced theme, see [Upgrade an Advanced Theme](/docs/customize/look-and-feel/upgrade-advanced-theme).
+For an explanation of how to upgrade an advanced theme, see [Upgrade an Advanced Theme](/docs/customize/look-and-feel/advanced-themes/upgrade-advanced-theme).
 
 Alternatively, in version `1.51.0` and later, use the [Simple Theme Editor](/docs/customize/look-and-feel/simple-theme-editor) to quickly and easily style FusionAuth with no code. If you use a simple theme, you never have to perform a theme upgrade.
 
