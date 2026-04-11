@@ -25,7 +25,7 @@ If you have already configured a Microsoft Entra ID Enterprise application, skip
 4. Select the option <InlineUIElement>Integrate any other application you don't find in the gallery (Non-gallery)</InlineUIElement>.
 5. Click <InlineUIElement>Create</InlineUIElement>.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/create-non-gallery-application.png" alt="Create Microsoft Entra ID Application" width="1200" />
+![Create Microsoft Entra ID Application](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/create-non-gallery-application.png)
 
 Once you have selected the application, click on <Breadcrumb>Provisioning</Breadcrumb> in the left navigation under the <InlineUIElement>Manage</InlineUIElement> section.
 
@@ -39,7 +39,7 @@ Here you will find for an existing application an <InlineUIElement>Update Creden
 
 <Breadcrumb>Home -> Microsoft Entra ID -> Enterprise Applications -> Provisioning -> Update credentials</Breadcrumb>
 
-<img src="/img/docs/lifecycle/migrate-users/scim/azure-ad-scim-client-credentials.png" alt="Microsoft Entra ID SCIM Provisioning Integration" width="1200" role="bottom-cropped" />
+![Microsoft Entra ID SCIM Provisioning Integration](/img/docs/lifecycle/migrate-users/scim/azure-ad-scim-client-credentials.png)
 
 <APIBlock>
   <APIField name="Authentication Method">
@@ -58,6 +58,10 @@ Here you will find for an existing application an <InlineUIElement>Update Creden
     Microsoft Entra ID does not provide a separate `scope` field for the Client Credentials grant. You must append the required scope to the token endpoint as a query parameter.
 
     For example, `https://local.fusionauth.io/oauth2/token?scope=target-entity:{SCIM_SERVER_ENTITY_ID}:{PERMISSIONS}`
+
+    Where `{SCIM_SERVER_ENTITY_ID}` is the Entity Id of the SCIM Server Entity that you have configured in FusionAuth, and `{PERMISSIONS}` is a comma separated list of the permissions you want to grant to Microsoft Entra ID for this integration. For example, `users.read,groups.read`.
+
+    Like in this example with all the available permissions `https://demo-eu.fusionauth.io/oauth2/token?scope=target-entity:5b7c2a21-447d-4ffb-ab93-27c6fafa57ff:scim:enterprise:user:create,scim:user:update,scim:group:create,scim:schemas:read,scim:user:delete,scim:enterprise:user:read,scim:resource-types:read,scim:enterprise:user:update,scim:service-provider-config:read,scim:group:read,scim:enterprise:user:delete,scim:group:delete,scim:group:update,scim:user:create,scim:user:read`
   </APIField>
   <APIField name="Client identifier">
     This value will be the client identifier for the SCIM client entity.
