@@ -5,6 +5,9 @@ tags: scim, system for cross-domain identity management, identity management, cr
 ---
 import EnterprisePlanBlurb from 'src/content/docs/_shared/_enterprise-plan-blurb.astro';
 import Aside from 'src/components/Aside.astro';
+import Breadcrumb from 'src/components/Breadcrumb.astro';
+import InlineField from 'src/components/InlineField.astro';
+import InlineUIElement from 'src/components/InlineUIElement.astro';
 import JSON from 'src/components/JSON.astro';
 import ScimLimits from 'src/content/docs/_shared/_scim-limits.mdx';
 import ScimServerPermissions from 'src/content/docs/_shared/_scim-server-permissions.md'
@@ -114,12 +117,71 @@ The SCIM EnterpriseUser schema is an extension of the SCIM User schema so the su
 
 ## Configuration
 
-In order for FusionAuth to accept requests from SCIM clients, you need to perform a few one time configuration steps.
+In order for FusionAuth to accept requests from SCIM clients, you need to perform a few one-time configuration steps.
 
-- You need to enable SCIM support for your tenant.
-- You need to define your incoming request and outgoing response lambdas for each the supported SCIM resource types (User, Enterprise User, Group)
-- You will need to verify that the default SCIM schemas provided match your desired SCIM schema for each of the SCIM resource types or provide your own.
-- You will need an Entity defined for each SCIM client and SCIM Server. [Default entity types](/docs/get-started/core-concepts/entity-management#scim-configuration) are provided for you. You can create the entities from those default types or create your own types.
+### Generating a Key Pair
+
+It is best practice for each tenant to have its own unique cryptographic key pair for signing tokens. Especially for SCIM, where you may have a SCIM configuration for each tenant likely from different sources, using a dedicated key pair limits the impact to a single tenant in case the cryptographic key pair is leaked or compromised.
+
+To generate a new key pair in FusionAuth:
+1. Navigate to <Breadcrumb>Settings -> Key Master</Breadcrumb>.
+2. Select <Breadcrumb>Generate EC Key Pair</Breadcrumb> (or RSA if preferred).
+3. Provide a name and choose the appropriate settings.
+4. Once generated, you can assign this key to be used for JWT signing within your tenant's SCIM configuration.
+
+![Generating an EC Key Pair in Key Master](/img/docs/lifecycle/migrate-users/scim/fusionauth-key-master-generate-ec-key-pair.png)
+
+### Tenant Configuration
+
+You need to enable SCIM support for your tenant. Navigate to <Breadcrumb>Tenants</Breadcrumb>.
+
+![The tenant list in FusionAuth.](/img/docs/lifecycle/migrate-users/scim/fusionauth-tenant-list.png)
+
+Edit the tenant and navigate to the <Breadcrumb>SCIM</Breadcrumb> tab. Check the <InlineField>Enabled</InlineField> field and configure the lambdas and entity types.
+
+![The SCIM tab in the tenant configuration.](/img/docs/lifecycle/migrate-users/scim/fusionauth-tenant-scim-server-settings.png)
+
+To assign the generated key pair for JWT signing, navigate to the <Breadcrumb>JWT</Breadcrumb> tab in the tenant configuration and select the key.
+
+![The JWT tab in the tenant configuration.](/img/docs/lifecycle/migrate-users/scim/fusionauth-tenant-jwt-settings.png)
+
+### Entities
+
+You will need an Entity defined for each SCIM client and SCIM server. [Default entity types](/docs/get-started/core-concepts/entity-management#scim-configuration) are provided for you. You can create the entities from those default types or create your own types.
+
+Navigate to <Breadcrumb>Entity Management -> Entities</Breadcrumb>.
+
+![The entity list in FusionAuth.](/img/docs/lifecycle/migrate-users/scim/fusionauth-entity-list.png)
+
+#### SCIM Server Entity
+
+Create a new Entity for the SCIM server using the `SCIM Server` entity type.
+
+![Adding a SCIM server entity.](/img/docs/lifecycle/migrate-users/scim/fusionauth-entity-add-scim-server.png)
+
+#### SCIM Client Entity
+
+Create a new Entity for the SCIM client using the `SCIM Client` entity type.
+
+![Adding a SCIM client entity.](/img/docs/lifecycle/migrate-users/scim/fusionauth-entity-add-scim-client.png)
+
+#### Grants and Permissions
+
+After creating both entities, you must grant the SCIM client permissions on the SCIM server. Navigate to the SCIM client entity and click the <InlineUIElement>Manage</InlineUIElement> button.
+
+![Managing a SCIM client entity.](/img/docs/lifecycle/migrate-users/scim/fusionauth-entity-manage-scim-client.png)
+
+Click the <InlineUIElement>Add</InlineUIElement> button to add a grant for the SCIM server entity.
+
+![Adding a grant to a SCIM client entity.](/img/docs/lifecycle/migrate-users/scim/fusionauth-entity-grant-add-scim-client.png)
+
+Select the SCIM server entity and the appropriate permissions.
+
+![Editing permissions for a SCIM grant.](/img/docs/lifecycle/migrate-users/scim/fusionauth-entity-grant-edit-scim-server-permissions.png)
+
+After saving the grant, you can see it in the list of grants for the SCIM client.
+
+![The list of grants for the SCIM client.](/img/docs/lifecycle/migrate-users/scim/fusionauth-entity-manage-scim-client-grants-list.png)
 
 ### Permissions
 
