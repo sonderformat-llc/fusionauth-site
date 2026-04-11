@@ -15,31 +15,35 @@ For complete documentation, please refer to the [Microsoft Entra ID provisioning
 
 <AzureAside />
 
-To configure the integration, log in to the [Microsoft Entra admin center](https://entra.microsoft.com/) (or the Azure portal). Navigate to <Breadcrumb>Identity -> Applications -> Enterprise applications</Breadcrumb> and either create a new application, or select the application you will be using for SCIM provisioning.
+To configure the integration, log in to the [Microsoft Entra admin center](https://entra.microsoft.com/) (or the Azure portal). Navigate to <Breadcrumb>Entra ID -> Enterprise apps</Breadcrumb> and either create a new application, or select the application you will be using for SCIM provisioning.
+
+![Microsoft Entra ID Enterprise Applications](/img/docs/lifecycle/migrate-users/scim/microsoft-entra-id-enterprise-applications.png)
 
 If you have already configured a Microsoft Entra ID Enterprise application, skip this section. If you have not, please follow the brief steps outlined below to create a new one:
 
 1. Click on <InlineUIElement>+ New application</InlineUIElement> at the top of the page.
+
+![Microsoft Entra ID New Application](/img/docs/lifecycle/migrate-users/scim/microsoft-entra-id-enterprise-applications-new-application.png)
 2. Click on <InlineUIElement>+ Create your own application</InlineUIElement>.
 3. Enter `FusionAuth SCIM` as the name of your application.
 4. Select the option <InlineUIElement>Integrate any other application you don't find in the gallery (Non-gallery)</InlineUIElement>.
 5. Click <InlineUIElement>Create</InlineUIElement>.
 
-![Create Microsoft Entra ID Application](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/create-non-gallery-application.png)
+![Microsoft Entra ID Create Your Own Application](/img/docs/lifecycle/migrate-users/scim/microsoft-entra-id-enterprise-applications-create-your-own-application.png)
 
 Once you have selected the application, click on <Breadcrumb>Provisioning</Breadcrumb> in the left navigation under the <InlineUIElement>Manage</InlineUIElement> section.
 
 Here you will find for an existing application an <InlineUIElement>Update Credentials</InlineUIElement> option in the <InlineUIElement>Manage Provisioning</InlineUIElement> section at the bottom of the page. Or a <InlineUIElement>Get started</InlineUIElement> button if you just created the application.
 
 <Aside type="caution">
-  This screenshot is an example only. The preferred integration is to use client credentials so that you do not need to create a long-lived token.
+    The preferred integration is to use client credentials so that you do not need to create a long-lived token.
 
-  If at all possible you should be directly integrating the client credentials grant. Using a long-lived token becomes an API key that you cannot revoke.
+    If at all possible you should be directly integrating the client credentials grant. Using a long-lived token becomes an API key that you cannot revoke.
 </Aside>
 
-<Breadcrumb>Home -> Microsoft Entra ID -> Enterprise Applications -> Provisioning -> Update credentials</Breadcrumb>
+<Breadcrumb>Home -> Entra ID -> Enterprise applications -> FusionAuth SCIM -> Provisioning</Breadcrumb>
 
-![Microsoft Entra ID SCIM Provisioning Integration](/img/docs/lifecycle/migrate-users/scim/azure-ad-scim-client-credentials.png)
+![Microsoft Entra ID SCIM Provisioning Settings](/img/docs/lifecycle/migrate-users/scim/microsoft-entra-id-provisioning-settings.png)
 
 <APIBlock>
   <APIField name="Authentication Method">
@@ -52,7 +56,7 @@ Here you will find for an existing application an <InlineUIElement>Update Creden
 
     For example, `https://local.fusionauth.io/api/scim/resource/v2`
   </APIField>
-  <APIField name="Token endpoint">
+  <APIField name="Token Endpoint">
     This value will be the FusionAuth token endpoint.
 
     Microsoft Entra ID does not provide a separate `scope` field for the Client Credentials grant. You must append the required scope to the token endpoint as a query parameter.
@@ -63,12 +67,12 @@ Here you will find for an existing application an <InlineUIElement>Update Creden
 
     Like in this example with all the available permissions `https://demo-eu.fusionauth.io/oauth2/token?scope=target-entity:5b7c2a21-447d-4ffb-ab93-27c6fafa57ff:scim:enterprise:user:create,scim:user:update,scim:group:create,scim:schemas:read,scim:user:delete,scim:enterprise:user:read,scim:resource-types:read,scim:enterprise:user:update,scim:service-provider-config:read,scim:group:read,scim:enterprise:user:delete,scim:group:delete,scim:group:update,scim:user:create,scim:user:read`
   </APIField>
-  <APIField name="Client identifier">
+  <APIField name="Client Identifier">
     This value will be the client identifier for the SCIM client entity.
     
     For example, `identifier`
   </APIField>
-  <APIField name="Client secret">
+  <APIField name="Client Secret">
     This value will be the client secret for the SCIM client entity.
     
     For example, `secret`
@@ -91,9 +95,15 @@ Ensure that the attributes required by your FusionAuth SCIM lambdas are correctl
 
 ## On-Demand Provisioning
 
-For testing purposes, Microsoft Entra ID provides a *Provision on demand* feature. This can be found in the <InlineUIElement>Manage</InlineUIElement> section of your application's provisioning page. It allows you to select a single user and verify that they are correctly provisioned to FusionAuth without waiting for the next synchronization cycle (which typically occurs every 40 minutes).
+For testing purposes, Microsoft Entra ID provides a *Provision on demand* feature. This can be found in the left navigation of your application's provisioning page. It allows you to select a single user and verify that they are correctly provisioned to FusionAuth without waiting for the next synchronization cycle (which typically occurs every 40 minutes).
 
 This is highly recommended when first setting up your integration or when debugging mapping issues.
+
+## Provisioning Logs
+
+To view the progress and any errors encountered during the provisioning process, click on <Breadcrumb>Provisioning logs</Breadcrumb> in the left navigation under the <InlineUIElement>Monitor</InlineUIElement> section.
+
+![Microsoft Entra ID Provisioning Logs](/img/docs/lifecycle/migrate-users/scim/microsoft-entra-id-provisioning-logs.png)
 
 ## Best Practices
 
