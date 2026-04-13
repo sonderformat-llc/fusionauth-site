@@ -115,7 +115,7 @@ To make a smoothie:
     - [Breadcrumb](astro/src/components/Breadcrumb.astro): A **navigation path or tab** in the UI. Use it for multi-step paths and single tab names alike. Example: `Navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb>` or `On the <Breadcrumb>OAuth</Breadcrumb> tab.`
     - Use `InlineField` and `InlineFieldValue` together when describing what value to enter into a field.
     - Use `Breadcrumb` for navigation paths and tabs. Use `InlineUIElement` for other controls and section labels. Do not use `InlineUIElement` for field names.
-    - Use `Breadcrumb` for sequential UI operations (for example tabs, pages, sidebar entries, and links), not just multi-level paths.
+    - Use `Breadcrumb` for sequential UI operations (for example tabs, pages, sidebar entries, links, and menu actions that navigate to a new page), not just multi-level paths.
     - Wrap only the UI label in the component. Keep descriptors such as "tab", "section", "button", "field", and punctuation outside the component unless they are part of the literal UI text. Example: `On the <Breadcrumb>OAuth</Breadcrumb> tab.` and `Open the <InlineUIElement>Single sign-on</InlineUIElement> section.`
     - If the text is a code/config/document concept (for example, `variables` section in JSON, `providers` section in a file, or `docker-compose.yml` keys), use backticks, not UI components.
     - Checkbox and toggle labels are UI controls; use `InlineUIElement` for them. Use `InlineField` for form field names/labels, and `InlineFieldValue` for values.
