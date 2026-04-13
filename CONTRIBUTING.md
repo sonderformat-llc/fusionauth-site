@@ -107,10 +107,10 @@ To make a smoothie:
 - Use the following components to reference UI elements:
     - [InlineField](astro/src/components/InlineField.astro): The **name or label of a field** in a form, JSON API doc, or parameter list. Use it for writable and read-only fields. Example: `Set the <InlineField>Issuer</InlineField> field.`
     - [InlineFieldValue](astro/src/components/InlineFieldValue.astro): A **value** entered into or returned from a field. Use it for literal, example, and enumerated values. Example: `Set <InlineField>Relationship</InlineField> to <InlineFieldValue>Third-party</InlineFieldValue>.`
-    - [InlineUIElement](astro/src/components/InlineUIElement.astro): An **interactive non-field UI element** (button, link, menu item, icon button, etc.) or a display-only UI label that is not a field label. Example: `Click <InlineUIElement>Submit</InlineUIElement>.`
-    - [Breadcrumb](astro/src/components/Breadcrumb.astro): A **navigation path or tab** in the UI. Use it for multi-step paths and single elements alike. Example: `Navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb>` or `On the <Breadcrumb>OAuth</Breadcrumb> tab.`
+    - [InlineUIElement](astro/src/components/InlineUIElement.astro): An **interactive non-field UI element** (button, link, menu item, icon button, tab control, etc.) or a display-only UI label that is not a field label. Example: `Click <InlineUIElement>Submit</InlineUIElement>.`
+    - [Breadcrumb](astro/src/components/Breadcrumb.astro): A **navigation path** in the UI, and optionally a tab when the tab is being described as a location. Example: `Navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb>` or `On the <Breadcrumb>OAuth</Breadcrumb> tab.`
     - Use `InlineField` and `InlineFieldValue` together when describing what value to enter into a field.
-    - Do not use `InlineUIElement` for field names, and do not use `InlineFieldValue` for buttons, tabs, or navigation.
+    - Use `Breadcrumb` for navigation paths, and use `InlineUIElement` for actionable controls (including tab controls). Do not use `InlineUIElement` for field names.
 - When you have a list of values, use this phrase to prefix it: "The possible values are:"
 - When using images that are cropped, add `top-cropped` and/or `bottom-cropped` roles as appropriate. Use `box-shadow` only when an image isn't captured in the manner documented below. It's used only when we have screenshots of things that do not have a box shadow and are all white and blend in too much with our white background. No other image classes are needed when creating documentation.
 - Include fragments that are shared between different sections of the doc should be stored in the [shared](astro/src/content/docs/_shared) directory.
@@ -354,10 +354,10 @@ Prior to requesting review on a PR, please complete the following checklist.
 1. Screenshots. Review color, dimensions and clarity. Review A/B to ensure layout has not changed, and the new screenshot is consistent with the previous one.
     - In the PR diff, generally speaking the dimensions and file size will be similar, if they are not, something may have changed.
     - The screenshot should not look fuzzy. If it does, the compression may be incorrect.
-2. If you are referring to a navigation element or tab, use `<Breadcrumb>Tenants</Breadcrumb>`, `<Breadcrumb>Tenants -> Your Tenant</Breadcrumb>`, or `On the <Breadcrumb>OAuth</Breadcrumb> tab`. Use it even for singular elements.
+2. If you are referring to navigation context or a path, use `<Breadcrumb>Tenants</Breadcrumb>` or `<Breadcrumb>Tenants -> Your Tenant</Breadcrumb>`. For tabs, use `<Breadcrumb>OAuth</Breadcrumb>` when describing location (`On the ... tab`) and `<InlineUIElement>OAuth</InlineUIElement>` when describing an actionable tab control.
 3. If you are referring to a field name or field label (writable or read-only), use `<InlineField>Authorized Redirect URLs</InlineField>`.
 4. If you are specifying a field value (entered, returned, or enumerated), use `<InlineFieldValue>https://example.com/callback</InlineFieldValue>`, often alongside `InlineField`: `Set <InlineField>Authorized Redirect URLs</InlineField> to <InlineFieldValue>https://example.com/callback</InlineFieldValue>.`
-5. If you are referring to any other UI element (button, link, icon button, menu item, or display-only non-field label), use `<InlineUIElement>Submit</InlineUIElement>` or (on the application view screen) `<InlineUIElement>Introspect endpoint</InlineUIElement>`.
+5. If you are referring to any other UI element (button, link, icon button, menu item, actionable tab control, or display-only non-field label), use `<InlineUIElement>Submit</InlineUIElement>` or (on the application view screen) `<InlineUIElement>Introspect endpoint</InlineUIElement>`.
 
 ## Quickstarts
 
