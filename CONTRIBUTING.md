@@ -32,6 +32,10 @@ Here are some guidelines to follow when writing documentation (everything under 
 - Use the oxford comma. Apples, bananas, and oranges are my favorite fruits.
 - Single spaces should be used instead of double spaces after a period.
 - Headers should have the first letter of every word capitalized: `This Is The Header Text`. This is true for all headers (h1, h2, h3, h4). This is also known as [Start Case](https://en.wikipedia.org/wiki/Letter_case).
+- Use _emphasis_ only when you truly need extra emphasis on a specific term.
+- Use **bold** for new or key terms when paired with a definition or explanation.
+- Use monospace (backticks) for literal programmatic terms (functions, variables, properties, etc) and for values that may look numeric but are identifiers or encoded values (for example versions, booleans, and encoded strings).
+- Use quotes only when providing a text value for a field (typically editable text input).
 - When writing, you have access to Asides. Here's an [example blog post using an Aside](https://github.com/FusionAuth/fusionauth-site/blob/main/astro/src/content/blog/log4j-fusionauth.mdx). You can assign the following values to the type: `tip` for tips. `note` for things for the user to be aware of. `important` for things the user should pay attention to. `warn` for dangerous actions like deleting a tenant.
 - For links, don't use the absolute URL for the FusionAuth website (https://fusionauth.io), only relative URLs. This allows us to deploy to our local and staging environments and not get sent over to prod.
 - If you have a list element containing more than one paragraph, indent the second paragraph by the same amount as the start of the text in the first paragraph to make sure that it renders correctly.
@@ -111,9 +115,11 @@ To make a smoothie:
     - [Breadcrumb](astro/src/components/Breadcrumb.astro): A **navigation path or tab** in the UI. Use it for multi-step paths and single tab names alike. Example: `Navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb>` or `On the <Breadcrumb>OAuth</Breadcrumb> tab.`
     - Use `InlineField` and `InlineFieldValue` together when describing what value to enter into a field.
     - Use `Breadcrumb` for navigation paths and tabs. Use `InlineUIElement` for other controls and section labels. Do not use `InlineUIElement` for field names.
+    - Use `Breadcrumb` for sequential UI operations (for example tabs, pages, sidebar entries, and links), not just multi-level paths.
     - Wrap only the UI label in the component. Keep descriptors such as "tab", "section", "button", "field", and punctuation outside the component unless they are part of the literal UI text. Example: `On the <Breadcrumb>OAuth</Breadcrumb> tab.` and `Open the <InlineUIElement>Single sign-on</InlineUIElement> section.`
     - If the text is a code/config/document concept (for example, `variables` section in JSON, `providers` section in a file, or `docker-compose.yml` keys), use backticks, not UI components.
     - Checkbox and toggle labels are UI controls; use `InlineUIElement` for them. Use `InlineField` for form field names/labels, and `InlineFieldValue` for values.
+    - Use backticks for programmatic values such as versions, booleans, and encoded values. Use quotes only for literal text values entered into editable fields.
     - In name/value bullet lists, prefer `<InlineField>Field Name</InlineField>:` followed by `<InlineFieldValue>value</InlineFieldValue>` (colon outside `InlineField`) unless the colon is part of the literal label text in the UI.
 - When you have a list of values, use this phrase to prefix it: "The possible values are:"
 - When using images that are cropped, add `top-cropped` and/or `bottom-cropped` roles as appropriate. Use `box-shadow` only when an image isn't captured in the manner documented below. It's used only when we have screenshots of things that do not have a box shadow and are all white and blend in too much with our white background. No other image classes are needed when creating documentation.
@@ -390,9 +396,9 @@ Follow everything in the `Content Style Guidelines` section.
 - Images should be pulled in using markdown: `![alt text](/path/to/images)`
 - Images for a blog post should go under /astro/public/img/blogs/` in a directory related to the blog title.
 - We use Shiki for code formatting. Supported languages are listed here: https://shiki.style/languages
-- For site navigation, use Breadcrumb: Navigate to <Breadcrumb>Tenants</Breadcrumb> and then to the <Breadcrumb>Password</Breadcrumb> tab.
-- For field names, use double quotes: "Login Identifier Attribute".
-- For values, use back ticks: `userPrincipalName`.
+- For site navigation and sequential UI operations (tabs, pages, sidebar entries, links), use Breadcrumb: `Navigate to <Breadcrumb>Tenants -> Password</Breadcrumb>`.
+- For field names and labels, use InlineField: `<InlineField>Login Identifier Attribute</InlineField>`.
+- For field values, use InlineFieldValue: `<InlineFieldValue>userPrincipalName</InlineFieldValue>`. Use quotes only when presenting a literal text value for an editable field.
 - Put each blog post into one or more of the known categories. [Here's the list](https://github.com/FusionAuth/fusionauth-site/blob/main/config/contentcheck/known-blog-categories.txt). You can separate categories with commas.
 - Use tags. They are separated with commas. These are freeform, so feel free to add multiple and choose what works. The first one is what is used to show related posts, unless there's a `featuredTag` value in the front matter. You can [learn more about the logic by reviewing the layout](https://github.com/FusionAuth/fusionauth-site/blob/main/astro/src/layouts/Blog.astro).
 - You can use the `get-images-from-markdown.rb` script to extract images from markdown and store them in a directory.
