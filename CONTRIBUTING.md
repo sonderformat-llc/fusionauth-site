@@ -111,6 +111,10 @@ To make a smoothie:
     - [Breadcrumb](astro/src/components/Breadcrumb.astro): A **navigation path or tab** in the UI. Use it for multi-step paths and single tab names alike. Example: `Navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb>` or `On the <Breadcrumb>OAuth</Breadcrumb> tab.`
     - Use `InlineField` and `InlineFieldValue` together when describing what value to enter into a field.
     - Use `Breadcrumb` for navigation paths and tabs. Use `InlineUIElement` for other controls and section labels. Do not use `InlineUIElement` for field names.
+    - Wrap only the UI label in the component. Keep descriptors such as "tab", "section", "button", "field", and punctuation outside the component unless they are part of the literal UI text. Example: `On the <Breadcrumb>OAuth</Breadcrumb> tab.` and `Open the <InlineUIElement>Single sign-on</InlineUIElement> section.`
+    - If the text is a code/config/document concept (for example, `variables` section in JSON, `providers` section in a file, or `docker-compose.yml` keys), use backticks, not UI components.
+    - Checkbox and toggle labels are UI controls; use `InlineUIElement` for them. Use `InlineField` for form field names/labels, and `InlineFieldValue` for values.
+    - In name/value bullet lists, prefer `<InlineField>Field Name</InlineField>:` followed by `<InlineFieldValue>value</InlineFieldValue>` (colon outside `InlineField`) unless the colon is part of the literal label text in the UI.
 - When you have a list of values, use this phrase to prefix it: "The possible values are:"
 - When using images that are cropped, add `top-cropped` and/or `bottom-cropped` roles as appropriate. Use `box-shadow` only when an image isn't captured in the manner documented below. It's used only when we have screenshots of things that do not have a box shadow and are all white and blend in too much with our white background. No other image classes are needed when creating documentation.
 - Include fragments that are shared between different sections of the doc should be stored in the [shared](astro/src/content/docs/_shared) directory.
@@ -358,6 +362,8 @@ Prior to requesting review on a PR, please complete the following checklist.
 3. If you are referring to a field name or field label (writable or read-only), use `<InlineField>Authorized Redirect URLs</InlineField>`.
 4. If you are specifying a field value (entered, returned, or enumerated), use `<InlineFieldValue>https://example.com/callback</InlineFieldValue>`, often alongside `InlineField`: `Set <InlineField>Authorized Redirect URLs</InlineField> to <InlineFieldValue>https://example.com/callback</InlineFieldValue>.`
 5. If you are referring to any other UI element (button, link, icon button, menu item, section label, or display-only non-field label), use `<InlineUIElement>Submit</InlineUIElement>` or (on the application view screen) `<InlineUIElement>Introspect endpoint</InlineUIElement>`.
+6. If a word like "tab" or "section" is explanatory and not part of the literal label, keep it outside the component: `Open the <InlineUIElement>Images</InlineUIElement> section.`
+7. If a reference is to code/config/docs structure (not the admin UI), keep it in backticks rather than wrapping it in a UI component.
 
 ## Quickstarts
 
