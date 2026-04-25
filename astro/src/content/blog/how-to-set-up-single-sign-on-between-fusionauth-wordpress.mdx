@@ -165,13 +165,13 @@ You should see this configuration screen:
 
 ![Configure the OpenID Connect Generic Client.](/img/blogs/wordpress-sso-fusionauth/configure-oidc-generic-client-settings-start.png)
 
-Go back to the FusionAuth screen and copy the "Client Id" and "Client Secret" from the popup window (you might have to scroll down a bit).
+Go back to the FusionAuth screen and copy the <InlineField>Client Id</InlineField> and <InlineField>Client Secret</InlineField> from the popup window (you might have to scroll down a bit).
 
 ![Finding the Client Id and Client Secret.](/img/blogs/wordpress-sso-fusionauth/application-view-client-id-client-secret.png)
 
 Now, flip back to the WordPress plugin configuration screen and begin entering values.
 * Paste the values <InlineField>Client Id</InlineField> and <InlineField>Client Secret</InlineField> fields in the configuration form.
-* Put `openid` in the <InlineField>OpenID Scope</InlineField> field.
+* Put <InlineFieldValue>openid</InlineFieldValue> in the <InlineField>OpenID Scope</InlineField> field.
 * In the <InlineField>Login Endpoint URL</InlineField> field, put *`<your-fusionauth-domain>/oauth2/authorize`*. \
   In our case, it will be: `http://localhost:9011/oauth2/authorize`
 * In the <InlineField>Userinfo Endpoint URL</InlineField> field, put <InlineFieldValue>http://your-fusionauth-domain/oauth2/userinfo</InlineFieldValue>. However since we're running in a Docker container, WordPress can't reach FusionAuth through <InlineFieldValue>localhost</InlineFieldValue>, so the URL should be: <InlineFieldValue>http://fusionauth:9011/oauth2/userinfo</InlineFieldValue>
