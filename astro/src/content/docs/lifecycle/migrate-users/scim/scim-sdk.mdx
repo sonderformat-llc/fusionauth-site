@@ -213,7 +213,7 @@ mvn compile
 
 Then, run it. You need to provide two arguments to the application. The first is the client secret for the SCIM client entity. This value, along with the client Id, will be used to authenticate the SCIM client before the SCIM APIs are called. If you didn't record this, navigate to <Breadcrumb>Entity Management -> Entities</Breadcrumb>, view the details of the SCIM Client entity, and copy the secret.
 
-Then, run the command below, with the value of <InlineFieldValue>YOUR_CLIENT_SECRET</InlineFieldValue> updated to the real value, such as <InlineField>i2kN2KFBPKKj3FsxfilPXDDreBUskn2Sl-27QbQRYQM</InlineField>.
+Then, run the command below, with the value of <InlineField>YOUR_CLIENT_SECRET</InlineField> updated to the real value, such as <InlineFieldValue>i2kN2KFBPKKj3FsxfilPXDDreBUskn2Sl-27QbQRYQM</InlineFieldValue>.
 
 ```shell title="Running the sample application"
 mvn exec:java -Dexec.mainClass="io.fusionauth.example.scim.ScimExample" \
