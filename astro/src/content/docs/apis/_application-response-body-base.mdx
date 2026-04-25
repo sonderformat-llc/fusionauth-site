@@ -70,7 +70,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     The Id of the signing key used to sign the access token.
   </APIField>
   <APIField name={ props.base_field_name + ".jwtConfiguration.enabled" } type="Boolean">
-    Indicates if this application is using the JWT configuration defined here or the global JWT configuration defined by the Tenant. If this is <InlineFieldValue>false</InlineFieldValue> the signing algorithm configured in the Tenant will be used. If <InlineFieldValue>true</InlineFieldValue> the signing algorithm defined in this application will be used.
+    Indicates if this application is using the JWT configuration defined here or the global JWT configuration defined by the Tenant. If this is `false` the signing algorithm configured in the Tenant will be used. If `true` the signing algorithm defined in this application will be used.
   </APIField>
   <APIField name={ props.base_field_name + ".jwtConfiguration.idTokenKeyId" } type="UUID" since="1.6.0">
     The Id of the signing key used to sign the Id token.
@@ -90,7 +90,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
 
     This value must be greater than `0` and less than `86400` which is equal to 24 hours. Setting this value to <InlineFieldValue>0</InlineFieldValue> effectively disables the grace period which means a one-time token may not be reused. For security reasons, you should keep this value as small as possible, and only increase past `0` to improve reliability for an asynchronous or clustered integration that may require a brief grace period.
 
-    Note that one-time use tokens refreshed within a grace period are not considered for revocation when <InlineField>tenant.jwtConfiguration.refreshTokenRevocationPolicy.onOneTimeTokenReuse</InlineField> is <InlineFieldValue>true</InlineFieldValue>. When a token is reused within the grace period the current token will be returned on the API response and the token will not be rotated.
+    Note that one-time use tokens refreshed within a grace period are not considered for revocation when <InlineField>tenant.jwtConfiguration.refreshTokenRevocationPolicy.onOneTimeTokenReuse</InlineField> is `true`. When a token is reused within the grace period the current token will be returned on the API response and the token will not be rotated.
   </APIField>
 
   <APIField name={ props.base_field_name + ".jwtConfiguration.refreshTokenSlidingWindowConfiguration.maximumTimeToLiveInMinutes" } type="Integer" since="1.46.0">
@@ -146,7 +146,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     Indicates if a Refresh Token should be issued from the Login API.
   </APIField>
   <APIField name={ props.base_field_name + ".loginConfiguration.requireAuthentication" } type="Boolean" since="1.5.0">
-    Indicates if the Login API should require an API key. If you set this value to <InlineFieldValue>false</InlineFieldValue> and your FusionAuth API is on a public network, anyone may attempt to use the Login API.
+    Indicates if the Login API should require an API key. If you set this value to `false` and your FusionAuth API is on a public network, anyone may attempt to use the Login API.
   </APIField>
   <APIField name={ props.base_field_name + ".multiFactorConfiguration.email.templateId" } type="UUID" since="1.26.0">
     The Id of the email template that is used when notifying a user to complete a multi-factor authentication request.
@@ -514,7 +514,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     The unique Id of the Key used to sign the SAML Logout response.
   </APIField>
   <APIField name={ props.base_field_name + ".samlv2Configuration.logout.requireSignedRequests" } type="Boolean" since="1.25.0">
-    When this value is <InlineFieldValue>true</InlineFieldValue> all Logout requests missing a signature will be rejected.
+    When this value is `true` all Logout requests missing a signature will be rejected.
   </APIField>
   <APIField name={ props.base_field_name + ".samlv2Configuration.logout.singleLogout.enabled" } type="Boolean" since="1.25.0">
     Whether or not SAML Single Logout for this SAML IdP is enabled.
@@ -539,7 +539,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     The URL that the browser is taken to after the user logs out of the SAML service provider.
   </APIField>
   <APIField name={ props.base_field_name + ".samlv2Configuration.requireSignedRequests" } type="Boolean" since="1.20.0">
-    When this value is <InlineFieldValue>true</InlineFieldValue> all requests missing a signature will be rejected.
+    When this value is `true` all requests missing a signature will be rejected.
   </APIField>
   <APIField name={ props.base_field_name + ".samlv2Configuration.xmlSignatureC14nMethod" } type="String" since="1.6.0">
     The XML signature canonicalization method used when digesting and signing the SAML response.
@@ -603,13 +603,13 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     Whether or not registrations to this Application may be verified.
   </APIField>
   <APIField name={ props.base_field_name + ".webAuthnConfiguration.bootstrapWorkflow.enabled" } type="Boolean" since="1.41.0">
-    Whether the WebAuthn bootstrap workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>{props.base_field_name}.webAuthnConfiguration.enabled</InlineField> is <InlineFieldValue>false</InlineFieldValue>.
+    Whether the WebAuthn bootstrap workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>{props.base_field_name}.webAuthnConfiguration.enabled</InlineField> is `false`.
   </APIField>
   <APIField name={ props.base_field_name + ".webAuthnConfiguration.enabled" } type="Boolean" since="1.41.0">
-    Indicates if this application enables WebAuthn workflows based on the configuration defined here or the Tenant WebAuthn configuration. If this is <InlineFieldValue>false</InlineFieldValue>, WebAuthn workflows are enabled based on the Tenant configuration. If <InlineFieldValue>true</InlineFieldValue>, WebAuthn workflows are enabled according to the configuration of this application.
+    Indicates if this application enables WebAuthn workflows based on the configuration defined here or the Tenant WebAuthn configuration. If this is `false`, WebAuthn workflows are enabled based on the Tenant configuration. If `true`, WebAuthn workflows are enabled according to the configuration of this application.
   </APIField>
   <APIField name={ props.base_field_name + ".webAuthnConfiguration.reauthenticationWorkflow.enabled" } type="Boolean" since="1.41.0">
-    Whether the WebAuthn reauthentication workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>{props.base_field_name}.webAuthnConfiguration.enabled</InlineField> is <InlineFieldValue>false</InlineFieldValue>.
+    Whether the WebAuthn reauthentication workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>{props.base_field_name}.webAuthnConfiguration.enabled</InlineField> is `false`.
   </APIField>
   <APIField name="expandable" type="Array<String>" since="1.50.0" renderif={!!props.search_result}>
     The available expandable properties that are not expanded in the response.

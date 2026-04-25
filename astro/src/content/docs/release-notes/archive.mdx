@@ -1247,7 +1247,7 @@ Features that require the Threat Detection feature:
 * When FusionAuth is acting as a SAML Identity Provider, you may now send a NameID format of Email or Persistent.
   * This should allow FusionAuth to work with additional SAML service providers such as Slack.
   * Resolves [GitHub Issue #522](https://github.com/FusionAuth/fusionauth-issues/issues/522)
-* The [Email Send](/docs/apis/emails#send-an-email) API now allows you to send to a user that does not yet exist in FusionAuth by allowing you to specify an email address for the <InlineField>To:</InlineField> field.
+* The [Email Send](/docs/apis/emails#send-an-email) API now allows you to send to a user that does not yet exist in FusionAuth by allowing you to specify an email address for the <InlineField>To</InlineField>: field.
   * Resolves [GitHub Issue #743](https://github.com/FusionAuth/fusionauth-issues/issues/743)
   * See the  [Email Send](/docs/apis/login) API for additional details.
 * The Facebook and Google Identity Providers will now default to using a redirect instead of a popup for login. All existing configurations will be migrated to use the popup dialog to remain consistent with the previous behavior. With this update you may now also use the `idp_hint` parameter to login with Facebook and Google.
@@ -2378,7 +2378,7 @@ The following issues were fixed that only affect those running version 1.16.0-RC
 ### Fixed
 * When using PostgreSQL and using the Import User API with a large amount of roles assigned to user FusionAuth may exceed the maximum allowed parameterized values in a prepared statement causing a SQL exception. If you encounter this issue you may work around the issue by reducing the size of your import request to 200-500 users per request.
   * Resolves [GitHub Issue #505](https://github.com/FusionAuth/fusionauth-issues/issues/505), thanks to [@leafknode](https://github.com/leafknode) for reporting and helping debug!
-* When creating a user through Kickstart with `passwordChangeRequired` set to <InlineFieldValue>true</InlineFieldValue> and exception will occur during the next login request. This issue was introduced in version 1.15.0.
+* When creating a user through Kickstart with `passwordChangeRequired` set to `true` and exception will occur during the next login request. This issue was introduced in version 1.15.0.
   * Resolves [GitHub Issue #509](https://github.com/FusionAuth/fusionauth-issues/issues/509), thanks to [@mgetka](https://github.com/mgetka) for reporting!
 * When a Kickstart file contains multi-byte characters the string value may not be encoded properly if the default file encoding is not UTF-8. This has now been resolved by explicitly requesting UTF-8 encoding during file I/O.
   * Resolves [GitHub Issue #510](https://github.com/FusionAuth/fusionauth-issues/issues/510), thanks to [@mgetka](https://github.com/mgetka) for reporting!

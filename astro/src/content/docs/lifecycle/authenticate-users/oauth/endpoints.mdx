@@ -1466,8 +1466,8 @@ This is an example response body when the provided `access_token` was issued on 
 
 <APIBlock>
   <APIField name="active" type="String">
-    When this value is <InlineFieldValue>true</InlineFieldValue> the token is valid and additional claims will be provided in the response body.
-    When this value is <InlineFieldValue>false</InlineFieldValue> no claims will be provided in the response body.
+    When this value is `true` the token is valid and additional claims will be provided in the response body.
+    When this value is `false` no claims will be provided in the response body.
   </APIField>
   <APIField name="applicationId" type="UUID">
     The unique Id of the Application for which the user has been authenticated. This claim is only present if the user is registered for the application.
@@ -1563,8 +1563,8 @@ This is an example response body when the provided `access_token` was issued as 
 
 <APIBlock>
   <APIField name="active" type="String">
-    When this value is <InlineFieldValue>true</InlineFieldValue> the token is valid and additional claims will be provided in the response body.
-    When this value is <InlineFieldValue>false</InlineFieldValue> no claims will be provided in the response body.
+    When this value is `true` the token is valid and additional claims will be provided in the response body.
+    When this value is `false` no claims will be provided in the response body.
   </APIField>
   <APIField name="aud" type="Object">
     The intended audience of this access token. This value may be a string or an array of string values representing one to many intended entities.
@@ -1892,7 +1892,7 @@ In each of the endpoint's documentation, it describes when and how to use the `c
 Even when the client secret is not required, if it is provided it will be validated.
 
 Previous to version `1.28.0`, whether the client secret was required was controlled by the <InlineField>oauthConfiguration.requireClientAuthentication</InlineField> value of the application object.
-In that case, a value of <InlineFieldValue>true</InlineFieldValue> is equivalent to a <InlineField>clientAuthenticationPolicy</InlineField> of `Required` and a value of <InlineFieldValue>false</InlineFieldValue> is equivalent to a <InlineField>clientAuthenticationPolicy</InlineField> of `NotRequired`.
+In that case, a value of `true` is equivalent to a <InlineField>clientAuthenticationPolicy</InlineField> of `Required` and a value of `false` is equivalent to a <InlineField>clientAuthenticationPolicy</InlineField> of `NotRequired`.
 
 For versions `1.28.0` or later, use <InlineField>oauthConfiguration.clientAuthenticationPolicy</InlineField> to configure this functionality.
 

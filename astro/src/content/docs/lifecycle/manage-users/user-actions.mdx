@@ -91,7 +91,7 @@ Once the Action instance expires (the `Ended` event), it can trigger a goodbye e
 
 * Check the subscription state of the Action for the User in FusionAuth from your site when the user attempts to log in.
 * Use a webhook at the end of the Action to change the User's Role in FusionAuth and disallow that role in your site.
-* Use a webhook at the end of the Action to call your code to create another temporal Action in FusionAuth with an indefinite end date and <InlineField>preventLogin</InlineField> set to <InlineFieldValue>true</InlineFieldValue>.
+* Use a webhook at the end of the Action to call your code to create another temporal Action in FusionAuth with an indefinite end date and <InlineField>preventLogin</InlineField> set to `true`.
 
 The last option is probably the simplest and most idiomatic way to use FusionAuth in most cases. In fact, using an Action to prevent login is the most common use case for Actions.
 
@@ -144,7 +144,7 @@ Action parameters are used when you create an Action definition.
 * <InlineField>startEmailTemplateId</InlineField>, <InlineField>cancelEmailTemplateId</InlineField>, <InlineField>modifyEmailTemplateId</InlineField>, <InlineField>endEmailTemplateId</InlineField> — The Id of the email templates to use when the Action starts, is canceled, is modified, or expires. Temporal Actions have all four events, whereas instantaneous Actions have only the start event.
 * <InlineField>includeEmailInEventJSON</InlineField> — Whether to include the email information in the JSON sent to the webhook when an Action is taken.
 * <InlineField>options</InlineField>, <InlineField>options[x].name</InlineField>, <InlineField>options[x].localizedNames</InlineField>
-* <InlineField>preventLogin</InlineField> — User may not log in if <InlineFieldValue>true</InlineFieldValue> until the Action expires.
+* <InlineField>preventLogin</InlineField> — User may not log in if `true` until the Action expires.
 * <InlineField>sendEndEvent</InlineField> — Whether to call webhooks when this Action instance expires.
 * <InlineField>temporal</InlineField> — Whether the Action is temporal.
 * <InlineField>userEmailingEnabled</InlineField>, <InlineField>userNotificationsEnabled</InlineField> — Enabling user notifications for an Action doesn't contact the user, but adds a <InlineField>notifyUser</InlineField> field to the JSON sent to webhooks.

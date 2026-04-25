@@ -91,7 +91,7 @@ import IdentityProviderTenantConfiguration from 'src/content/docs/apis/identity-
 
     This claim will be resolved using the following precedence where the first occurrence will be used. The UserInfo response, followed by the `id_token` when present assuming the signature can be verified.
 
-    When the <InlineField>identityProvider.linkingStrategy</InlineField> is equal to <InlineFieldValue>LinkByEmail</InlineFieldValue> or <InlineFieldValue>LinkByEmailForExistingUser</InlineFieldValue> and this claim is present and the value is <InlineFieldValue>false</InlineFieldValue> a link will not be established and an error will be returned indicating a link cannot be established using an unverified email address.
+    When the <InlineField>identityProvider.linkingStrategy</InlineField> is equal to <InlineFieldValue>LinkByEmail</InlineFieldValue> or <InlineFieldValue>LinkByEmailForExistingUser</InlineFieldValue> and this claim is present and the value is `false` a link will not be established and an error will be returned indicating a link cannot be established using an unverified email address.
   </APIField>
   <APIField name="identityProvider.oauth2.issuer" type="String" optional>
     The top-level issuer URI for the OpenID Connect identity provider. If this is provided, the authorization endpoint, token endpoint and userinfo endpoint will all be resolved using the `issuer` URI plus `/.well-known/openid-configuration`.
@@ -116,7 +116,7 @@ import IdentityProviderTenantConfiguration from 'src/content/docs/apis/identity-
     This claim will be resolved using the following precedence where the first occurrence will be used. The UserInfo response, followed by the `id_token` when present assuming the signature can be verified.
   </APIField>
   <APIField name="identityProvider.postRequest" type="Boolean" optional defaults="false" since="1.20.0">
-    Set this value equal to <InlineFieldValue>true</InlineFieldValue> if you wish to use POST bindings with this OpenID Connect identity provider. The default value of <InlineFieldValue>false</InlineFieldValue> means that a redirect binding which uses a `GET` request will be used.
+    Set this value equal to `true` if you wish to use POST bindings with this OpenID Connect identity provider. The default value of `false` means that a redirect binding which uses a `GET` request will be used.
   </APIField>
 
   <IdentityProviderTenantConfiguration idp_type={props.idp_type} idp_since={props.idp_since} optional_tag={props.optional_tag} />

@@ -133,7 +133,7 @@ Settings in this section configure how FusionAuth processes the SAML response.
   <APIField name="Enable IdP initiated login" optional defaults="false" since="1.41.0">
     When enabled, FusionAuth will be able to initiate a login request to a SAML v2 Service Provider.
 
-    Once enabled, open the View dialog or this application to view the integration URI. You will find this value in the view dialog in the SAML v2 Integration details, and the value will be named <InlineField>Initiate login URL:</InlineField>.
+    Once enabled, open the View dialog or this application to view the integration URI. You will find this value in the view dialog in the SAML v2 Integration details, and the value will be named <InlineField>Initiate login URL</InlineField>:.
   </APIField>
   <APIField name="NameID format" optional defaults="Persistent" since="1.41.0">
     The NameId format to send in the AuthN response to the SAML v2 Service Provider. There are two valid values:
@@ -161,7 +161,7 @@ Settings in this section configure SAML Logout handling. They define how FusionA
     If a <InlineField>Require signature</InlineField> is not enabled, this field is optional.
   </APIField>
   <APIField name="Logout behavior" optional>
-    When set to `All session participants`, each session participant that has <InlineField>Enable single logout</InlineField> set to <InlineFieldValue>true</InlineFieldValue> will be sent a Logout Request.
+    When set to `All session participants`, each session participant that has <InlineField>Enable single logout</InlineField> set to `true` will be sent a Logout Request.
 
     When set to `Only Originator`, no other session participants will be notified when a logout request is sent for this application.
 

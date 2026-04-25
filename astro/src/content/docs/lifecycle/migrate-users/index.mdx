@@ -544,7 +544,7 @@ Map each attribute from the LDAP directory into the FusionAuth user object. You 
 
 <LdapConnectorReconcile />
 
-Make sure you uncomment the lines where `user.data.migrated` is set to <InlineFieldValue>true</InlineFieldValue>, as that will be needed to monitor the migration progress. More details about LDAP configuration are available in the [LDAP Connector documentation](/docs/lifecycle/migrate-users/connectors/ldap-connector).
+Make sure you uncomment the lines where `user.data.migrated` is set to `true`, as that will be needed to monitor the migration progress. More details about LDAP configuration are available in the [LDAP Connector documentation](/docs/lifecycle/migrate-users/connectors/ldap-connector).
 
 ##### Generic
 
@@ -554,7 +554,7 @@ Make sure you use TLS and other security measures to connect to this endpoint, s
 
 #### Capturing Migration Progress
 
-As discussed above, you want to make sure you can identify that a user has been migrated, rather than created directly in FusionAuth. Having this data allows you to determine progress toward your migration goal. Ensure that every migrated user has a `user.data.migrated` attribute set to <InlineFieldValue>true</InlineFieldValue>. Whichever connection you use, make sure you set this attribute, as illustrated above.
+As discussed above, you want to make sure you can identify that a user has been migrated, rather than created directly in FusionAuth. Having this data allows you to determine progress toward your migration goal. Ensure that every migrated user has a `user.data.migrated` attribute set to `true`. Whichever connection you use, make sure you set this attribute, as illustrated above.
 
 #### Testing
 
@@ -676,7 +676,7 @@ You can look for failed logins.
 
 * Set up a webhook for [failed login](/docs/extend/events-and-webhooks/events/user/login/user-login-failed).
 * Check to see if the email address exists in your legacy user data store.
-* If the user exists, migrate the user data via the [User API](/docs/apis/users#create-a-user), setting <InlineField>sendSetPasswordEmail</InlineField> to <InlineFieldValue>true</InlineFieldValue>.
+* If the user exists, migrate the user data via the [User API](/docs/apis/users#create-a-user), setting <InlineField>sendSetPasswordEmail</InlineField> to `true`.
 
 This will force the user to reset their password, which may be a surprise to them, but will let them continue to access their account without contacting customer service. If you pursue this option, make sure you consider the content of the Set Password email template.
 

@@ -804,7 +804,7 @@ async function (accessToken, clientId, expectedAud, expectedIss) {
 }
 ```
 
-This function makes a request to the Introspect endpoint and then parses the result, returning <InlineFieldValue>true</InlineFieldValue> or <InlineFieldValue>false</InlineFieldValue>. As you can see, you can't defer all token logic to the Introspect endpoint, however. The consumer of the access token should also validate the `aud` and `iss` claims are as expected, at a minimum. There may be other application specific validation required as well.
+This function makes a request to the Introspect endpoint and then parses the result, returning `true` or `false`. As you can see, you can't defer all token logic to the Introspect endpoint, however. The consumer of the access token should also validate the `aud` and `iss` claims are as expected, at a minimum. There may be other application specific validation required as well.
 
 ##### The UserInfo Endpoint
 

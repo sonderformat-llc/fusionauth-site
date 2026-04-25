@@ -316,7 +316,7 @@ There are two types of self service registration, basic and advanced.
   </APIField>
 
   <APIField name="Field" readonly>
-     The user attribute that can be shown on the registration form. Each field can be <InlineField>Enabled</InlineField> and/or <InlineField>Required</InlineField>.
+     The user attribute that can be shown on the registration form. Each field can be <Breadcrumb>Enabled</Breadcrumb> and/or <Breadcrumb>Required</Breadcrumb>.
   </APIField>
 
   <APIField name="Enabled" optional>
@@ -324,7 +324,7 @@ There are two types of self service registration, basic and advanced.
   </APIField>
 
   <APIField name="Required" optional>
-        This field will be required and the user will be unable to complete registration unless the field is provided. If this field is not also <InlineField>Enabled</InlineField> then it will not be required.
+        This field will be required and the user will be unable to complete registration unless the field is provided. If this field is not also <Breadcrumb>Enabled</Breadcrumb> then it will not be required.
   </APIField>
 </APIBlock>
 
@@ -450,7 +450,7 @@ The SAML configuration allows you to reveal FusionAuth as a SAML v2 Identity Pro
   <APIField name="Enable IdP initiated login" optional defaults="false" since="1.41.0">
     When enabled, FusionAuth will be able to initiate a login request to a SAML v2 Service Provider.
 
-    Once enabled, open the View dialog or this application to view the integration URI. You will find this value in the view dialog in the SAML v2 Integration details, and the value will be named <InlineField>Initiate login URL:</InlineField>.
+    Once enabled, open the View dialog or this application to view the integration URI. You will find this value in the view dialog in the SAML v2 Integration details, and the value will be named <InlineField>Initiate login URL</InlineField>:.
   </APIField>
   <APIField name="NameID format" optional defaults="Persistent" since="1.41.0">
     The NameId format to send in the AuthN response to the SAML v2 Service Provider. There are two valid values:

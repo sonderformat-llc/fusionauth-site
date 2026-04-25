@@ -78,7 +78,7 @@ Cookie: refresh_token=xRxGGEpVawiUak6He367W3oeOfh+3irw+1G1h1jc
     The encoded access token.
   </APIField>
   <APIField name="refreshToken" type="String">
-    The refresh token. This value will only be returned if a valid non-expired refresh token was provided on the request and <InlineField>application.loginConfiguration.generateRefreshTokens</InlineField> is <InlineFieldValue>true</InlineFieldValue>. The returned refresh token will share the same creation time as the original refresh token in regards to how the token expiration is calculated.
+    The refresh token. This value will only be returned if a valid non-expired refresh token was provided on the request and <InlineField>application.loginConfiguration.generateRefreshTokens</InlineField> is `true`. The returned refresh token will share the same creation time as the original refresh token in regards to how the token expiration is calculated.
 
     The refresh token expiration policy as defined by <InlineField>jwtConfiguration.refreshTokenExpirationPolicy</InlineField> must be the same as the source application, if the policies are different a refresh token will not be returned.
 
