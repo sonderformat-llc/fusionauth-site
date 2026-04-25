@@ -147,7 +147,7 @@ This will take you to the <Breadcrumb>Add Google</Breadcrumb> panel, and you'll 
 
     <span class="text-green-500">Since 1.44.0</span>
 
-    The <InlineField>Scope</InlineField> value may only be used when the <InlineField>Login method</InlineField> is set to <InlineFieldValue>Use redirect for login</InlineFieldValue>. The `email`, `profile`, and <InlineFieldValue>openid</InlineFieldValue> scopes will always be requested for all other configurations.
+    The <InlineField>Scope</InlineField> value may only be used when the <InlineField>Login method</InlineField> is set to <InlineFieldValue>Use redirect for login</InlineFieldValue>. The <InlineField>email</InlineField>, <InlineField>profile</InlineField>, and <InlineFieldValue>openid</InlineFieldValue> scopes will always be requested for all other configurations.
   </APIField>
   <APIField name="Linking strategy" optional>
     The linking strategy for the Google FusionAuth Identity Provider. [See Linking Strategies for more](/docs/lifecycle/authenticate-users/identity-providers/#linking-strategies).
@@ -247,7 +247,7 @@ Google is great at conforming to OIDC, so using the OIDC provider instead of Goo
 When you need such custom parameters, the Google Identity Provider won't work. Instead, do the following:
 
 * Create an [OpenID Connect Identity Provider](/docs/lifecycle/authenticate-users/identity-providers/overview-oidc).
-* Set <InlineField>Discover endpoints</InlineField> to be `false`.
+* Set <InlineField>Discover endpoints</InlineField> to be <InlineFieldValue>false</InlineFieldValue>.
 * Enter the endpoints manually from the [Discovery document](https://developers.google.com/identity/protocols/oauth2/openid-connect#discovery).
 * Add the desired space-separated [Google OAuth2 scopes](https://developers.google.com/identity/protocols/oauth2/scopes) to <InlineField>Scope</InlineField>. The most commonly requested scopes are <InlineFieldValue>openid</InlineFieldValue>, <InlineFieldValue>profile</InlineFieldValue> and <InlineFieldValue>email</InlineFieldValue>. You must include <InlineFieldValue>email</InlineFieldValue> if you're using the [linking on email](/docs/lifecycle/authenticate-users/identity-providers/#linking-strategies) strategy.
 * Append whatever additional parameters are needed to the <InlineField>Authorization endpoint</InlineField> value. For example, you might end up with something like `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=select_account` .

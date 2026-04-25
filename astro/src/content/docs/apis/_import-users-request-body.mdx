@@ -38,7 +38,7 @@ You must provide either the <InlineField>email</InlineField> or the <InlineField
   </APIField>
 
   <APIField name="users[x].active" type="Boolean" optional defaults="false">
-    True if the User is active. False if the User has been deactivated. Deactivated Users will not be able to login. Generally this should be set to `true` during the bulk import.
+    True if the User is active. False if the User has been deactivated. Deactivated Users will not be able to login. Generally this should be set to <InlineFieldValue>true</InlineFieldValue> during the bulk import.
   </APIField>
 
   <APIField name="users[x].birthDate" type="String" optional>
@@ -155,7 +155,7 @@ You must provide either the <InlineField>email</InlineField> or the <InlineField
 </APIField>
 
 <APIField name="users[x].passwordChangeReason" type="String" optional defaults="Administrative">
-  When <InlineField>passwordChangeRequired</InlineField> is set to `true` you may optionally set a reason for this change. The possible values are:
+  When <InlineField>passwordChangeRequired</InlineField> is set to <InlineFieldValue>true</InlineFieldValue> you may optionally set a reason for this change. The possible values are:
 
   * `Administrative` - the password must be changed due to an administrative action
   * `Breached` - the password must be changed due to it being identified as breached in some fashion
@@ -227,7 +227,7 @@ You must provide either the <InlineField>email</InlineField> or the <InlineField
 </APIField>
 
 <APIField name="users[x].registrations[x].roles" type="Array<String>" optional>
-  The list of roles that the User has for this registration. The string is the role's `Name` not the role's `Id`, e.g. <InlineFieldValue>admin</InlineFieldValue> or `user-role`.
+  The list of roles that the User has for this registration. The string is the role's <InlineField>Name</InlineField> not the role's <InlineField>Id</InlineField>, e.g. <InlineFieldValue>admin</InlineFieldValue> or <InlineField>user-role</InlineField>.
 </APIField>
 
 <APIField name="users[x].registrations[x].username" type="String" optional>
@@ -239,11 +239,11 @@ You must provide either the <InlineField>email</InlineField> or the <InlineField
 </APIField>
 
 <APIField name="users[x].registrations[x].verified" type="Boolean" optional defaults="false">
-  Set this value to `true` in order to mark this registration as verified.
+  Set this value to <InlineFieldValue>true</InlineFieldValue> in order to mark this registration as verified.
 </APIField>
 
 <APIField name="users[x].registrations[x].verifiedInstant" type="Long" optional defaults="now">
-  The [instant](/docs/reference/data-types#instants) this registration was verified. This value will be ignored if <InlineField>verified</InlineField> is `false`.
+  The [instant](/docs/reference/data-types#instants) this registration was verified. This value will be ignored if <InlineField>verified</InlineField> is <InlineFieldValue>false</InlineFieldValue>.
 </APIField>
 
 <APIField name="users[x].salt" type="String" optional>
@@ -331,7 +331,7 @@ You must provide either the <InlineField>email</InlineField> or the <InlineField
 
   Unless you are using `TextMessage` as your delivery type, ensure you are able to share the secret with the User before enabling Two Factor authentication. Beginning in version 1.17.0, if you do create a User with `TextMessage` set as the `twoFactorDelivery` type and you omit this value, the secret will be generated for you. The secret can be generated because it is not necessary to share the secret with the User for this delivery method.
 
-  When using <InlineFieldValue>None</InlineFieldValue> as the `twoFactorDelivery` this value will be required.
+  When using <InlineFieldValue>None</InlineFieldValue> as the <InlineField>twoFactorDelivery</InlineField> this value will be required.
 
   <RemovedSince since="1.26.0" />
 </APIField>
@@ -345,20 +345,20 @@ You must provide either the <InlineField>email</InlineField> or the <InlineField
 </APIField>
 
 <APIField name="users[x].verified" type="Boolean" optional defaults="false">
-  Set this value to `true` in order to mark the user as having a verified email address and/or phone number. If the user has both identity types, both will be marked as verified.
+  Set this value to <InlineFieldValue>true</InlineFieldValue> in order to mark the user as having a verified email address and/or phone number. If the user has both identity types, both will be marked as verified.
 </APIField>
 
 <APIField name="users[x].verifiedInstant" type="Long" optional defaults="now">
-  The [instant](/docs/reference/data-types#instants) this user's email address or phone number was verified. This value will be ignored if <InlineField>verified</InlineField> is `false`.
+  The [instant](/docs/reference/data-types#instants) this user's email address or phone number was verified. This value will be ignored if <InlineField>verified</InlineField> is <InlineFieldValue>false</InlineFieldValue>.
 </APIField>
 
 <APIField name="validateDbConstraints" type="Boolean" optional defaults="false">
-  Set this value to `true` in order to perform additional validation of the request.
+  Set this value to <InlineFieldValue>true</InlineFieldValue> in order to perform additional validation of the request.
 
   The import request is intended to be used to populate the initial set of users, this means FusionAuth does not expect to find duplicate users in the database. If a duplicate is encountered a `500` will be returned without this additional validation.
 
-  If you intend to use this API with existing users in FusionAuth set this value to `true` to request additional validation be performed on the input request and a `400` response will be returned with a JSON body indicating the duplicate values encountered.
+  If you intend to use this API with existing users in FusionAuth set this value to <InlineFieldValue>true</InlineFieldValue> to request additional validation be performed on the input request and a `400` response will be returned with a JSON body indicating the duplicate values encountered.
 
-  Setting this value to `true` will dramatically decrease the performance of this request. If importing large numbers of users in a single request you may need to increase request timeouts to ensure this request does not timeout before it has completed.
+  Setting this value to <InlineFieldValue>true</InlineFieldValue> will dramatically decrease the performance of this request. If importing large numbers of users in a single request you may need to increase request timeouts to ensure this request does not timeout before it has completed.
 </APIField>
 <JSON title="Example Request JSON" src="users/import-request.json" />

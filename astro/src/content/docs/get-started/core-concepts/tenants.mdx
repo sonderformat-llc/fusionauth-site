@@ -102,7 +102,7 @@ Enable <InlineField>Unique usernames</InlineField> to allow multiple users sugge
 
 <APIBlock>
   <APIField name="Unique usernames" optional defaults="false" since="1.27.0">
-    When `true`, FusionAuth will handle username collisions.
+    When <InlineFieldValue>true</InlineFieldValue>, FusionAuth will handle username collisions.
 
 <PremiumPlanBlurb />
   </APIField>
@@ -737,17 +737,17 @@ See [invisible reCAPTCHA](/docs/customize/look-and-feel/advanced-themes/helpers#
   <APIField name="Method" required>
     The type of CAPTCHA to use. FusionAuth supports `Google reCAPTCHA v2`, `Google reCAPTCHA v3`, `hCaptcha`, and `hCaptcha Enterprise`.
 
-    Required when `enabled` is set to `true`.
+    Required when <InlineField>enabled</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="Secret key" required>
     The secret key for this CAPTCHA service.
 
-    Required when `enabled` is set to `true`.
+    Required when <InlineField>enabled</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="Site key" required>
     The site key for this CAPTCHA service.
 
-    Required when `enabled` is set to `true`.
+    Required when <InlineField>enabled</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="Threat score threshold" optional>
     The threat score threshold for this CAPTCHA service if required. If it is not used by this CAPTCHA service then the value will be ignored.

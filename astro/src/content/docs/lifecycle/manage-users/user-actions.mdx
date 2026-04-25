@@ -91,7 +91,7 @@ Once the Action instance expires (the `Ended` event), it can trigger a goodbye e
 
 * Check the subscription state of the Action for the User in FusionAuth from your site when the user attempts to log in.
 * Use a webhook at the end of the Action to change the User's Role in FusionAuth and disallow that role in your site.
-* Use a webhook at the end of the Action to call your code to create another temporal Action in FusionAuth with an indefinite end date and <InlineField>preventLogin</InlineField> set to `true`.
+* Use a webhook at the end of the Action to call your code to create another temporal Action in FusionAuth with an indefinite end date and <InlineField>preventLogin</InlineField> set to <InlineFieldValue>true</InlineFieldValue>.
 
 The last option is probably the simplest and most idiomatic way to use FusionAuth in most cases. In fact, using an Action to prevent login is the most common use case for Actions.
 
@@ -144,7 +144,7 @@ Action parameters are used when you create an Action definition.
 * <InlineField>startEmailTemplateId</InlineField>, <InlineField>cancelEmailTemplateId</InlineField>, <InlineField>modifyEmailTemplateId</InlineField>, <InlineField>endEmailTemplateId</InlineField> — The Id of the email templates to use when the Action starts, is canceled, is modified, or expires. Temporal Actions have all four events, whereas instantaneous Actions have only the start event.
 * <InlineField>includeEmailInEventJSON</InlineField> — Whether to include the email information in the JSON sent to the webhook when an Action is taken.
 * <InlineField>options</InlineField>, <InlineField>options[x].name</InlineField>, <InlineField>options[x].localizedNames</InlineField>
-* <InlineField>preventLogin</InlineField> — User may not log in if `true` until the Action expires.
+* <InlineField>preventLogin</InlineField> — User may not log in if <InlineFieldValue>true</InlineFieldValue> until the Action expires.
 * <InlineField>sendEndEvent</InlineField> — Whether to call webhooks when this Action instance expires.
 * <InlineField>temporal</InlineField> — Whether the Action is temporal.
 * <InlineField>userEmailingEnabled</InlineField>, <InlineField>userNotificationsEnabled</InlineField> — Enabling user notifications for an Action doesn't contact the user, but adds a <InlineField>notifyUser</InlineField> field to the JSON sent to webhooks.
@@ -528,7 +528,7 @@ In this last Action, you will add Options that represent the responses a user ma
 Your JavaScript code will act as PiedPiper, Intercom, and Slack, all in one. You'll use the `fusionauth-example-5-minute-guide` Node.js app as the base to start from. If you have not worked through [that guide](/docs/get-started/start-here/step-1) and do not have the code available, please do so before continuing.
 
 * Set the `CLIENT_ID` and `CLIENT_SECRET` in your `.env` file to the values you recorded for the new PiedPiper Application in this [section](#create-piedpiper-application).
-* Create a new environment variable in the `.env` file called `API_KEY` and set the value to the value of the API key you created earlier <InlineFieldValue>FTQkSoanK7ObbNjOoU69WDVclfTx8L_zfEJbdR8M0xu-jKotV0iQZiQh</InlineFieldValue>.
+* Create a new environment variable in the `.env` file called <InlineField>API_KEY</InlineField> and set the value to the value of the API key you created earlier <InlineFieldValue>FTQkSoanK7ObbNjOoU69WDVclfTx8L_zfEJbdR8M0xu-jKotV0iQZiQh</InlineFieldValue>.
 * Note in the `package.json` file that the `@fusionauth/typescript-client` library is available for use. This is what will be calling the FusionAuth API to create Action instances.
 
 ### Create Mock Intercom API

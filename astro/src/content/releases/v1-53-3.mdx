@@ -33,7 +33,7 @@ FusionAuth will now use the following order of operations in this non-interactiv
 1. The user's previous selection, if available. This past choice will have been stored in an HTTP only cookie.
 1. The optionally supplied `rememberDevice` query parameter.
 
-In the event that the user has never seen the login page, the value of the `rememberDevice` query parameter will be the deciding factor. A value of `true` indicates that an SSO session should be created and a value of `false` indicates that an SSO session should not be created. If this parameter is omitted, the default behavior will be to create the SSO session.
+In the event that the user has never seen the login page, the value of the <InlineField>rememberDevice</InlineField> query parameter will be the deciding factor. A value of <InlineFieldValue>true</InlineFieldValue> indicates that an SSO session should be created and a value of <InlineFieldValue>false</InlineFieldValue> indicates that an SSO session should not be created. If this parameter is omitted, the default behavior will be to create the SSO session.
 
 For more information on using the `idp_hint` and `login_hint` parameters, see the [Identity Providers Overview](/docs/lifecycle/authenticate-users/identity-providers/) documentation.
 </Item>

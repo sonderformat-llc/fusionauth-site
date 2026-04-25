@@ -70,7 +70,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     The Id of the signing key used to sign the access token.
   </APIField>
   <APIField name="application.jwtConfiguration.enabled" type="Boolean" optional>
-    Indicates if this application is using the JWT configuration defined here or the global JWT configuration defined by the Tenant. If this is `false` the signing algorithm configured in the Tenant will be used. If `true` the signing algorithm defined in this application will be used.
+    Indicates if this application is using the JWT configuration defined here or the global JWT configuration defined by the Tenant. If this is <InlineFieldValue>false</InlineFieldValue> the signing algorithm configured in the Tenant will be used. If <InlineFieldValue>true</InlineFieldValue> the signing algorithm defined in this application will be used.
   </APIField>
   <APIField name="application.jwtConfiguration.idTokenKeyId" type="UUID" optional since="1.6.0">
     The Id of the signing key used to sign the Id token.
@@ -90,7 +90,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
 
     This value must be greater than `0` and less than `86,400` which is equal to 24 hours. Setting this value to `0` effectively disables the grace period which means a one-time token may not be reused. For security reasons, you should keep this value as small as possible, and only increase past `0` to improve reliability for an asynchronous or clustered integration that may require a brief grace period.
 
-    Note that one-time use tokens refreshed within a grace period are not considered for revocation when <InlineField>tenant.jwtConfiguration.refreshTokenRevocationPolicy.onOneTimeTokenReuse</InlineField> is `true`. When a token is reused within the grace period the current token will be returned on the API response and the token will not be rotated.
+    Note that one-time use tokens refreshed within a grace period are not considered for revocation when <InlineField>tenant.jwtConfiguration.refreshTokenRevocationPolicy.onOneTimeTokenReuse</InlineField> is <InlineFieldValue>true</InlineFieldValue>. When a token is reused within the grace period the current token will be returned on the API response and the token will not be rotated.
   </APIField>
 
   <APIField name="application.jwtConfiguration.refreshTokenSlidingWindowConfiguration.maximumTimeToLiveInMinutes" type="Integer" defaults="43,200" optional since="1.46.0">
@@ -101,7 +101,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
   <APIField name="application.jwtConfiguration.refreshTokenTimeToLiveInMinutes" type="Integer" optional since="1.2.0">
     The length of time in minutes the JWT refresh token will live before it is expired and is not able to be exchanged for a JWT.
 
-    Required when `enabled` is set to `true`.
+    Required when <InlineField>enabled</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
 
   <APIField name="application.jwtConfiguration.refreshTokenUsagePolicy" type="String" since="1.17.0" defaults="Reusable" optional>
@@ -113,7 +113,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
   <APIField name="application.jwtConfiguration.timeToLiveInSeconds" type="Integer" optional>
     The length of time in seconds the JWT will live before it is expired and no longer valid.
 
-    Required when `enabled` is set to `true`.
+    Required when <InlineField>enabled</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="application.lambdaConfiguration.accessTokenPopulateId" type="UUID" optional since="1.6.0">
     The Id of the lambda that will be invoked when an access token is generated for this application. This will be utilized during OAuth2 and OpenID Connect authentication requests as well as when an access token is generated for the Login API.
@@ -140,17 +140,17 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
   <APIField name="application.loginConfiguration.allowTokenRefresh" type="Boolean" optional since="1.5.0">
     Indicates if a JWT may be refreshed using a Refresh Token for this application. This configuration is separate from issuing new Refresh Tokens which is controlled by the `generateRefreshTokens` parameter. This configuration indicates specifically if an existing Refresh Token may be used to request a new JWT using the [Refresh API](/docs/apis/jwt#refresh-a-jwt).
 
-    If you do not intend to use the Login API, and instead will only be using the OAuth endpoints, you may leave this set to `false` to ensure Refresh Tokens cannot be used outside of the Refresh Token Grant.
+    If you do not intend to use the Login API, and instead will only be using the OAuth endpoints, you may leave this set to <InlineFieldValue>false</InlineFieldValue> to ensure Refresh Tokens cannot be used outside of the Refresh Token Grant.
   </APIField>
   <APIField name="application.loginConfiguration.generateRefreshTokens" type="Boolean" optional since="1.5.0">
     Indicates if a Refresh Token should be issued from the Login API.
 
-    If you do not intend to use the Login API, and instead will only be using the OAuth endpoints, you may leave this set to `false` to ensure Refresh Tokens will not be issued outside of the OAuth grants.
+    If you do not intend to use the Login API, and instead will only be using the OAuth endpoints, you may leave this set to <InlineFieldValue>false</InlineFieldValue> to ensure Refresh Tokens will not be issued outside of the OAuth grants.
   </APIField>
   <APIField name="application.loginConfiguration.requireAuthentication" type="Boolean" optional since="1.5.0">
-    Indicates if the Login API should require an API key. If you set this value to `false` and your FusionAuth API is on a public network, anyone may attempt to use the Login API.
+    Indicates if the Login API should require an API key. If you set this value to <InlineFieldValue>false</InlineFieldValue> and your FusionAuth API is on a public network, anyone may attempt to use the Login API.
 
-    If you do not intend to use the Login API, or will only be calling this API from a secure backend server, setting this value to `true` in order to require an API key is preferred.
+    If you do not intend to use the Login API, or will only be calling this API from a secure backend server, setting this value to <InlineFieldValue>true</InlineFieldValue> in order to require an API key is preferred.
   </APIField>
   <APIField name="application.multiFactorConfiguration.email.templateId" type="UUID" optional since="1.26.0">
     The Id of the email template that is used when notifying a user to complete a multi-factor authentication request.
@@ -176,7 +176,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
   <APIField name="application.multiFactorConfiguration.trustPolicy" type="String" optional since="1.37.0">
     When <InlineField>application.multiFactorConfiguration.loginPolicy</InlineField> is set to <InlineFieldValue>Enabled</InlineFieldValue> or <InlineFieldValue>Required</InlineFieldValue>, this trust policy is utilized when determining if a user must complete a two-factor challenge during login.
 
-    For example, a normal two-factor login flow will result in a trust Id being returned if you set <InlineField>trustComputer</InlineField> equal to `true` when completing a Two Factor Login. The returned Trust identifier can be used on subsequent Login requests to keep from being required to complete a Two-Factor login. This configuration determines if that trust value can be utilized for another application.
+    For example, a normal two-factor login flow will result in a trust Id being returned if you set <InlineField>trustComputer</InlineField> equal to <InlineFieldValue>true</InlineFieldValue> when completing a Two Factor Login. The returned Trust identifier can be used on subsequent Login requests to keep from being required to complete a Two-Factor login. This configuration determines if that trust value can be utilized for another application.
 
     Supported values include:
 
@@ -387,7 +387,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
 
     Self service registration cannot be enabled on the FusionAuth application.
 
-    If `true`, any user logging in to this application using hosted login pages will automatically have a registration created, if they are not already registered.
+    If <InlineFieldValue>true</InlineFieldValue>, any user logging in to this application using hosted login pages will automatically have a registration created, if they are not already registered.
   </APIField>
   <APIField name="application.registrationConfiguration.firstName.enabled" type="Boolean" optional since="1.4.0">
     Determines if the <InlineField>firstName</InlineField> field will be included on the registration form.
@@ -448,7 +448,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     Indicates that users without a verified registration for this application will have their registration permanently deleted after <InlineField>application.registrationDeletePolicy.unverified.numberOfDaysToRetain</InlineField> days.
   </APIField>
   <APIField name="application.registrationDeletePolicy.unverified.numberOfDaysToRetain" type="Integer" optional since="1.13.0">
-    The number of days from registration a user's registration will be retained before being deleted for not completing registration verification. This field is required when <InlineField>application.registrationDeletePolicy.enabled</InlineField> is set to `true`.  Value must be greater than 0.
+    The number of days from registration a user's registration will be retained before being deleted for not completing registration verification. This field is required when <InlineField>application.registrationDeletePolicy.enabled</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.  Value must be greater than 0.
   </APIField>
   <APIField name="application.roles" type="Array" optional renderif={!!props.is_create}>
     An array of Role objects.
@@ -514,7 +514,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
   <APIField name="application.samlv2Configuration.assertionEncryptionConfiguration.keyTransportEncryptionKeyId" type="UUID" optional since="1.47.0">
     The unique Id of the Key used to encrypt the symmetric key for transport in the SAML response. The selected Key must contain an RSA certificate.
 
-    This parameter is required when <InlineField>application.samlv2Configuration.assertionEncryptionConfiguration.enabled</InlineField> is set to `true`.
+    This parameter is required when <InlineField>application.samlv2Configuration.assertionEncryptionConfiguration.enabled</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="application.samlv2Configuration.assertionEncryptionConfiguration.maskGenerationFunction" type="String" optional since="1.47.0">
     The mask generation function and hash function to use for the Optimal Asymmetric Encryption Padding when encrypting a symmetric key for transport. The possible values are:
@@ -525,7 +525,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
      * `MGF1_SHA384` - MGF1 mask generation function with SHA-384 hash
      * `MGF1_SHA512` - MGF1 mask generation function with SHA-512 hash
 
-    This value is only used when the <InlineField>application.samlv2Configuration.assertionEncryptionConfiguration.keyTransportAlgorithm</InlineField> is set to `RSA_OAEP`. `RSAv15` does not require a message digest function, and <InlineFieldValue>RSA_OAEP_MGF1P</InlineFieldValue> will always use <InlineFieldValue>MGF1_SHA1</InlineFieldValue> regardless of this value.
+    This value is only used when the <InlineField>application.samlv2Configuration.assertionEncryptionConfiguration.keyTransportAlgorithm</InlineField> is set to <InlineField>RSA_OAEP</InlineField>. <InlineField>RSAv15</InlineField> does not require a message digest function, and <InlineFieldValue>RSA_OAEP_MGF1P</InlineFieldValue> will always use <InlineFieldValue>MGF1_SHA1</InlineFieldValue> regardless of this value.
   </APIField>
   <APIField name="application.samlv2Configuration.audience" type="String" optional since="1.6.0">
     The audience for the SAML response sent to back to the service provider from FusionAuth. Some service providers require different audience values than the `issuer` and this configuration option lets you change the `audience` in the response.
@@ -535,7 +535,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
 
     This is the URL that FusionAuth will send the SAML response during a SAML login request, this URL is also referred to as the Assertion Consumer Service or ACS). If the Authentication request does not contain the `[AssertionConsumerServiceURL]` element, the first URL found in this list will be used to send the SAML response back to the Service Provider.
 
-    If the <InlineField>application.samlv2Configuration.initiatedLogin.enabled</InlineField> is `true`, the particular URL where the user will end up after successful login can be configured by appending a parameter to the `Initiate login URL`. The parameter must be either `redirect_uri` or `RelayState`. The value should be a URL encoded URL present in this field. If both `RelayState` and `redirect_uri` are present `redirect_uri` will be ignored in favor of `RelayState`.
+    If the <InlineField>application.samlv2Configuration.initiatedLogin.enabled</InlineField> is <InlineFieldValue>true</InlineFieldValue>, the particular URL where the user will end up after successful login can be configured by appending a parameter to the `Initiate login URL`. The parameter must be either <InlineField>redirect_uri</InlineField> or <InlineField>RelayState</InlineField>. The value should be a URL encoded URL present in this field. If both <InlineField>RelayState</InlineField> and <InlineField>redirect_uri</InlineField> are present <InlineField>redirect_uri</InlineField> will be ignored in favor of <InlineField>RelayState</InlineField>.
   </APIField>
   <APIField name="application.samlv2Configuration.callbackURL" type="String" optional since="1.6.0" deprecated>
     The URL of the callback (sometimes called the Assertion Consumer Service or ACS). This is where FusionAuth sends the browser after the user logs in via SAML.
@@ -552,7 +552,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
 
     When HTTP POST Bindings are used, this is the default verification key used if a `[KeyInfo]` element is not found in the SAML AuthNRequest. If a `[KeyInfo]` element is found, Key Master will be used to resolve the key and this configuration will not be used to verify the request signature.
 
-    This parameter is required when <InlineField>application.samlv2Configuration.requireSignedRequests</InlineField> is set to `true`.
+    This parameter is required when <InlineField>application.samlv2Configuration.requireSignedRequests</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="application.samlv2Configuration.enabled" type="Boolean" optional since="1.6.0">
     Determines if the SAML IdP is enabled for this Application.
@@ -586,7 +586,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
   <APIField name="application.samlv2Configuration.logout.defaultVerificationKeyId" type="UUID" optional since="1.25.0">
     The unique Id of the Key used to verify the signature if the public key cannot be determined by the `KeyInfo` element when using POST bindings, or the key used to verify the signature when using HTTP Redirect bindings.
 
-    This parameter is required when <InlineField>application.samlv2Configuration.logout.requireSignedRequests</InlineField> is set to `true`.
+    This parameter is required when <InlineField>application.samlv2Configuration.logout.requireSignedRequests</InlineField> is set to <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="application.samlv2Configuration.logout.keyId" type="UUID" optional since="1.25.0">
     The unique Id of the Key used to sign the SAML Logout response.
@@ -594,9 +594,9 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     When this parameter is omitted, the key defined by `application.samlv2Configuration.keyId` will be used.
   </APIField>
   <APIField name="application.samlv2Configuration.logout.requireSignedRequests" type="Boolean" required since="1.25.0">
-    Set this parameter equal to `true` to require the SAML v2 Service Provider to sign the Logout request. When this value is `true` all Logout requests missing a signature will be rejected.
+    Set this parameter equal to <InlineFieldValue>true</InlineFieldValue> to require the SAML v2 Service Provider to sign the Logout request. When this value is <InlineFieldValue>true</InlineFieldValue> all Logout requests missing a signature will be rejected.
 
-    When set to `true`, the parameter <InlineField>application.samlv2Configuration.logout.defaultVerificationKeyId</InlineField> is required.
+    When set to <InlineFieldValue>true</InlineFieldValue>, the parameter <InlineField>application.samlv2Configuration.logout.defaultVerificationKeyId</InlineField> is required.
   </APIField>
   <APIField name="application.samlv2Configuration.logout.singleLogout.enabled" type="Boolean" optional since="1.25.0">
     Whether or not SAML Single Logout for this SAML IdP is enabled.
@@ -609,7 +609,7 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
   <APIField name="application.samlv2Configuration.logout.singleLogout.url" type="String" optional since="1.25.0">
     The URL at which you want to receive the `LogoutRequest` from FusionAuth.
 
-    Required if <InlineField>application.samlv2Configuration.logout.singleLogout.enabled</InlineField> is `true`.
+    Required if <InlineField>application.samlv2Configuration.logout.singleLogout.enabled</InlineField> is <InlineFieldValue>true</InlineFieldValue>.
   </APIField>
   <APIField name="application.samlv2Configuration.logout.singleLogout.xmlSignatureC14nMethod" type="String" optional since="1.25.0">
     <Xmlsignaturec14nmethodDescription signed_entity="SAML Single Logout response" />
@@ -625,9 +625,9 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     This is also the URL that will be sent the SAML v2 LogoutResponse using the same bindings that were used to initiate the logout request with the IdP. For example, if POST bindings were used to initiate the logout request, POST bindings will be used for this LogoutResponse request.
   </APIField>
   <APIField name="application.samlv2Configuration.requireSignedRequests" type="Boolean" optional since="1.20.0">
-    Set this parameter equal to `true` to require the SAML v2 Service Provider to sign the request. When this value is `true` all requests missing a signature will be rejected.
+    Set this parameter equal to <InlineFieldValue>true</InlineFieldValue> to require the SAML v2 Service Provider to sign the request. When this value is <InlineFieldValue>true</InlineFieldValue> all requests missing a signature will be rejected.
 
-    When set to `true`, the parameter <InlineField>application.samlv2Configuration.defaultVerificationKeyId</InlineField> is required.
+    When set to <InlineFieldValue>true</InlineFieldValue>, the parameter <InlineField>application.samlv2Configuration.defaultVerificationKeyId</InlineField> is required.
   </APIField>
   <APIField name="application.samlv2Configuration.xmlSignatureC14nMethod" type="String" optional since="1.6.0">
     <Xmlsignaturec14nmethodDescription signed_entity="SAML response" />
@@ -674,21 +674,21 @@ import Xmlsignaturec14nmethodValues from 'src/content/docs/_shared/_xmlSignature
     Indicates if this application is a [universal application](/docs/get-started/core-concepts/applications#universal-applications).
   </APIField>
   <APIField name="application.verificationEmailTemplateId" type="UUID" optional>
-    The Id of the Email Template that is used to send the Registration Verification emails to users. If the <InlineField>verifyRegistration</InlineField> field is `true` this field is required.
+    The Id of the Email Template that is used to send the Registration Verification emails to users. If the <InlineField>verifyRegistration</InlineField> field is <InlineFieldValue>true</InlineFieldValue> this field is required.
   </APIField>
   <APIField name="application.verifyRegistration" type="Boolean" optional>
-    Whether or not registrations to this Application may be verified. When this is set to `true` the `verificationEmailTemplateId` parameter is also required.
+    Whether or not registrations to this Application may be verified. When this is set to <InlineFieldValue>true</InlineFieldValue> the <InlineField>verificationEmailTemplateId</InlineField> parameter is also required.
   </APIField>
   <APIField name="application.webAuthnConfiguration.bootstrapWorkflow.enabled" type="Boolean" optional since="1.41.0">
-    Whether the WebAuthn bootstrap workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>application.webAuthnConfiguration.enabled</InlineField> is `false`.
+    Whether the WebAuthn bootstrap workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>application.webAuthnConfiguration.enabled</InlineField> is <InlineFieldValue>false</InlineFieldValue>.
     <LicensedPlanBlurbApi feature="WebAuthn" />
   </APIField>
   <APIField name="application.webAuthnConfiguration.enabled" type="Boolean" optional since="1.41.0">
-    Indicates if this application enables WebAuthn workflows based on the configuration defined here or the Tenant WebAuthn configuration. If this is `false`, WebAuthn workflows will be enabled based on the Tenant configuration. If `true`, WebAuthn workflows will be enabled according to the configuration of this application.
+    Indicates if this application enables WebAuthn workflows based on the configuration defined here or the Tenant WebAuthn configuration. If this is <InlineFieldValue>false</InlineFieldValue>, WebAuthn workflows will be enabled based on the Tenant configuration. If <InlineFieldValue>true</InlineFieldValue>, WebAuthn workflows will be enabled according to the configuration of this application.
     <LicensedPlanBlurbApi feature="WebAuthn" />
   </APIField>
   <APIField name="application.webAuthnConfiguration.reauthenticationWorkflow.enabled" type="Boolean" optional since="1.41.0">
-    Whether the WebAuthn reauthentication workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>application.webAuthnConfiguration.enabled</InlineField> is `false`.
+    Whether the WebAuthn reauthentication workflow is enabled for this application. This overrides the tenant configuration. Has no effect if <InlineField>application.webAuthnConfiguration.enabled</InlineField> is <InlineFieldValue>false</InlineFieldValue>.
     <LicensedPlanBlurbApi feature="WebAuthn" />
   </APIField>
   <APIField name="webhookIds" type="Array<UUID>" optional deprecated>

@@ -45,7 +45,7 @@ import InlineFieldValue from 'src/components/InlineFieldValue.astro';
   </APIField>
 
   <APIField name={ props.base_field_name + ".emailConfiguration.implicitEmailVerificationAllowed" } optional defaults="true" since="1.32.0" renderif={props.is_tenant}>
-    When set to `true`, this allows email to be verified as a result of completing a similar email based workflow such as change password. When set to `false`, the user must explicitly complete the email verification workflow even if the user has already completed a similar email workflow such as change password.
+    When set to <InlineFieldValue>true</InlineFieldValue>, this allows email to be verified as a result of completing a similar email based workflow such as change password. When set to <InlineFieldValue>false</InlineFieldValue>, the user must explicitly complete the email verification workflow even if the user has already completed a similar email workflow such as change password.
   </APIField>
 
   <APIField name={ props.base_field_name + ".emailConfiguration.loginIdInUseOnCreateEmailTemplateId" } type="UUID" optional since="1.30.0">
@@ -133,7 +133,7 @@ mail.smtp.timeout=5000\nmail.smtp.connectiontimeout=5000
   </APIField>
 
   <APIField name={ props.base_field_name + ".emailConfiguration.unverified.allowEmailChangeWhenGated" } type="Boolean" optional defaults="false" since="1.27.0" renderif={props.is_tenant}>
-    When this value is set to `true`, the user is allowed to change their email address when they are gated because they haven't verified their email address.
+    When this value is set to <InlineFieldValue>true</InlineFieldValue>, the user is allowed to change their email address when they are gated because they haven't verified their email address.
   </APIField>
 
   <APIField name={ props.base_field_name + ".emailConfiguration.unverified.behavior" } type="String" optional defaults="Allow" since="1.27.0" renderif={props.is_tenant}>
@@ -148,7 +148,7 @@ mail.smtp.timeout=5000\nmail.smtp.connectiontimeout=5000
   </APIField>
 
   <APIField name={ props.base_field_name + ".emailConfiguration.verificationEmailTemplateId" } type="UUID" optional renderif={props.is_tenant}>
-    The Id of the Email Template used to send emails to users to verify that their email address is valid. If either the `verifyEmail` or <InlineField>verifyEmailWhenChanged</InlineField> fields are `true`, this field is required.
+    The Id of the Email Template used to send emails to users to verify that their email address is valid. If either the <InlineField>verifyEmail</InlineField> or <InlineField>verifyEmailWhenChanged</InlineField> fields are <InlineFieldValue>true</InlineFieldValue>, this field is required.
   </APIField>
 
   <APIField name={ props.base_field_name + ".emailConfiguration.verificationStrategy" } type="String" optional since="1.27.0" renderif={props.is_tenant}>

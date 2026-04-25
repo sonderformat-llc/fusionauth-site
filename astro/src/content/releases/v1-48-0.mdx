@@ -19,7 +19,7 @@ We are officially announcing the end of life for the Nashorn JavaScript engine u
 We are officially announcing the end of life for the `fusionauth-search` package. This is currently available in a `.deb`, `.rpm` and `.zip` bundle for various platforms. This package is still available, but the plan is to stop building this at the end of 2023. Please make plans to discontinue use of the `fusionauth-search` package if you are currently using it.
 </Item>
 <Item category="breaking-change" issue="2423">
-When the OpenID Connect or External JWT Identity Provider is configured to Link by Email and the IdP returns a claim named `email_verified` and the value is `false`, the link request will be rejected. This change is intended to reduce the risk of linking on an un-verified email address.
+When the OpenID Connect or External JWT Identity Provider is configured to Link by Email and the IdP returns a claim named <InlineField>email_verified</InlineField> and the value is <InlineFieldValue>false</InlineFieldValue>, the link request will be rejected. This change is intended to reduce the risk of linking on an un-verified email address.
 </Item>
 
 

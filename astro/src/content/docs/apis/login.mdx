@@ -70,7 +70,7 @@ Prior to version `1.5.0` this API did not accept an API key and never required a
 <LoginMetadataDevice />
 
   <APIField name="noJWT" type="Boolean" optional defaults="false">
-    When this value is set to `true` a JWT will not be issued as part of this request. The response body will not contain the `token` or <InlineField>refreshToken</InlineField> fields, and the `access_token` and `refresh_token` cookies will not be written to the HTTP response.
+    When this value is set to <InlineFieldValue>true</InlineFieldValue> a JWT will not be issued as part of this request. The response body will not contain the <InlineField>token</InlineField> or <InlineField>refreshToken</InlineField> fields, and the <InlineField>access_token</InlineField> and <InlineField>refresh_token</InlineField> cookies will not be written to the HTTP response.
 
     This optional parameter may be helpful when performing high volume authentication requests and the JWT is not being utilized, in this scenario removing the additional latency required to issue and sign the JWT may have a measurable cumulative effect on performance.
   </APIField>
@@ -140,7 +140,7 @@ By default, this API will require authentication when called with an <InlineFiel
   </APIField>
   <LoginMetadataDevice />
   <APIField name="noJWT" type="Boolean" optional defaults="false">
-    When this value is set to `true` a JWT will not be issued as part of this request. The response body will not contain the `token` or <InlineField>refreshToken</InlineField> fields, and the `access_token` and `refresh_token` cookies will not be written to the HTTP response.
+    When this value is set to <InlineFieldValue>true</InlineFieldValue> a JWT will not be issued as part of this request. The response body will not contain the <InlineField>token</InlineField> or <InlineField>refreshToken</InlineField> fields, and the <InlineField>access_token</InlineField> and <InlineField>refresh_token</InlineField> cookies will not be written to the HTTP response.
 
     This optional parameter may be helpful when performing high volume authentication requests and the JWT is not being utilized, in this scenario removing the additional latency required to issue and sign the JWT may have a measurable cumulative effect on performance.
   </APIField>
@@ -210,11 +210,11 @@ Complete a login request when a User has Multi-Factor authentication enabled.
 <LoginMetadataDevice />
 
   <APIField name="noJWT" type="Boolean" optional defaults="false">
-    When this value is set to `true` a JWT will not be issued as part of this request. The response body will not contain the <InlineField>token</InlineField> field,
+    When this value is set to <InlineFieldValue>true</InlineFieldValue> a JWT will not be issued as part of this request. The response body will not contain the <InlineField>token</InlineField> field,
     and the `access_token` and `refresh_token` cookies will not be written to the HTTP response.
   </APIField>
   <APIField name="trustComputer" type="Boolean" optional defaults="false">
-    When this value is set to `true` the response will contain a Multi-Factor Trust identifier. This can be used on subsequent Login requests to
+    When this value is set to <InlineFieldValue>true</InlineFieldValue> the response will contain a Multi-Factor Trust identifier. This can be used on subsequent Login requests to
     allow the Multi-Factor challenge to be bypassed.
   </APIField>
   <APIField name="twoFactorId" type="String" required>
@@ -262,7 +262,7 @@ _Response Codes_
     JWT configuration for the application or the global JWT configuration.
   </APIField>
   <APIField name="fusionauth.trust" type="String">
-    The Multi-Factor Trust identifier. This value is returned when `trustComputer` was set to `true` on the request. This value can be used by
+    The Multi-Factor Trust identifier. This value is returned when <InlineField>trustComputer</InlineField> was set to <InlineFieldValue>true</InlineFieldValue> on the request. This value can be used by
      subsequent login requests to bypass the Multi-Factor challenge. This cookie is written in the response as an HTTP Only persistent cookie.
   </APIField>
 </APIBlock>
@@ -367,7 +367,7 @@ The refresh token is only revoked if the request contains the `refresh_token` co
 
 <APIBlock>
   <APIField name="global" type="Boolean" optional defaults="false">
-    When this value is set to `true`, revokes:
+    When this value is set to <InlineFieldValue>true</InlineFieldValue>, revokes:
     * all of the refresh tokens issued to the owner of the provided refresh token
     * the FusionAuth SSO session
 
@@ -422,7 +422,7 @@ When calling the API using a `GET` request you will send the search criteria on 
     The number of results to return from the search.
   </APIField>
   <APIField name="retrieveTotal" type="Boolean" optional defaults="false">
-    Set this to `true` if you want the total possible results returned in the response. With a very large number of login records settings this value to `true` will increase the response time of this request.
+    Set this to <InlineFieldValue>true</InlineFieldValue> if you want the total possible results returned in the response. With a very large number of login records settings this value to <InlineFieldValue>true</InlineFieldValue> will increase the response time of this request.
   </APIField>
   <APIField name="start" type="Long" optional>
     The start [instant](/docs/reference/data-types#instants) of the date/time range to search within.
@@ -444,7 +444,7 @@ When calling the API using a `POST` request you will send the search criteria in
 
 <APIBlock>
   <APIField name="retrieveTotal" type="Boolean" optional defaults="false">
-    Set this to `true` if you want the total possible results returned in the response. With a very large number of login records settings this value to `true` will increase the response time of this request.
+    Set this to <InlineFieldValue>true</InlineFieldValue> if you want the total possible results returned in the response. With a very large number of login records settings this value to <InlineFieldValue>true</InlineFieldValue> will increase the response time of this request.
   </APIField>
   <APIField name="search.applicationId" type="UUID" optional>
     The unique Id of the Application used to narrow the search results to logins for a particular application.
@@ -502,7 +502,7 @@ The response for this API will contain all login records matching the search cri
     The unique Id of the user.
   </APIField>
   <APIField name="total" type="Long">
-    The total number of login records available. This will only be provided in the response when <InlineField>retrieveTotal</InlineField> was set to `true` on the request.
+    The total number of login records available. This will only be provided in the response when <InlineField>retrieveTotal</InlineField> was set to <InlineFieldValue>true</InlineFieldValue> on the request.
   </APIField>
 </APIBlock>
 

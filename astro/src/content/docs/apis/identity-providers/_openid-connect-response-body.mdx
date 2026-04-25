@@ -106,7 +106,7 @@ import JSON from 'src/components/JSON.astro';
     The optional configuration to modify the expected name of the claim returned by the IdP that contains the username.
   </APIField>
   <APIField name="identityProvider.postRequest" type="Boolean" since="1.20.0">
-    When this value is equal to `true` POST bindings will be used instead of the default redirect bindings which utilize an HTTP `GET` request.
+    When this value is equal to <InlineFieldValue>true</InlineFieldValue> POST bindings will be used instead of the default redirect bindings which utilize an HTTP `GET` request.
   </APIField>
 
   <IdentityProviderTenantConfiguration idp_type={props.idp_type} idp_since={props.idp_since} optional_tag={props.optional_tag} />
