@@ -113,7 +113,7 @@ In the "Add Application" screen, provide a name for your app. This is just for d
 
 ![Initial create application screen.](/img/blogs/wordpress-sso-fusionauth/create-application-initial-screen.png)
 
-Now, click on the OAuth tab. The default settings should suffice. The only thing you need to provide is the "Authorized redirect URLs" value. These are the URLs where users will be redirected after they're authenticated. In this case, both URLs are provided and handled by the plugin. Enter these two URLs:
+Now, click on the OAuth tab. The default settings should suffice. The only thing you need to provide is the <InlineField>Authorized redirect URLs</InlineField> value. These are the URLs where users will be redirected after they're authenticated. In this case, both URLs are provided and handled by the plugin. Enter these two URLs:
 
 * <InlineFieldValue>http://localhost:8030/wp-admin/admin-ajax.php?action=openid-connect-authorize</InlineFieldValue> \
 _This is the URL FusionAuth will redirect to after the user has logged in._
@@ -184,12 +184,12 @@ Docker is taking care of the local DNS resolution. Inside the Docker network `se
   In our case, for the same reason, it will be: `http://fusionauth:9011/oauth2/token`
 * In the <InlineField>End Session Endpoint URL</InlineField> field, put `<your-fusionauth-domain>/oauth2/logout`. \
   In our case, it will be: `http://localhost:9011/oauth2/logout`
-* Check "Disable SSL Verify" since none of our docker instances are running HTTPS.
-* Change the "Identity Key" and "Nickname Key" values to <InlineFieldValue>sub</InlineFieldValue>. This is what WordPress will use as Ids internally.
-* Change the "Display Name Formatting" to `{email}`. This is what will be displayed to the user in the WordPress admin screen.
-* Check "Link Existing Users" if users in your local WordPress database have the same emails as users in your FusionAuth database; otherwise you'll see an error when those users try to log in.
+* Check <Breadcrumb>Disable SSL Verify</Breadcrumb> since none of our docker instances are running HTTPS.
+* Change the <InlineField>Identity Key</InlineField> and <InlineField>Nickname Key</InlineField> values to <InlineFieldValue>sub</InlineFieldValue>. This is what WordPress will use as Ids internally.
+* Change the <InlineField>Display Name Formatting</InlineField> to <InlineFieldValue>{email}</InlineFieldValue>. This is what will be displayed to the user in the WordPress admin screen.
+* Check <Breadcrumb>Link Existing Users</Breadcrumb> if users in your local WordPress database have the same emails as users in your FusionAuth database; otherwise you'll see an error when those users try to log in.
 
-Note that the "Authorize Endpoint" need not be changed since that will be opened in the browser. As mentioned above, for URLs like the "Token Validation Endpoint URL", if you are using Docker, you will need to use a docker resolvable hostname like `fusionauth`. If you are not using Docker, you should keep all the URLs pointed at `localhost`.
+Note that the <InlineField>Authorize Endpoint</InlineField> need not be changed since that will be opened in the browser. As mentioned above, for URLs like the "Token Validation Endpoint URL", if you are using Docker, you will need to use a docker resolvable hostname like `fusionauth`. If you are not using Docker, you should keep all the URLs pointed at `localhost`.
 
 Finally click on the <Breadcrumb>Save Changes</Breadcrumb> button. Here's what a filled out form will look like after you've filled it out:
 
