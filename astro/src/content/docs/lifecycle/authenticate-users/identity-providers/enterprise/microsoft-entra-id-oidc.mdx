@@ -12,7 +12,7 @@ import InlineUIElement from 'src/components/InlineUIElement.astro';
 
 Once you have completed this configuration you may enable an OpenID Connect <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button for one or more FusionAuth Applications. See [Microsoft Entra ID - Register An App Quickstart Guide](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) as an additional reference.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-login.png" alt="Login with Microsoft Entra ID" width="1200" role="bottom-cropped" />
+![Login with Microsoft Entra ID](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-login.png)
 
 <IdentityProviderOverviewDiagram identity_provider_name="Microsoft Entra ID" />
 
@@ -24,11 +24,11 @@ You will first need to log in to the [Microsoft Entra admin center](https://entr
 
 Navigate to <Breadcrumb>Identity -> Applications -> App registrations</Breadcrumb> and click <InlineUIElement>+ New registration</InlineUIElement> to create a new Microsoft Entra ID Application.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-register-application.png" alt="Register a new Microsoft Entra ID Application" width="1200" />
+![Register a new Microsoft Entra ID Application](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-register-application.png)
 
 Here we have configured our application `Redirect URI`.  If FusionAuth is running at `https://local.fusionauth.io`, this value should be `https://local.fusionauth.io/oauth2/callback`.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-id.png" alt="Microsoft Entra ID Client ID and Tenant ID" width="1200" />
+![Microsoft Entra ID Client ID and Tenant ID](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-id.png)
 
 Once the application has been created, note the `Application (client) Id` and the `Directory (tenant) Id`.  These will be used respectively as the <InlineField>Client Id</InlineField> value and to construct the <InlineField>Issuer</InlineField> value in your FusionAuth OpenID Connect Identity Provider configuration.
 
@@ -42,7 +42,7 @@ Navigate to <Breadcrumb>Identity -> Applications -> App registrations -> Your Ap
 
 Navigate to <Breadcrumb>Identity -> Applications -> App registrations -> Your Application -> Certificates & secrets -> + New client secret</Breadcrumb> to create a new Microsoft Entra ID Application Client Secret.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-secret.png" alt="Microsoft Entra ID Client Secret" width="1200" />
+![Microsoft Entra ID Client Secret](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/azure-openid-connect-client-secret.png)
 
 Note the `VALUE` of the created client secret.  This will be used as the <InlineField>Client secret</InlineField> value in your FusionAuth OpenID Connect Identity Provider configuration.
 
@@ -71,11 +71,11 @@ When using the v2.0 endpoint, ensure your <InlineField>Scope</InlineField> field
 
 You may set a <InlineField>Reconcile lambda</InlineField> to map attributes from the JWT provided by Microsoft Entra ID to the FusionAuth user or registration. This is optional. [Learn more about lambdas](/docs/extend/code/lambdas/reconcile/openid-connect-response-reconcile). You may also modify the <InlineField>Button text</InlineField> or <InlineField>Button logo</InlineField> if desired.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/top-of-fusionauth-azure-ad-oidc-config.png" alt="FusionAuth Microsoft Entra ID IdP Configuration" width="1200" />
+![FusionAuth Microsoft Entra ID IdP Configuration](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/top-of-fusionauth-azure-ad-oidc-config.png)
 
 Scroll down and make sure you enable this Identity Provider for your application. In the following screenshot you will see that we have enabled this login provider for the `Pied Piper` application and enabled `Create registration`.
 
-<img src="/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/bottom-of-fusionauth-azure-ad-oidc-config.png" alt="FusionAuth Microsoft Entra ID IdP Configuration" width="1200" role="top-cropped" />
+![FusionAuth Microsoft Entra ID IdP Configuration](/img/docs/lifecycle/authenticate-users/identity-providers/enterprise/bottom-of-fusionauth-azure-ad-oidc-config.png)
 
 That's it, now the <InlineUIElement>Login with Microsoft Entra ID</InlineUIElement> button will show up on the login page of our `Pied Piper` application.
 
