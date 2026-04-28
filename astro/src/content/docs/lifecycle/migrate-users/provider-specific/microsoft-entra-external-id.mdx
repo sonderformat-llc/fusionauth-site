@@ -22,12 +22,11 @@ import SocialLoginMigration from 'src/content/docs/lifecycle/migrate-users/provi
 import VerifyImport from 'src/content/docs/lifecycle/migrate-users/provider-specific/_verify-import.mdx';
 import WhatNext from 'src/content/docs/lifecycle/migrate-users/provider-specific/_what-next.mdx';
 import WhatNextAzureAdB2c from 'src/content/docs/lifecycle/migrate-users/provider-specific/_what-next-azure-ad-b2c.mdx';
-import {RemoteCode} from '@fusionauth/astro-components';
+import RemoteCode from 'src/components/RemoteCode.astro';
 
 export const migration_source_name = 'Microsoft Entra External ID';
 export const migration_source_dir = 'azureadb2c';
 export const script_supports_social_logins = true;
-export const add_tenant_image_role = 'bottom-cropped';
 
 This document will help you migrate your users off of Microsoft Entra External ID and onto FusionAuth.
 
@@ -123,7 +122,7 @@ Because you are implementing a slow migration, it will take place over time. But
 
 #### Create a Test Tenant
 
-<CreateTestTenant migration_source_dir={migration_source_dir} migration_source_name={migration_source_name} add_tenant_image_role={add_tenant_image_role} />
+<CreateTestTenant migration_source_dir={migration_source_dir} migration_source_name={migration_source_name} />
 
 #### Create a Test Application
 
@@ -552,7 +551,7 @@ Let's look at each of these steps in more detail.
 
 You need to set up FusionAuth, including a tenant and API key.
 
-<CreateTestTenant migration_source_dir={migration_source_dir} migration_source_name={migration_source_name} add_tenant_image_role={add_tenant_image_role} />
+<CreateTestTenant migration_source_dir={migration_source_dir} migration_source_name={migration_source_name} />
 
 The next step is to create an API key. This will be used by the import script. To do so, navigate to <Breadcrumb>Settings -> API Keys</Breadcrumb> in the admin UI.
 

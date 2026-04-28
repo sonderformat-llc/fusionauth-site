@@ -11,7 +11,7 @@ import FinalDestination from 'src/content/docs/lifecycle/migrate-users/provider-
 import GetScript from 'src/content/docs/lifecycle/migrate-users/provider-specific/_get-script.mdx';
 import MappingUserAttributes from 'src/content/docs/lifecycle/migrate-users/provider-specific/_mapping-user-attributes.mdx';
 import OtherEntitiesIntro from 'src/content/docs/lifecycle/migrate-users/provider-specific/_other-entities-intro.mdx';
-import {RemoteCode} from '@fusionauth/astro-components';
+import RemoteCode from 'src/components/RemoteCode.astro';
 import SetUpFusionauth from 'src/content/docs/lifecycle/migrate-users/provider-specific/_set-up-fusionauth.mdx';
 import SocialLoginMigration from 'src/content/docs/lifecycle/migrate-users/provider-specific/_social-login-migration.mdx';
 import SocialLoginNote from 'src/content/docs/lifecycle/migrate-users/provider-specific/_social-login-note.mdx';
@@ -78,7 +78,7 @@ The script below is a user-defined psql function for exporting user data from Su
 
 The function `ufn_get_user_migration_data_json()` returns a JSON array with formatted user data. Create a new file on your machine, for example, `users.json`, and copy the generated JSON to it. You'll upload this data to FusionAuth later.
 
-<img src={`/img/docs/lifecycle/migrate-users/provider-specific/${migration_source_dir}/supabase-sql.png`} alt="Adding an API key," width="1200" />
+![Adding an API key](/img/docs/lifecycle/migrate-users/provider-specific/supabase/supabase-sql.png)
 
 The user data to be exported will be selected from the `auth` table. If you have other tables that contain user-specific fields (for example, usernames), you can edit the script above to cater to that.
 
